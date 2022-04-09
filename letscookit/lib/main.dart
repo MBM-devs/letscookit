@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+
+      //para meter imagenes:
+      //body: Image.asset('assets/images/hamburguesa.png'),
     );
   }
 }
