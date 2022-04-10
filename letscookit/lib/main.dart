@@ -1,7 +1,31 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:letscookit/utilities/ingrediente.dart';
+import 'package:letscookit/utilities/libro_recetas.dart';
+import 'package:letscookit/utilities/medida.dart';
+import 'package:letscookit/utilities/receta.dart';
 
 void main() {
-  runApp(const MyApp());
+  Receta receta = new Receta("Pollo al limón", 2);
+  Medida medida = new Medida(2, "Rodajas");
+  Ingrediente ingrediente = new Ingrediente("Limon");
+
+  receta.addIngrediente(medida, ingrediente);
+
+  medida = new Medida(1, "");
+  ingrediente = new Ingrediente("Pollo");
+
+  receta.addIngrediente(medida, ingrediente);
+
+  medida = new Medida(1, "pizca");
+  ingrediente = new Ingrediente("Sal");
+
+  receta.addIngrediente(medida, ingrediente);
+  receta.ingredientes.forEach((key, value) =>
+      print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
+
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

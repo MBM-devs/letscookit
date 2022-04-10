@@ -28,9 +28,18 @@ class Receta {
   String get nombre => _nombre;
   int get numPersonas => _numPersonas;
   bool get realizada => _realizada;
+
+  /// Devuelve el numero de pasos de la receta
+  int get numPasos => _pasos.length;
+
+  /// Devuelve el numero de ingredientes de la receta
+  int get numIngredientes => _ingredientes.length;
+
+  Map<Ingrediente, Medida> get ingredientes => _ingredientes;
+
   Paso getPaso(int i) => _pasos[i];
   Etiqueta getEtiqueta(int i) => _etiquetas[i];
-  // Ingrediente getIngrediente(int i) => ingredientes[i];
+
   // File getImagen(int i) => imagen[i];
 
   void addIngrediente(Medida medida, Ingrediente ingrediente) {
@@ -40,9 +49,7 @@ class Receta {
   void addEtiqueta(Etiqueta etiqueta) => _etiquetas.add(etiqueta);
   void _addPaso(Paso paso) => _pasos.add(paso);
 
-  /**
-   * Crea un paso y lo añade al array
-   */
+  /// Crea un paso y lo añade al array
   void nuevoPaso(String descripcion) {
     Paso paso = new Paso(_pasos.length, descripcion);
     this._addPaso(paso);
