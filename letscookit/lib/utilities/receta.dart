@@ -1,6 +1,6 @@
-import 'package:letscookit/utilities/lista_Ingredientes.dart';
+import 'package:letscookit/utilities/lista_ingredientes.dart';
 
-import 'paso.dart';
+import 'package:letscookit/utilities/paso.dart';
 import 'ingrediente.dart';
 import 'etiqueta.dart';
 import 'medida.dart';
@@ -12,6 +12,7 @@ class Receta {
   List<Paso> _pasos; // * Tiene que estar ordenada
   Map<Ingrediente, Medida> _ingredientes;
   List<Etiqueta> _etiquetas;
+  late ListaIngredientes _listaIngredientes; //Late es para que el compilador confie en nosotros de que no va a ser null 
   // List<File> imagenes;
 
   //Constructor
@@ -20,6 +21,7 @@ class Receta {
         _pasos = [],
         _ingredientes = new Map(),
         _etiquetas = [];
+        //_listaIngredientes = new ListaIngredientes();
 
   // setters
   void setNombre(String nombre) => this._nombre = nombre;
@@ -46,6 +48,7 @@ class Receta {
 
   void addIngrediente(Medida medida, Ingrediente ingrediente) {
     _ingredientes[ingrediente] = medida;
+    _listaIngredientes.add(ingrediente);
   }
 
   void addEtiqueta(Etiqueta etiqueta) => _etiquetas.add(etiqueta);

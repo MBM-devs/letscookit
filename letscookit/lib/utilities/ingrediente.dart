@@ -1,13 +1,11 @@
-import 'package:letscookit/utilities/lista_Ingredientes.dart';
+//import 'package:letscookit/utilities/lista_ingredientes.dart';
 
 class Ingrediente {
   String _nombre;
-  ListaIngredientes _listaIngredientes;
+  //ListaIngredientes _listaIngredientes;
   // List<String> alergenos;
 
-  Ingrediente(this._nombre) : _listaIngredientes = ListaIngredientes() {
-    _listaIngredientes.add(this);
-  }
+  Ingrediente(this._nombre);
 
   String get nombre => _nombre;
 }

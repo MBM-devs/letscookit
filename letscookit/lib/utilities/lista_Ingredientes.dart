@@ -13,10 +13,16 @@ class ListaIngredientes {
   int length() => _lista.length;
 
   void add(Ingrediente ingrediente) {
-    _lista.add(ingrediente);
+    //Si no encuentra el ingrediente, entonces lo añade a la lista
+    if(buscaIngrediente(ingrediente.nombre) == -1)
+      _lista.add(ingrediente);
   }
 
-  bool existexIngrediente(String nombre) {
-    return _lista.any((element) => element.nombre == nombre);
+  int buscaIngrediente(String nombre) {
+    return _lista.indexWhere((element) => element.nombre == nombre); //Devuelve -1 si no lo encuentra
   }
+
+  /* bool existeIngrediente(String nombre) {
+    return _lista.any((element) => element.nombre == nombre);
+  } */
 }
