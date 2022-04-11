@@ -1,11 +1,43 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
 import 'pages/bookmark.dart';
 import 'pages/receipt.dart';
 import 'pages/search.dart';
 import 'pages/shoppingBasket.dart';
+import 'package:letscookit/utilities/ingrediente.dart';
+import 'package:letscookit/utilities/libro_recetas.dart';
+import 'package:letscookit/utilities/lista_ingredientes.dart';
+import 'package:letscookit/utilities/lista_compra.dart';
+import 'package:letscookit/utilities/lista_receta.dart';
+import 'package:letscookit/utilities/medida.dart';
+import 'package:letscookit/utilities/receta.dart';
 
 void main() {
+  Receta receta = Receta("Pollo al limón", 2);
+  ListaIngredientes l1 = ListaIngredientes();
+  LibroRecetas libro = LibroRecetas();
+  LibroRecetas libro2 = LibroRecetas();
+
+  libro.misRecetas.add(receta);
+  libro2.misRecetas.add(Receta("Esparragos", 4));
+
+  libro.misRecetas.forEach((p0) {
+    print(p0.nombre);
+  });
+
+  receta.crearIngrediente(2, "Rodajas", "Limón");
+  receta.crearIngrediente(1, "", "Pollo");
+  receta.crearIngrediente(1, "pizca", "Sal");
+
+  // receta.ingredientes.forEach((key, value) =>
+  //     print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
+
+  l1.forEach((ingrediente) {
+    print(ingrediente.nombre);
+  });
+
   runApp(MyApp());
 }
 

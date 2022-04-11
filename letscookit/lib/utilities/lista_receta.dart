@@ -1,10 +1,5 @@
-// import 'lista.dart';
-// import 'receta.dart';
+import 'package:letscookit/utilities/lista.dart';
 
-// class ListaReceta implements Lista {
-//   List<Receta> recetas;
-
-//   ListaReceta(this.recetas);
-
-//   void add(Receta receta) => recetas.add(receta);
-// }
+class ListaReceta extends Lista {
+  ListaReceta(String nombre) : super(nombre);
+}

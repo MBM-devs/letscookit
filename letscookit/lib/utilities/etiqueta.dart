@@ -1,9 +1,9 @@
 import 'categoria.dart';
 
 class Etiqueta {
-  String tag;
-  Categoria categoria;
-  Etiqueta(this.tag, this.categoria);
+  String _tag;
+  Categoria _categoria;
+  Etiqueta(this._tag, this._categoria);
 
-  String getTag() => tag;
+  String get tag => _tag;
 }

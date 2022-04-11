@@ -1,43 +1,81 @@
-import 'paso.dart';
+import 'package:letscookit/utilities/lista_ingredientes.dart';
+
+import 'package:letscookit/utilities/paso.dart';
 import 'ingrediente.dart';
 import 'etiqueta.dart';
+import 'medida.dart';
 
 class Receta {
-  String nombre;
-  int numPersonas;
-  bool realizada;
-  List<Paso> pasos; // * Tiene que estar ordenada
-  // Map<Ingrediente, Pair<cantidad, ud>> ingredientes; Seria un map de ingrediente y un pair de cantidad y unidad
-  // Map<Ingrediente, Map<double, String>>
-  // ingredientes; Seria un map de ingrediente y un pair de cantidad y unidad
-  List<Etiqueta> etiquetas;
+  String _nombre;
+  int _numPersonas;
+  bool _realizada;
+  List<Paso> _pasos; // * Tiene que estar ordenada
+  Map<Ingrediente, Medida> _ingredientes;
+  List<Etiqueta> _etiquetas;
+  ListaIngredientes _listaIngredientes;
   // List<File> imagenes;
 
   //Constructor
-  Receta(this.nombre, this.numPersonas)
-      : realizada = false,
-        pasos = [],
-        etiquetas = [];
+  Receta(this._nombre, this._numPersonas)
+      : _realizada = false,
+        _pasos = [],
+        _ingredientes = {},
+        _listaIngredientes = ListaIngredientes(),
+        _etiquetas = [];
+  //_listaIngredientes = new ListaIngredientes();
 
   // setters
-  void setNombre(String nombre) => this.nombre = nombre;
-  void setNumPersonas(int numPersonas) => this.numPersonas = numPersonas;
-  void setRealizada(bool realizada) => this.realizada = realizada;
+  void setNombre(String nombre) => this._nombre = nombre;
+  void setNumPersonas(int numPersonas) => this._numPersonas = numPersonas;
+  void setRealizada(bool realizada) => this._realizada = realizada;
 
   // getters
-  String getNombre() => nombre;
-  int getNumPersonas() => numPersonas;
-  bool getRealizada() => realizada;
-  Paso getPaso(int i) => pasos[i];
-  Etiqueta getEtiqueta(int i) => etiquetas[i];
-  // Ingrediente getIngrediente(int i) => ingredientes[i];
+  String get nombre => _nombre;
+  int get numPersonas => _numPersonas;
+  bool get realizada => _realizada;
+
+  /// Devuelve el numero de pasos de la receta
+  int get numPasos => _pasos.length;
+
+  /// Devuelve el numero de ingredientes de la receta
+  int get numIngredientes => _ingredientes.length;
+
+  /// Devuelve la lista de ingredientes de la receta
+  Map<Ingrediente, Medida> get ingredientes => _ingredientes;
+
+  /// Devuelve el paso en la posicion i
+  Paso getPaso(int i) => _pasos[i];
+
+  /// Devuelve la etiqueta en la posicion i
+  Etiqueta getEtiqueta(int i) => _etiquetas[i];
+
   // File getImagen(int i) => imagen[i];
 
-  //void addPaso(Paso paso) => pasos.add(paso);
-  // TODO: Añadir cantidad y ud
-  //void addIngrediente(Ingrediente ingrediente) => ingredientes.add(ingrediente);
-  void addEtiqueta(Etiqueta etiqueta) => etiquetas.add(etiqueta);
-  void addPaso(Paso paso) => pasos.add(paso);
+  void addIngrediente(Medida medida, Ingrediente ingrediente) {
+    _ingredientes[ingrediente] = medida;
+    _listaIngredientes.add(ingrediente);
+  }
+
+  void addEtiqueta(Etiqueta etiqueta) => _etiquetas.add(etiqueta);
+  void _addPaso(Paso paso) => _pasos.add(paso);
+
+  /// Crea un paso y lo añade al array
+  void crearPaso(String descripcion) {
+    Paso paso = Paso(_pasos.length, descripcion);
+    _addPaso(paso);
+  }
+
+  /// Crea un Ingrediente, le asigna una cantidad y unidad y lo añade a la lista
+  void crearIngrediente(int cantidad, String unidad, String nombre) {
+    int index = _listaIngredientes.buscaIngrediente(nombre);
+    if (index == -1) {
+      Ingrediente ingrediente = Ingrediente(nombre);
+      Medida medida = Medida(cantidad, unidad);
+      _listaIngredientes.add(ingrediente);
+      _ingredientes[ingrediente] = medida;
+    }
+  }
+
   //void addImagen(File imagen) => imagenes.add(imagen);
 
   //void empezarReceta() => empiesa;

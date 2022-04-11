@@ -1,14 +1,14 @@
 class Paso {
-  int numero;
-  String descripcion;
+  int _numero;
+  String _descripcion;
 
-  Paso(this.numero, this.descripcion);
+  Paso(this._numero, this._descripcion);
 
   //getters
-  int getNumeor() => numero;
-  String getDescripcion() => descripcion;
+  int get numero => _numero;
+  String get descripcion => _descripcion;
 
   //setters
-  void setNumero(int numero) => this.numero = numero;
-  void setDescripcion(String descripcion) => this.descripcion = descripcion;
+  void set numero(int numero) => this._numero = numero;
+  void set descripcion(String descripcion) => this._descripcion = descripcion;
 }
