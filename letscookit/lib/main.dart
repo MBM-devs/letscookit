@@ -37,10 +37,14 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       home: Scaffold(
           appBar: AppBar(
+            backgroundColor: Color.fromARGB(255, 52, 160, 164),
             title: Text(_titulos[_paginaActual]),
           ),
           body: _paginas[_paginaActual],
           bottomNavigationBar: BottomNavigationBar(
+            selectedIconTheme:
+                IconThemeData(color: Color.fromARGB(255, 52, 160, 164)),
+            unselectedIconTheme: IconThemeData(color: Colors.black),
             type: BottomNavigationBarType.fixed,
             currentIndex: _paginaActual,
             onTap: (index) {
