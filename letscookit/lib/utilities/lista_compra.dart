@@ -1,16 +1,12 @@
 import 'package:letscookit/utilities/ingrediente.dart';
-import 'package:letscookit/utilities/singleton.dart';
+import 'package:letscookit/utilities/lista.dart';
 
-// class ListaCompra extends Singleton {
-//   List<Ingrediente> _lista;
+class ListaCompra extends Lista {
+  ListaCompra._privateConstructor() : super("Lista de la Compra");
 
-//   ListaCompra()
-//       : _lista = [],
-//         super._privateConstructor();
+  static final ListaCompra _instance = ListaCompra._privateConstructor();
 
-//   void add(Ingrediente ingrediente) {
-//     _lista.add(ingrediente);
-//   }
-
-//   Ingrediente get(int i) => _lista[i];
-// }
+  factory ListaCompra() {
+    return _instance;
+  }
+}

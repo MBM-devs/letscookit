@@ -3,38 +3,35 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
-import 'package:letscookit/utilities/lista_Ingredientes.dart';
+import 'package:letscookit/utilities/lista_ingredientes.dart';
 import 'package:letscookit/utilities/lista_compra.dart';
+import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/medida.dart';
 import 'package:letscookit/utilities/receta.dart';
 
 void main() {
-  Receta receta = new Receta("Pollo al limón", 2);
-  Medida medida = new Medida(2, "Rodajas");
-  Ingrediente ingrediente = new Ingrediente("Limon");
+  Receta receta = Receta("Pollo al limón", 2);
   ListaIngredientes l1 = ListaIngredientes();
-  // ListaCompra lc1 = ListaCompra();
-  // ListaCompra lc2 = ListaCompra();
+  LibroRecetas libro = LibroRecetas();
+  LibroRecetas libro2 = LibroRecetas();
 
-  receta.addIngrediente(medida, ingrediente);
-  // lc1.add(ingrediente);
+  libro.misRecetas.add(receta);
+  libro2.misRecetas.add(Receta("Esparragos", 4));
 
-  medida = new Medida(1, "");
-  ingrediente = new Ingrediente("Pollo");
+  libro.misRecetas.forEach((p0) {
+    print(p0.nombre);
+  });
 
-  receta.addIngrediente(medida, ingrediente);
-  // lc2.add(ingrediente);
+  receta.crearIngrediente(2, "Rodajas", "Limón");
+  receta.crearIngrediente(1, "", "Pollo");
+  receta.crearIngrediente(1, "pizca", "Sal");
 
-  medida = new Medida(1, "pizca");
-  ingrediente = new Ingrediente("Sal");
+  // receta.ingredientes.forEach((key, value) =>
+  //     print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
 
-  receta.addIngrediente(medida, ingrediente);
-  receta.ingredientes.forEach((key, value) =>
-      print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
-
-  for (var i = 0; i < l1.length(); i++) {
-    print(l1.get(i).nombre);
-  }
+  l1.forEach((ingrediente) {
+    print(ingrediente.nombre);
+  });
 
   // runApp(const MyApp());
 }

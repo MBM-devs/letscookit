@@ -12,16 +12,17 @@ class Receta {
   List<Paso> _pasos; // * Tiene que estar ordenada
   Map<Ingrediente, Medida> _ingredientes;
   List<Etiqueta> _etiquetas;
-  late ListaIngredientes _listaIngredientes; //Late es para que el compilador confie en nosotros de que no va a ser null 
+  ListaIngredientes _listaIngredientes;
   // List<File> imagenes;
 
   //Constructor
   Receta(this._nombre, this._numPersonas)
       : _realizada = false,
         _pasos = [],
-        _ingredientes = new Map(),
+        _ingredientes = {},
+        _listaIngredientes = ListaIngredientes(),
         _etiquetas = [];
-        //_listaIngredientes = new ListaIngredientes();
+  //_listaIngredientes = new ListaIngredientes();
 
   // setters
   void setNombre(String nombre) => this._nombre = nombre;
@@ -39,9 +40,13 @@ class Receta {
   /// Devuelve el numero de ingredientes de la receta
   int get numIngredientes => _ingredientes.length;
 
+  /// Devuelve la lista de ingredientes de la receta
   Map<Ingrediente, Medida> get ingredientes => _ingredientes;
 
+  /// Devuelve el paso en la posicion i
   Paso getPaso(int i) => _pasos[i];
+
+  /// Devuelve la etiqueta en la posicion i
   Etiqueta getEtiqueta(int i) => _etiquetas[i];
 
   // File getImagen(int i) => imagen[i];
@@ -55,9 +60,20 @@ class Receta {
   void _addPaso(Paso paso) => _pasos.add(paso);
 
   /// Crea un paso y lo añade al array
-  void nuevoPaso(String descripcion) {
-    Paso paso = new Paso(_pasos.length, descripcion);
-    this._addPaso(paso);
+  void crearPaso(String descripcion) {
+    Paso paso = Paso(_pasos.length, descripcion);
+    _addPaso(paso);
+  }
+
+  /// Crea un Ingrediente, le asigna una cantidad y unidad y lo añade a la lista
+  void crearIngrediente(int cantidad, String unidad, String nombre) {
+    int index = _listaIngredientes.buscaIngrediente(nombre);
+    if (index == -1) {
+      Ingrediente ingrediente = Ingrediente(nombre);
+      Medida medida = Medida(cantidad, unidad);
+      _listaIngredientes.add(ingrediente);
+      _ingredientes[ingrediente] = medida;
+    }
   }
 
   //void addImagen(File imagen) => imagenes.add(imagen);

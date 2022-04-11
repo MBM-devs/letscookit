@@ -1,19 +1,27 @@
 // ? clase template
+import 'package:letscookit/utilities/lista.dart';
+import 'package:letscookit/utilities/lista_mis_recetas.dart';
+
 import 'lista_receta.dart';
 import 'receta.dart';
 
-class LibroRecetas {
-  List<ListaReceta> _libroRecetas;
+class LibroRecetas extends Lista {
+  // List<ListaReceta> _libroRecetas;
+  static final LibroRecetas _instance = LibroRecetas._internal();
+  factory LibroRecetas() {
+    return _instance;
+  }
+  LibroRecetas._internal() : super("Ingredientes") {
+    inicializarLibro();
+  }
 
-  LibroRecetas() : _libroRecetas = [];
-
-  // Lista(this.nombre) : lista = [];
-  void crearLista(String nombre) => _libroRecetas.add(new ListaReceta(nombre));
-  void eliminarLista(ListaReceta lista) => _libroRecetas.remove(lista);
+  void crearLista(String nombre) => super.add(ListaReceta(nombre));
+  void eliminarLista(ListaReceta lista) => super.remove(lista);
 
   void inicializarLibro() {
-    ListaReceta misRecetas = new ListaReceta("Mis Recetas");
-    _libroRecetas.add(misRecetas);
+    ListaReceta misRecetas = ListaReceta("Mis Recetas");
+    super.add(misRecetas);
   }
-  // Object getObject(int i) => lista[i];
+
+  ListaReceta get misRecetas => super.lista[0];
 }

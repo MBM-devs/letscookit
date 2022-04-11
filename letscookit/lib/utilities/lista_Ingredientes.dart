@@ -1,25 +1,16 @@
 import 'package:letscookit/utilities/ingrediente.dart';
+import 'package:letscookit/utilities/lista.dart';
 
-class ListaIngredientes {
-  List<Ingrediente> _lista = [];
+class ListaIngredientes extends Lista {
   static final ListaIngredientes _instance = ListaIngredientes._internal();
   factory ListaIngredientes() {
     return _instance;
   }
-  ListaIngredientes._internal();
-
-  Ingrediente get(int i) => _lista[i];
-
-  int length() => _lista.length;
-
-  void add(Ingrediente ingrediente) {
-    //Si no encuentra el ingrediente, entonces lo añade a la lista
-    if(buscaIngrediente(ingrediente.nombre) == -1)
-      _lista.add(ingrediente);
-  }
+  ListaIngredientes._internal() : super("Ingredientes");
 
   int buscaIngrediente(String nombre) {
-    return _lista.indexWhere((element) => element.nombre == nombre); //Devuelve -1 si no lo encuentra
+    return super.lista.indexWhere(
+        (element) => element.nombre == nombre); //Devuelve -1 si no lo encuentra
   }
 
   /* bool existeIngrediente(String nombre) {
