@@ -54,12 +54,14 @@ class _MyAppState extends State<MyApp> {
             },
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home_rounded),
                 label: "",
               ),
-              BottomNavigationBarItem(icon: Icon(Icons.book), label: ""),
-              BottomNavigationBarItem(icon: Icon(Icons.add), label: ""),
-              BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.menu_book_rounded), label: ""),
+              BottomNavigationBarItem(icon: Icon(Icons.add_rounded), label: ""),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.search_rounded), label: ""),
               BottomNavigationBarItem(
                   icon: Icon(Icons.shopping_basket_rounded), label: ""),
             ],
