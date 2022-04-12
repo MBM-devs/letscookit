@@ -8,6 +8,7 @@ import 'medida.dart';
 class Receta {
   String _nombre;
   int _numPersonas;
+  int _duracion;
   bool _realizada;
   List<Paso> _pasos; // * Tiene que estar ordenada
   Map<Ingrediente, Medida> _ingredientes;
@@ -16,7 +17,7 @@ class Receta {
   // List<File> imagenes;
 
   //Constructor
-  Receta(this._nombre, this._numPersonas)
+  Receta(this._nombre, this._numPersonas, this._duracion)
       : _realizada = false,
         _pasos = [],
         _ingredientes = {},

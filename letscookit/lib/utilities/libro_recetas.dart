@@ -23,5 +23,13 @@ class LibroRecetas extends Lista {
     super.add(misRecetas);
   }
 
+  void crearNuevaReceta(
+      ListaReceta? lista, String nombre, int numPersonas, int tiempo) {
+    Receta receta = Receta(nombre, numPersonas, tiempo);
+    misRecetas.add(receta);
+    if (lista != null) lista.add(receta);
+    print(nombre + numPersonas.toString() + tiempo.toString());
+  }
+
   ListaReceta get misRecetas => super.lista[0];
 }
