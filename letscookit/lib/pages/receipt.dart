@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
-// import '../widgets/pasos_text_fields.dart';
+import '../widgets/pasos_text_fields.dart';
 
 //import 'dynamic_fields.dart';
 
@@ -15,12 +16,13 @@ class _ReceiptState extends State<Receipt> {
   final _formKey = GlobalKey<FormState>();
 
   List<TextEditingController> pasos = [TextEditingController()];
-  static List<String> pasosStringList = [];
 
   TextEditingController _nombreReceta = TextEditingController();
   TextEditingController _numeroPersonas = TextEditingController();
   TextEditingController _tiempoReceta = TextEditingController();
   TextEditingController _pasoController = TextEditingController();
+
+  static List<String> pasosList = [""];
 
   String nombre = '';
   int numPersonas = 1;
@@ -82,32 +84,19 @@ class _ReceiptState extends State<Receipt> {
                   return null;
                 },
               ),
-              TextFormField(
-                controller: _pasoController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.access_time_rounded),
-                  hintText: 'Introduce la descripcion del paso.',
-                  labelText: 'Descripcion paso',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, introduzca la descripcion del paso o elimínelo';
-                  }
-                  return null;
-                },
-              ),
 
-              // TextFormField(
-              //   controller: _pasos,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.text_fields),
-              //     hintText: 'Introduce los pasos de la receta',
-              //     labelText: 'Pasos',
-              //   ),
-              // ),
+              const Padding(
+                padding: EdgeInsets.only(top: 16.0),
+                child: Text(
+                  'Añadir Pasos',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                ),
+              ),
+              ..._getPasos(), // Inserta todos los widgets de la lista en el form
+
               const SizedBox(height: 48.0),
 
-              // Spacer(), PARA QUE EL BOTON ESTÉ DEBAJO DEL TODO
+              //Spacer(), //PARA QUE EL BOTON ESTÉ DEBAJO DEL TODO
               Center(
                 child: ElevatedButton(
                   // style: ElevatedButton.styleFrom(
@@ -141,95 +130,49 @@ class _ReceiptState extends State<Receipt> {
     );
   }
 
+  /// get firends text-fields
   List<Widget> _getPasos() {
-    List<Widget> friendsTextFieldsList = [];
-    for (int i = 0; i < pasosStringList.length; i++) {
-      friendsTextFieldsList.add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Row(
+    List<Widget> pasosTextFields = [];
+    for (int i = 0; i < pasosList.length; i++) {
+      pasosTextFields.add(
+        // Padding(
+        // padding: const EdgeInsets.symmetric(vertical: 16.0),
+        // child:
+        Row(
           children: [
-            Expanded(child: PasosTextFields(i)),
+            Expanded(child: PasosTextFields(i, pasosList)),
             SizedBox(
               width: 16,
             ),
-            // we need add button at last friends row only
-            _addRemoveButton(i == pasosStringList.length - 1, i),
+            // we need add button at last friends row
+            _addRemoveButton(i == pasosList.length - 1, i),
           ],
         ),
-      ));
+        // )
+      );
     }
-    return friendsTextFieldsList;
+    return pasosTextFields;
   }
 
+  ///Añade el boton de añadir y eliminat
   Widget _addRemoveButton(bool add, int index) {
     return InkWell(
       onTap: () {
         if (add) {
           // add new text-fields at the top of all friends textfields
-          pasosStringList.insert(0, '');
+          pasosList.insert(0, '');
         } else
-          pasosStringList.removeAt(index);
+          pasosList.removeAt(index);
         setState(() {});
       },
       child: Container(
         width: 30,
         height: 30,
-        decoration: BoxDecoration(
-          color: (add) ? Colors.green : Colors.red,
-          borderRadius: BorderRadius.circular(20),
-        ),
         child: Icon(
           (add) ? Icons.add : Icons.remove,
-          color: Colors.white,
+          color: (add) ? Palette.mainGreen : Colors.red[300],
         ),
       ),
-    );
-  }
-}
-
-class PasosTextFields extends StatefulWidget {
-  final int index;
-  PasosTextFields(this.index);
-
-  @override
-  _PasosTextFields createState() => _PasosTextFields();
-}
-
-class _PasosTextFields extends State<PasosTextFields> {
-  TextEditingController _pasoController = new TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _pasoController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _pasoController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      _pasoController.text = _ReceiptState.pasosStringList[widget.index] ?? '';
-    });
-
-    return TextFormField(
-      controller: _pasoController,
-      decoration: const InputDecoration(
-        icon: Icon(Icons.person_rounded),
-        hintText: 'Introduce el paso: ',
-        labelText: 'Descripcion Paso',
-      ),
-      onChanged: (value) => _ReceiptState.pasosStringList[widget.index] = value,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor, introduzca una descripción del paso o elimínelo';
-        }
-        return null;
-      },
     );
   }
 }

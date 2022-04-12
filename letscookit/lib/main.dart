@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: Text(_titulos[_paginaActual]),
           ),
-          body: _paginas[_paginaActual],
+          body: SingleChildScrollView(child: _paginas[_paginaActual]),
           bottomNavigationBar: BottomNavigationBar(
             // selectedIconTheme: IconThemeData(color: Palette.mainBlue[200]),
             // unselectedIconTheme: IconThemeData(color: Palette.mainBlue),

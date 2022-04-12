@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/pages/receipt.dart';
 
 class PasosTextFields extends StatefulWidget {
   final int index;
-  PasosTextFields(this.index);
+  List<String> pasosList;
+  PasosTextFields(this.index, this.pasosList);
 
   @override
   _PasosTextFields createState() => _PasosTextFields();
 }
 
 class _PasosTextFields extends State<PasosTextFields> {
-  TextEditingController _pasoController = new TextEditingController();
+  TextEditingController _pasoController = TextEditingController();
 
+  _PasosTextFields();
   @override
   void initState() {
     super.initState();
@@ -27,17 +30,32 @@ class _PasosTextFields extends State<PasosTextFields> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      _pasoController.text = _ReceiptState.textPasos[widget.index] ?? '';
+      _pasoController.text = widget.pasosList[widget.index];
     });
-
     return TextFormField(
       controller: _pasoController,
-      decoration: const InputDecoration(
-        icon: Icon(Icons.person_rounded),
-        hintText: 'Introduce el paso: ',
+      decoration: InputDecoration(
+        icon: Container(
+          width: 20,
+          height: 20,
+          child: Center(
+            child: Text(
+              "${widget.index + 1}",
+              style: const TextStyle(color: Colors.grey),
+            ),
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 2,
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        hintText: 'Introduce el paso ',
         labelText: 'Descripcion Paso',
       ),
-      onChanged: (value) => _ReceiptState.textPasos[widget.index] = value,
+      onChanged: (value) => widget.pasosList[widget.index] = value,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Por favor, introduzca una descripción del paso o elimínelo';
