@@ -37,20 +37,20 @@ class _PasosTextFields extends State<PasosTextFields> {
       decoration: InputDecoration(
         icon: Container(
           width: 20,
-          height: 20,
+          height: 30,
           child: Center(
             child: Text(
               "${widget.index + 1}",
-              style: const TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey, fontSize: 18),
             ),
           ),
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 2,
-              color: Colors.grey,
-            ),
-            borderRadius: BorderRadius.circular(20),
-          ),
+          // decoration: BoxDecoration(
+          //   border: Border.all(
+          //     width: 2,
+          //     color: Colors.grey,
+          //   ),
+          //   borderRadius: BorderRadius.circular(20),
+          // ),
         ),
         hintText: 'Introduce el paso ',
         labelText: 'Descripcion Paso',
