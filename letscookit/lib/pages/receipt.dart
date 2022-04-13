@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
+import 'package:letscookit/utilities/lista.dart';
+import 'package:letscookit/utilities/lista_receta.dart';
 import '../widgets/pasos_text_fields.dart';
 
 //import 'dynamic_fields.dart';
 
 class Receipt extends StatefulWidget {
-  Receipt({Key? key}) : super(key: key);
+  ListaReceta? _lista;
+  Receipt({Key? key})
+      : _lista = null,
+        super(key: key);
+  Receipt.conLista(this._lista, {Key? key}) : super(key: key);
 
   @override
   State<Receipt> createState() => _ReceiptState();
@@ -16,6 +22,8 @@ class _ReceiptState extends State<Receipt> {
   final _formKey = GlobalKey<FormState>();
 
   List<TextEditingController> pasos = [TextEditingController()];
+
+  LibroRecetas libro = LibroRecetas();
 
   TextEditingController _nombreReceta = TextEditingController();
   TextEditingController _numeroPersonas = TextEditingController();
@@ -54,6 +62,9 @@ class _ReceiptState extends State<Receipt> {
                   }
                   return null;
                 },
+                onSaved: (value) {
+                  if (value != null) nombre = value;
+                },
               ),
               TextFormField(
                 controller: _numeroPersonas,
@@ -69,9 +80,13 @@ class _ReceiptState extends State<Receipt> {
                   }
                   return null;
                 },
+                onSaved: (value) {
+                  if (value != null) numPersonas = int.parse(value);
+                },
               ),
               TextFormField(
                 controller: _tiempoReceta,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.access_time_rounded),
                   hintText: 'Introduce la duración de la receta.',
@@ -82,6 +97,9 @@ class _ReceiptState extends State<Receipt> {
                     return 'Por favor, introduzca el tiempo aproximado de la receta';
                   }
                   return null;
+                },
+                onSaved: (value) {
+                  if (value != null) tiempo = int.parse(value);
                 },
               ),
 
@@ -96,23 +114,18 @@ class _ReceiptState extends State<Receipt> {
 
               const SizedBox(height: 48.0),
 
-              //Spacer(), //PARA QUE EL BOTON ESTÉ DEBAJO DEL TODO
               Center(
                 child: ElevatedButton(
                   // style: ElevatedButton.styleFrom(
                   // primary: Color.fromARGB(255, 52, 160, 164)),
                   onPressed: () {
-                    nombre = _nombreReceta.text;
-                    numPersonas = int.parse(_numeroPersonas.text);
-                    tiempo = int.parse(_tiempoReceta.text);
-
-                    if (nombre != '' && numPersonas > 0 && tiempo > 0) {
-                      LibroRecetas()
-                          .crearNuevaReceta(null, nombre, numPersonas, tiempo);
-                    }
-
                     // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      libro.crearNuevaReceta(widget._lista, nombre, numPersonas,
+                          tiempo, pasosList);
+
+                      _clearInputs();
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -128,6 +141,14 @@ class _ReceiptState extends State<Receipt> {
         ),
       ),
     );
+  }
+
+  void _clearInputs() {
+    _nombreReceta.clear();
+    _numeroPersonas.clear();
+    _tiempoReceta.clear();
+    pasosList = [''];
+    setState(() {});
   }
 
   /// get firends text-fields
@@ -159,8 +180,8 @@ class _ReceiptState extends State<Receipt> {
     return InkWell(
       onTap: () {
         if (add) {
-          // add new text-fields at the top of all friends textfields
-          pasosList.insert(0, '');
+          // add new text-fields at the bottom of all friends textfields
+          pasosList.add('');
         } else
           pasosList.removeAt(index);
         setState(() {});
