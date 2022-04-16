@@ -16,4 +16,14 @@ class ListaIngredientes extends Lista {
   /* bool existeIngrediente(String nombre) {
     return _lista.any((element) => element.nombre == nombre);
   } */
+
+  List<String> listToString() {
+    List<String> result = [];
+    print("haosdflalsdfjaldsfj");
+    print("----------" + super.lista.length.toString());
+    for (int i = 0; i < super.length(); i++) {
+      result.add(get(i).nombre);
+    }
+    return result;
+  }
 }

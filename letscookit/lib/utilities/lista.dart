@@ -8,7 +8,7 @@ abstract class Lista {
 
   Lista(this._nombre) : lista = [];
 
-  String get nombre => this._nombre;
+  String get nombre => _nombre;
   void set nombre(String nombre) => this._nombre = nombre;
 
   dynamic get(int i) => lista[i];
