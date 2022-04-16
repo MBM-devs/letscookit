@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
-
-import '../utilities/lista_Ingredientes.dart';
 import '../utilities/lista_compra.dart';
-import '../utilities/receta.dart';
+
 
 class shoppingBasket extends StatefulWidget {
   shoppingBasket({Key? key}) : super(key: key);
@@ -13,10 +11,80 @@ class shoppingBasket extends StatefulWidget {
 }
 
 class _shoppingBasketState extends State<shoppingBasket> {
-  bool isChecked = false;
 
+  ListaCompra listaCompra = ListaCompra();
+  List<Map<Ingrediente, bool>> lista = [
+    {Ingrediente("Pollo") : false},
+    {Ingrediente("Pan") : false},
+    {Ingrediente("Ajo") : false}
+  ];
+  int _cont = 0;
   @override
   Widget build(BuildContext context) {
+
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => setState(() => lista.add({Ingrediente("Ingrediente ${++_cont}") : false}))
+      ),
+      body: ListView.builder(
+          itemCount: lista.length,
+          itemBuilder: (BuildContext context, int index){
+            return Card(
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    CheckboxListTile(
+                      activeColor: Color.fromARGB(255, 52, 160, 164),
+                      dense: true,
+                      title: Text(lista[index].keys.first.nombre),
+                      value: lista[index].values.first,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          lista[index].update(lista[index].keys.first, (value) => !value);
+                          print("Ingrediente: ${lista[index].keys.first.nombre}, ${lista[index].values.first}");
+                        });
+                      },
+                    )
+                  ],
+                ),
+              ),
+            );
+          }
+      ),
+    );
+
+
+
+
+    /*return Scaffold(
+      body: ListView.builder(
+          itemCount: lista.length(),
+          itemBuilder: (BuildContext context, int index){
+            return Card(
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    CheckboxListTile(
+                      activeColor: Color.fromARGB(255, 52, 160, 164),
+                      dense: true,
+                      title: Text(lista.get(index).nombre),
+                      value: lista.get(index).isChecked,
+                      onChanged: (bool? value){
+                        setState(() {
+                          lista.get(index).isChecked = value;
+                        });
+                      },
+                    )
+                  ],
+                ),
+              ),
+            );
+          }),
+    );*/
+    /*
     Ingrediente pollo = new Ingrediente("Pollo");
     Ingrediente pan = new Ingrediente("Pan");
     Ingrediente ajo = new Ingrediente("Ajo");
@@ -25,12 +93,8 @@ class _shoppingBasketState extends State<shoppingBasket> {
       pan : true,
       ajo : false
     };
-    //Lista de maps
-    List<Map<Ingrediente, bool>> listaCompra = [
-      {pollo : false},
-      {pan : true}
-    ];
     int _cont = 0;
+    */
 
     /*Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -43,11 +107,13 @@ class _shoppingBasketState extends State<shoppingBasket> {
       }
       return Color.fromARGB(255, 52, 160, 164);
     }*/
-
+  /*
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => setState(() => mapaCompra.addEntries([MapEntry(Ingrediente("${_cont++}"), false)])),
+        onPressed: () => setState(() => mapaCompra.addEntries(
+            [MapEntry(Ingrediente("Ingrediente ${_cont++}"), false)]
+        )),
       ),
       body: ListView(
         children: mapaCompra.keys.map(
@@ -62,6 +128,7 @@ class _shoppingBasketState extends State<shoppingBasket> {
                 onChanged: (bool? value){
                   setState(() {
                     mapaCompra[ingrediente] = value!;
+                    print("El valor de ${ingrediente.nombre} es ${mapaCompra[ingrediente]}");
                   });
                 },
                 activeColor: Color.fromARGB(255, 52, 160, 164),
@@ -70,23 +137,6 @@ class _shoppingBasketState extends State<shoppingBasket> {
         ).toList(),
       ),
     );
-
-    /*return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: ingredientes.keys.map((ingrediente) {
-        return new CheckboxListTile(
-          checkColor: Colors.white,
-          //fillColor: MaterialStateProperty.resolveWith(getColor),
-          title: new Text(ingrediente.nombre),
-          value: ingredientes[ingrediente],
-          onChanged: (bool? value) {
-            setState(() {
-              ingredientes[ingrediente] = value!;
-            });
-        },
-      );
-    }).toList(),
-    ); */
+  */
   }
 }
