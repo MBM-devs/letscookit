@@ -55,8 +55,8 @@ class _MyAppState extends State<MyApp> {
     Home(),
     Bookmark(),
     CreateRecipe(),
-    // RecipeView(),
-    Search(),
+    RecipeView(LibroRecetas().misRecetas.get(0)),
+    // Search(),
     shoppingBasket()
   ];
   final List<String> _titulos = [
