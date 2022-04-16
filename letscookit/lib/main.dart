@@ -19,14 +19,9 @@ void main() {
   // Receta receta = Receta("Pollo al limón", 2);
   ListaIngredientes l1 = ListaIngredientes();
   LibroRecetas libro = LibroRecetas();
-  LibroRecetas libro2 = LibroRecetas();
 
   // libro.misRecetas.add(receta);
   // libro2.misRecetas.add(Receta("Esparragos", 4));
-
-  libro.misRecetas.forEach((p0) {
-    print(p0.nombre);
-  });
 
   // receta.crearIngrediente(2, "Rodajas", "Limón");
   // receta.crearIngrediente(1, "", "Pollo");
@@ -34,6 +29,10 @@ void main() {
 
   // receta.ingredientes.forEach((key, value) =>
   //     print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
+  libro.misRecetas.forEach((receta) {
+    print(receta.nombre);
+    print(receta.numPasos);
+  });
 
   l1.forEach((ingrediente) {
     print(ingrediente.nombre);
@@ -75,7 +74,7 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: Text(_titulos[_paginaActual]),
           ),
-          body: _paginas[_paginaActual],
+          body: SingleChildScrollView(child: _paginas[_paginaActual]),
           bottomNavigationBar: BottomNavigationBar(
             // selectedIconTheme: IconThemeData(color: Palette.mainBlue[200]),
             // unselectedIconTheme: IconThemeData(color: Palette.mainBlue),
