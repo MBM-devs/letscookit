@@ -51,17 +51,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _paginaActual = 0;
-  List<Widget> _paginas = [
+  final List<Widget> _paginas = [
     Home(),
     Bookmark(),
-    // CreateRecipe(),
-    RecipeView(),
-    // RecipeListView(),
+    CreateRecipe(),
+    // RecipeView(),
     Search(),
     shoppingBasket()
   ];
-  List<String> _titulos = [
-    "Página principal",
+  final List<String> _titulos = [
+    "Mis Recetas",
     "Listas de recetas",
     "Crear receta",
     "Buscar",
