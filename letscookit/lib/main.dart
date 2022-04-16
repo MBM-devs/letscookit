@@ -19,6 +19,9 @@ import 'config/palette.dart';
 
 void main() {
   Receta receta = Receta("Pollo al limón", 2, 60);
+  receta.crearPaso("Calentar Pollo");
+  receta.crearPaso("Poner limon");
+  receta.crearPaso("Poner Sal");
   ListaIngredientes l1 = ListaIngredientes();
   LibroRecetas libro = LibroRecetas();
 
@@ -55,8 +58,8 @@ class _MyAppState extends State<MyApp> {
     Home(),
     Bookmark(),
     CreateRecipe(),
-    RecipeView(LibroRecetas().misRecetas.get(0)),
-    // Search(),
+    // RecipeView(LibroRecetas().misRecetas.get(0)),
+    Search(),
     shoppingBasket()
   ];
   final List<String> _titulos = [

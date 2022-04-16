@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/receta.dart';
+import 'package:letscookit/widgets/paso_view.dart';
 
 class RecipeView extends StatefulWidget {
   Receta _receta;
@@ -99,10 +100,17 @@ class _RecipeViewState extends State<RecipeView> {
               SizedBox(height: 20),
               Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(right: 280.0),
+                padding: EdgeInsets.only(left: 80.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Pasos: "),
+                    Text(
+                      "Pasos: ",
+                      style: const TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
+                    ),
+                    ...getPasos()
                   ],
                 ),
               ),
@@ -111,5 +119,13 @@ class _RecipeViewState extends State<RecipeView> {
         );
       },
     );
+  }
+
+  List<PasoView> getPasos() {
+    List<PasoView> pasos = [];
+    for (var i = 0; i < _receta.numPasos; i++) {
+      pasos.add(PasoView(i, _receta.getPaso(i)));
+    }
+    return pasos;
   }
 }

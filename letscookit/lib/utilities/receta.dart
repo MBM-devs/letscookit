@@ -24,7 +24,6 @@ class Receta {
         _ingredientes = {},
         _listaIngredientes = ListaIngredientes(),
         _etiquetas = [];
-  //_listaIngredientes = new ListaIngredientes();
 
   // setters
   void setNombre(String nombre) => this._nombre = nombre;
