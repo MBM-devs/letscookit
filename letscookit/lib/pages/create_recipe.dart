@@ -7,18 +7,18 @@ import '../widgets/pasos_text_fields.dart';
 
 //import 'dynamic_fields.dart';
 
-class Receipt extends StatefulWidget {
+class CreateRecipe extends StatefulWidget {
   ListaReceta? _lista;
-  Receipt({Key? key})
+  CreateRecipe({Key? key})
       : _lista = null,
         super(key: key);
-  Receipt.conLista(this._lista, {Key? key}) : super(key: key);
+  CreateRecipe.conLista(this._lista, {Key? key}) : super(key: key);
 
   @override
-  State<Receipt> createState() => _ReceiptState();
+  State<CreateRecipe> createState() => _CreateRecipeState();
 }
 
-class _ReceiptState extends State<Receipt> {
+class _CreateRecipeState extends State<CreateRecipe> {
   final _formKey = GlobalKey<FormState>();
 
   List<TextEditingController> pasos = [TextEditingController()];

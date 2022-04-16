@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
 import 'pages/bookmark.dart';
-import 'pages/receipt.dart';
+import 'pages/create_recipe.dart';
 import 'pages/search.dart';
 import 'pages/shoppingBasket.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
   List<Widget> _paginas = [
     Home(),
     Bookmark(),
-    Receipt(),
+    CreateRecipe(),
     Search(),
     shoppingBasket()
   ];

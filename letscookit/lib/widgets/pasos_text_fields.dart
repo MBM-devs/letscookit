@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
-import 'package:letscookit/pages/receipt.dart';
+import 'package:letscookit/pages/create_recipe.dart';
 
 class PasosTextFields extends StatefulWidget {
   final int index;
