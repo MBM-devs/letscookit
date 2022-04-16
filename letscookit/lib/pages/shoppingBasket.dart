@@ -55,9 +55,6 @@ class _shoppingBasketState extends State<shoppingBasket> {
       ),
     );
 
-
-
-
     /*return Scaffold(
       body: ListView.builder(
           itemCount: lista.length(),

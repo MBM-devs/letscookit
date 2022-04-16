@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
 import 'pages/bookmark.dart';
-import 'pages/receipt.dart';
+import 'pages/create_recipe.dart';
 import 'pages/search.dart';
 import 'pages/shoppingBasket.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
@@ -13,26 +13,26 @@ import 'package:letscookit/utilities/lista_compra.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/medida.dart';
 import 'package:letscookit/utilities/receta.dart';
+import 'config/palette.dart';
 
 void main() {
-  Receta receta = Receta("Pollo al limón", 2);
+  // Receta receta = Receta("Pollo al limón", 2);
   ListaIngredientes l1 = ListaIngredientes();
   LibroRecetas libro = LibroRecetas();
-  LibroRecetas libro2 = LibroRecetas();
 
-  libro.misRecetas.add(receta);
-  libro2.misRecetas.add(Receta("Esparragos", 4));
+  // libro.misRecetas.add(receta);
+  // libro2.misRecetas.add(Receta("Esparragos", 4));
 
-  libro.misRecetas.forEach((p0) {
-    print(p0.nombre);
-  });
-
-  receta.crearIngrediente(2, "Rodajas", "Limón");
-  receta.crearIngrediente(1, "", "Pollo");
-  receta.crearIngrediente(1, "pizca", "Sal");
+  // receta.crearIngrediente(2, "Rodajas", "Limón");
+  // receta.crearIngrediente(1, "", "Pollo");
+  // receta.crearIngrediente(1, "pizca", "Sal");
 
   // receta.ingredientes.forEach((key, value) =>
   //     print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
+  libro.misRecetas.forEach((receta) {
+    print(receta.nombre);
+    print(receta.numPasos);
+  });
 
   l1.forEach((ingrediente) {
     print(ingrediente.nombre);
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
   List<Widget> _paginas = [
     Home(),
     Bookmark(),
-    Receipt(),
+    CreateRecipe(),
     Search(),
     shoppingBasket()
   ];
@@ -65,18 +65,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Palette.mainBlue,
+      ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: Scaffold(
           appBar: AppBar(
-            backgroundColor: Color.fromARGB(255, 52, 160, 164),
             title: Text(_titulos[_paginaActual]),
           ),
-          body: _paginas[_paginaActual],
+          body: SingleChildScrollView(child: _paginas[_paginaActual]),
           bottomNavigationBar: BottomNavigationBar(
-            selectedIconTheme:
-                IconThemeData(color: Color.fromARGB(255, 52, 160, 164)),
-            unselectedIconTheme: IconThemeData(color: Colors.black),
+            // selectedIconTheme: IconThemeData(color: Palette.mainBlue[200]),
+            // unselectedIconTheme: IconThemeData(color: Palette.mainBlue),
             type: BottomNavigationBarType.fixed,
             currentIndex: _paginaActual,
             onTap: (index) {

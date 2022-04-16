@@ -8,15 +8,15 @@ import 'medida.dart';
 class Receta {
   String _nombre;
   int _numPersonas;
+  int _duracion;
   bool _realizada;
   List<Paso> _pasos; // * Tiene que estar ordenada
   Map<Ingrediente, Medida> _ingredientes;
   List<Etiqueta> _etiquetas;
   ListaIngredientes _listaIngredientes;
-  // List<File> imagenes;
 
   //Constructor
-  Receta(this._nombre, this._numPersonas)
+  Receta(this._nombre, this._numPersonas, this._duracion)
       : _realizada = false,
         _pasos = [],
         _ingredientes = {},
@@ -57,12 +57,11 @@ class Receta {
   }
 
   void addEtiqueta(Etiqueta etiqueta) => _etiquetas.add(etiqueta);
-  void _addPaso(Paso paso) => _pasos.add(paso);
 
   /// Crea un paso y lo añade al array
   void crearPaso(String descripcion) {
     Paso paso = Paso(_pasos.length, descripcion);
-    _addPaso(paso);
+    _pasos.add(paso);
   }
 
   /// Crea un Ingrediente, le asigna una cantidad y unidad y lo añade a la lista
