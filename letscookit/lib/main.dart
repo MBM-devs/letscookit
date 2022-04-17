@@ -18,7 +18,7 @@ import 'package:letscookit/utilities/receta.dart';
 import 'config/palette.dart';
 
 void main() {
-  Receta receta = Receta("Pollo al limón", 2, 60);
+  Receta receta = Receta("Pollo al limón", 2, 60, 'assets/PolloAlLimon.jpeg');
   receta.crearPaso("Calentar Pollo");
   receta.crearPaso("Poner limon");
   receta.crearPaso("Poner Sal");
@@ -26,7 +26,8 @@ void main() {
   LibroRecetas libro = LibroRecetas();
 
   libro.misRecetas.add(receta);
-  libro.misRecetas.add(Receta("Pollo al Curry", 4, 120));
+  libro.misRecetas
+      .add(Receta("Pollo al Curry", 4, 120, 'assets/pollo-al-curry.jpeg'));
   // libro2.misRecetas.add(Receta("Esparragos", 4));
 
   // receta.crearIngrediente(2, "Rodajas", "Limón");
@@ -58,8 +59,8 @@ class _MyAppState extends State<MyApp> {
     Home(),
     Bookmark(),
     CreateRecipe(),
-    // RecipeView(LibroRecetas().misRecetas.get(0)),
-    Search(),
+    RecipeView(LibroRecetas().misRecetas.get(0)),
+    // Search(),
     shoppingBasket()
   ];
   final List<String> _titulos = [

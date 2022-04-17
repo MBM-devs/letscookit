@@ -1,8 +1,12 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
+import 'package:letscookit/utilities/receta.dart';
+import 'package:letscookit/widgets/recipe_image.dart';
 import '../widgets/pasos_text_fields.dart';
 
 //import 'dynamic_fields.dart';
@@ -20,11 +24,13 @@ class CreateRecipe extends StatefulWidget {
 
 class _CreateRecipeState extends State<CreateRecipe> {
   final _formKey = GlobalKey<FormState>();
+  final _formImg = GlobalKey<FormState>();
 
   List<TextEditingController> pasos = [TextEditingController()];
 
   LibroRecetas libro = LibroRecetas();
 
+  TextEditingController _imagenReceta = TextEditingController();
   TextEditingController _nombreReceta = TextEditingController();
   TextEditingController _numeroPersonas = TextEditingController();
   TextEditingController _tiempoReceta = TextEditingController();
@@ -33,6 +39,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
   static List<String> pasosList = [""];
 
   String nombre = '';
+  String imagen = '';
   int numPersonas = 1;
   int tiempo = 0;
 
@@ -48,7 +55,52 @@ class _CreateRecipeState extends State<CreateRecipe> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(height: 24.0),
+              // const SizedBox(height: 24.0),
+
+              _getImagen(
+                imagen,
+                (() {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      content: Form(
+                        key: _formImg,
+                        child: TextFormField(
+                          controller: _imagenReceta,
+                          decoration: const InputDecoration(
+                            icon: Icon(Icons.camera_rounded),
+                            hintText: 'Introduce el enlace de la imagen',
+                            labelText: 'Imagen',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, introduzca una imagen';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            if (value != null) imagen = value;
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: (() {
+                              if (_formImg.currentState!.validate()) {
+                                _formImg.currentState!.save();
+
+                                setState(() {});
+                                Navigator.pop(context);
+                              }
+                            }),
+                            child: Text("Confirmar"))
+                      ],
+                    ),
+                  );
+                }),
+              ),
+
               TextFormField(
                 controller: _nombreReceta,
                 decoration: const InputDecoration(
@@ -101,6 +153,9 @@ class _CreateRecipeState extends State<CreateRecipe> {
                 onSaved: (value) {
                   if (value != null) tiempo = int.parse(value);
                 },
+                onEditingComplete: () {
+                  setState(() {});
+                },
               ),
 
               const Padding(
@@ -122,8 +177,8 @@ class _CreateRecipeState extends State<CreateRecipe> {
                     // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      libro.crearNuevaReceta(widget._lista, nombre, numPersonas,
-                          tiempo, pasosList);
+                      libro.crearNuevaReceta(widget._lista, '', nombre,
+                          numPersonas, tiempo, pasosList);
 
                       _clearInputs();
                       // If the form is valid, display a snackbar. In the real world,
@@ -149,6 +204,16 @@ class _CreateRecipeState extends State<CreateRecipe> {
     _tiempoReceta.clear();
     pasosList = [''];
     setState(() {});
+  }
+
+  Widget _getImagen(String linkImg, Function()? onTap) {
+    RecipeImage imagen = RecipeImage('assets/noimageavailable.png');
+    if (linkImg != '') imagen = RecipeImage(linkImg);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: imagen,
+    );
   }
 
   /// get firends text-fields

@@ -23,9 +23,9 @@ class LibroRecetas extends Lista {
     super.add(misRecetas);
   }
 
-  void crearNuevaReceta(ListaReceta? lista, String nombre, int numPersonas,
-      int tiempo, List<String> pasos) {
-    Receta receta = Receta(nombre, numPersonas, tiempo);
+  void crearNuevaReceta(ListaReceta? lista, String nombre, String imagen,
+      int numPersonas, int tiempo, List<String> pasos) {
+    Receta receta = Receta(nombre, numPersonas, tiempo, imagen);
     for (var i = 0; i < pasos.length; i++) {
       receta.crearPaso(pasos[i]);
     }
