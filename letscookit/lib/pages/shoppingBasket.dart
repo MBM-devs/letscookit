@@ -20,6 +20,9 @@ class _shoppingBasketState extends State<shoppingBasket> {
     {Ingrediente("Ajo") : false}
   ];
   int _cont = 0;
+
+  TextEditingController _nombreReceta = TextEditingController();
+  String nombre = '';
   @override
   Widget build(BuildContext context) {
 
