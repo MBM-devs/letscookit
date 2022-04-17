@@ -4,6 +4,7 @@ import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 
 import '../utilities/receta.dart';
+import 'create_list.dart';
 
 class Bookmark extends StatefulWidget {
   Bookmark({Key? key}) : super(key: key);
@@ -40,11 +41,25 @@ class _BookmarkState extends State<Bookmark> {
                     );
                   },
                   leading: CircleAvatar(
-                    backgroundImage: AssetImage('assets/elfary.jpg'),
+                    //backgroundImage: AssetImage('assets/elfary.jpg'),
                   ),
                 ),
               );
             }
+        ),
+        FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: Palette.mainGreen,
+          onPressed: (){
+            setState(() {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreateList(),
+                )
+              );
+            });
+          },
         ),
       ],
     );
