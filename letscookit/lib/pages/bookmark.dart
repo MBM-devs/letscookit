@@ -36,7 +36,7 @@ class _BookmarkState extends State<Bookmark> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => libroRecetas.get(index),
+                          builder: (context) => libroRecetas.get(index), //tendria que llevar a la pagina ReceiptList del indice correspondiente
                         ),
                     );
                   },

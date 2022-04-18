@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
+import 'package:letscookit/pages/recipe_list.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
@@ -23,6 +24,9 @@ class _CreateListState extends State<CreateList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Crear Lista"),
+      ),
       //padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       body: Center(
         child: Form(
@@ -78,12 +82,18 @@ class _CreateListState extends State<CreateList> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      libro.crearLista(nombre);
+                      //libro.crearLista(nombre);
                       _clearInput();
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Processing Data')),
                       );
-                      Navigator.pop(context);
+                      //Una vez crea la lista, se dirige a la página de la misma
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RecipeList(nombre),
+                          )
+                      );
                     },
                     child: Text('Crear'), //Podriamos poner que si el campo esta vacío, ponga 'Saltar' en vez de 'Crear'
                     style: ElevatedButton.styleFrom(
