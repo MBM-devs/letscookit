@@ -63,7 +63,8 @@ class _shoppingBasketState extends State<shoppingBasket> {
         ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: listaCompra.length(),
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: listaCompra.lista.length,
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 child: Container(

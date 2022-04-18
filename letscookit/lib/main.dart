@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:letscookit/pages/recipe_list_view.dart';
+import 'package:letscookit/pages/recipe_view.dart';
 import 'pages/home.dart';
 import 'pages/bookmark.dart';
 import 'pages/create_recipe.dart';
@@ -16,11 +18,12 @@ import 'package:letscookit/utilities/receta.dart';
 import 'config/palette.dart';
 
 void main() {
-  // Receta receta = Receta("Pollo al limón", 2);
+  Receta receta = Receta("Pollo al limón", 2, 60);
   ListaIngredientes l1 = ListaIngredientes();
   LibroRecetas libro = LibroRecetas();
 
-  // libro.misRecetas.add(receta);
+  libro.misRecetas.add(receta);
+  libro.misRecetas.add(Receta("Pollo al Curry", 4, 120));
   // libro2.misRecetas.add(Receta("Esparragos", 4));
 
   // receta.crearIngrediente(2, "Rodajas", "Limón");
@@ -48,15 +51,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _paginaActual = 0;
-  List<Widget> _paginas = [
+  final List<Widget> _paginas = [
     Home(),
     Bookmark(),
     CreateRecipe(),
-    Search(),
+    RecipeView(LibroRecetas().misRecetas.get(0)),
+    // Search(),
     shoppingBasket()
   ];
-  List<String> _titulos = [
-    "Página principal",
+  final List<String> _titulos = [
+    "Mis Recetas",
     "Listas de recetas",
     "Crear receta",
     "Buscar",
@@ -71,11 +75,14 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: Scaffold(
-          appBar: AppBar(
-            title: Text(_titulos[_paginaActual]),
-          ),
-          body: SingleChildScrollView(child: _paginas[_paginaActual]),
-          bottomNavigationBar: BottomNavigationBar(
+        appBar: AppBar(
+          toolbarHeight: 60,
+          title: Text(_titulos[_paginaActual]),
+        ),
+        body: SingleChildScrollView(child: _paginas[_paginaActual]),
+        bottomNavigationBar: SizedBox(
+          height: 60,
+          child: BottomNavigationBar(
             // selectedIconTheme: IconThemeData(color: Palette.mainBlue[200]),
             // unselectedIconTheme: IconThemeData(color: Palette.mainBlue),
             type: BottomNavigationBarType.fixed,
@@ -98,7 +105,9 @@ class _MyAppState extends State<MyApp> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.shopping_basket_rounded), label: ""),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
