@@ -9,4 +9,18 @@ class ListaCompra extends Lista {
   factory ListaCompra() {
     return _instance;
   }
+
+  bool existeIngrediente(Ingrediente ingrediente) {
+    for (int i = 0; i < super.lista.length; i++) {
+      if (super.lista[i].keys.first == ingrediente) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @override
+  void add(dynamic elemento) {
+    if (!existeIngrediente(elemento.keys.first)) lista.add(elemento);
+  }
 }
