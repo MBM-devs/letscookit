@@ -9,6 +9,7 @@ class Receta {
   String _nombre;
   int _numPersonas;
   int _duracion;
+  String _imagen;
   bool _realizada;
   List<Paso> _pasos; // * Tiene que estar ordenada
   Map<Ingrediente, Medida> _ingredientes;
@@ -18,11 +19,11 @@ class Receta {
   //Constructor
   Receta(this._nombre, this._numPersonas, this._duracion)
       : _realizada = false,
+        _imagen = '',
         _pasos = [],
         _ingredientes = {},
         _listaIngredientes = ListaIngredientes(),
         _etiquetas = [];
-  //_listaIngredientes = new ListaIngredientes();
 
   // setters
   void setNombre(String nombre) => this._nombre = nombre;
@@ -33,6 +34,8 @@ class Receta {
   String get nombre => _nombre;
   int get numPersonas => _numPersonas;
   bool get realizada => _realizada;
+  int get duracion => _duracion;
+  String get imagen => _imagen;
 
   /// Devuelve el numero de pasos de la receta
   int get numPasos => _pasos.length;

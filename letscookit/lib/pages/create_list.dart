@@ -19,7 +19,7 @@ class _CreateListState extends State<CreateList> {
   TextEditingController _nombreLista = TextEditingController();
   String nombre = '';
 
-  int numListas = 1;//libro.length();
+  int numListas = 1; //libro.length();
 
   @override
   Widget build(BuildContext context) {
@@ -34,26 +34,30 @@ class _CreateListState extends State<CreateList> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 60.0,),
+              const SizedBox(
+                height: 60.0,
+              ),
               Text(
                 'Ponle un título a tu lista',
                 style: TextStyle(
                   fontSize: 30.0,
                 ),
               ),
-              const SizedBox(height: 60.0,),
+              const SizedBox(
+                height: 60.0,
+              ),
               SizedBox(
                 height: 30.0,
                 width: 300.0,
                 child: TextFormField(
                   controller: _nombreLista,
                   decoration: InputDecoration(
-                      hintText: 'Mi lista nº${numListas}', //Que el hint text sea el que escribirá por defecto
+                      hintText:
+                          'Mi lista nº${numListas}', //Que el hint text sea el que escribirá por defecto
                       hintStyle: TextStyle(
                         color: Colors.grey[700],
                         fontStyle: FontStyle.italic,
-                      )
-                  ),
+                      )),
                   onSaved: (value) {
                     if (value != null)
                       nombre = value;
@@ -64,7 +68,9 @@ class _CreateListState extends State<CreateList> {
                   },
                 ),
               ),
-              const SizedBox(height: 60.0,),
+              const SizedBox(
+                height: 60.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,7 +82,8 @@ class _CreateListState extends State<CreateList> {
                     child: Text('Cancelar'),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.grey[700],
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 5.0),
                       textStyle: TextStyle(color: Colors.grey[200]),
                     ),
                   ),
@@ -95,10 +102,12 @@ class _CreateListState extends State<CreateList> {
                           )
                       );
                     },
-                    child: Text('Crear'), //Podriamos poner que si el campo esta vacío, ponga 'Saltar' en vez de 'Crear'
+                    child: Text(
+                        'Crear'), //Podriamos poner que si el campo esta vacío, ponga 'Saltar' en vez de 'Crear'
                     style: ElevatedButton.styleFrom(
                       primary: Palette.mainGreen,
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 5.0),
                       textStyle: TextStyle(color: Colors.black),
                     ),
                   ),
@@ -111,7 +120,7 @@ class _CreateListState extends State<CreateList> {
     );
   }
 
-  void _clearInput(){
+  void _clearInput() {
     _nombreLista.clear();
     setState(() {});
   }

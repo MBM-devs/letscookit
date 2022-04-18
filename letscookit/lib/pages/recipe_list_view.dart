@@ -3,25 +3,26 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
+import 'package:letscookit/utilities/receta.dart';
 
-class Home extends StatefulWidget {
+class RecipeListView extends StatefulWidget {
   ListaReceta _lista;
 
-  Home({Key? key})
+  RecipeListView({Key? key})
       : _lista = LibroRecetas().misRecetas,
         super(key: key);
-  Home.conLista(this._lista, {Key? key}) : super(key: key);
+  RecipeListView.conLista(this._lista, {Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState(this._lista);
+  _RecipeListViewState createState() => _RecipeListViewState(this._lista);
 }
 
-class _HomeState extends State<Home> {
+class _RecipeListViewState extends State<RecipeListView> {
   CarouselController _carouselController = new CarouselController();
   int _current = 0;
   ListaReceta _recetas;
 
-  _HomeState(this._recetas);
+  _RecipeListViewState(this._recetas);
 
   @override
   void initState() {
