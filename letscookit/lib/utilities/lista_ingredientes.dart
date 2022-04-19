@@ -9,8 +9,9 @@ class ListaIngredientes extends Lista {
   ListaIngredientes._internal() : super("Ingredientes");
 
   int buscaIngrediente(String nombre) {
-    return super.lista.indexWhere(
-        (element) => element.nombre == nombre); //Devuelve -1 si no lo encuentra
+    return super.lista.indexWhere((element) =>
+        element.nombre.toLowerCase() ==
+        nombre.toLowerCase()); //Devuelve -1 si no lo encuentra
   }
 
   bool existeIngrediente(String nombre) {

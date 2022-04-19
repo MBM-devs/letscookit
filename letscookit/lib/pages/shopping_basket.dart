@@ -47,7 +47,7 @@ class _shoppingBasketState extends State<shoppingBasket> {
             maxSuggestionsInViewPort: 6,
             itemHeight: 50,
             suggestionsDecoration: BoxDecoration(
-              color: Palette.mainBlue.shade400,
+              color: Palette.mainBlue.shade600,
               borderRadius: BorderRadius.circular(10),
             ),
             onSuggestionTap: (value) {
@@ -57,11 +57,13 @@ class _shoppingBasketState extends State<shoppingBasket> {
             },
             onSubmit: (value) {
               setState(() {
-                if (!ListaIngredientes().existeIngrediente(value)) {
+                int indice = ListaIngredientes().buscaIngrediente(value);
+                if (indice == -1) {
                   ListaIngredientes().add(Ingrediente(value));
+                  indice = ListaIngredientes().length() - 1;
                 }
-                ListaCompra().add(ListaIngredientes()
-                    .get(ListaIngredientes().buscaIngrediente(value)));
+
+                ListaCompra().add(ListaIngredientes().get(indice));
               });
             },
           ),
