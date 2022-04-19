@@ -51,4 +51,16 @@ class ListaCompra {
       lista.remove(element);
     });
   }
+
+  bool hayComprados() {
+    bool hayComprados = false;
+    for (var comprado in lista.values) {
+      print("iteracion.......");
+      if (comprado) {
+        hayComprados = true;
+        break;
+      }
+    }
+    return hayComprados;
+  }
 }

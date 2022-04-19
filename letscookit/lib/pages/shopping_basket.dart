@@ -72,8 +72,29 @@ class _shoppingBasketState extends State<shoppingBasket> {
         ElevatedButton(
             child: Text("Borrar comprados"),
             onPressed: () {
-              ListaCompra().borrarComprados();
-              setState(() {});
+              if (ListaCompra().hayComprados()) {
+                showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                          content: Text(
+                              "¿Está seguro de borrar los ingredientes marcados?"),
+                          actions: [
+                            ElevatedButton(
+                                onPressed: (() {
+                                  setState(() {});
+                                  Navigator.pop(context);
+                                }),
+                                child: Text("Cancelar")),
+                            ElevatedButton(
+                                onPressed: (() {
+                                  ListaCompra().borrarComprados();
+                                  setState(() {});
+                                  Navigator.pop(context);
+                                }),
+                                child: Text("Si")),
+                          ],
+                        ));
+              }
             }),
       ],
     );
