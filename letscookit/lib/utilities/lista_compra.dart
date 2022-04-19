@@ -12,7 +12,9 @@ class ListaCompra {
   }
 
   void add(Ingrediente ingrediente) {
-    lista[ingrediente] = false;
+    if (!lista.containsKey(ingrediente)) {
+      lista[ingrediente] = false;
+    }
   }
 
   Ingrediente getIngrediente(int i) {

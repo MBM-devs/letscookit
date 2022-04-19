@@ -42,7 +42,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _paginaActual = 4;
+  int _paginaActual = 0;
   final List<Widget> _paginas = [
     Home(),
     Bookmark(),

@@ -55,6 +55,15 @@ class _shoppingBasketState extends State<shoppingBasket> {
                 ListaCompra().add(value.item!);
               });
             },
+            onSubmit: (value) {
+              setState(() {
+                if (!ListaIngredientes().existeIngrediente(value)) {
+                  ListaIngredientes().add(Ingrediente(value));
+                }
+                ListaCompra().add(ListaIngredientes()
+                    .get(ListaIngredientes().buscaIngrediente(value)));
+              });
+            },
           ),
         ),
         ..._getIngredientes(),

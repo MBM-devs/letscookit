@@ -12,9 +12,10 @@ class ListaIngredientes extends Lista {
     return super.lista.indexWhere(
         (element) => element.nombre == nombre); //Devuelve -1 si no lo encuentra
   }
-  /* bool existeIngrediente(String nombre) {
-    return _lista.any((element) => element.nombre == nombre);
-  } */
+
+  bool existeIngrediente(String nombre) {
+    return super.lista.any((element) => element.nombre == nombre);
+  }
 
   // List<String> listToString() {
   //   List<String> result = [];
