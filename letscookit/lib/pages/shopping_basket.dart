@@ -9,6 +9,7 @@ import 'package:searchfield/searchfield.dart';
 
 class shoppingBasket extends StatefulWidget {
   shoppingBasket({Key? key}) : super(key: key);
+  final TextEditingController _controller = TextEditingController();
 
   @override
   State<shoppingBasket> createState() => _shoppingBasketState();
@@ -23,6 +24,7 @@ class _shoppingBasketState extends State<shoppingBasket> {
         Container(
           padding: EdgeInsets.all(10.0),
           child: SearchField<Ingrediente>(
+            controller: widget._controller,
             suggestions: ListaIngredientes()
                 .lista
                 .map((e) => SearchFieldListItem<Ingrediente>(e.nombre, item: e))
@@ -54,6 +56,7 @@ class _shoppingBasketState extends State<shoppingBasket> {
               setState(() {
                 ListaCompra().add(value.item!);
               });
+              widget._controller.text = "";
             },
             onSubmit: (value) {
               setState(() {
@@ -62,8 +65,8 @@ class _shoppingBasketState extends State<shoppingBasket> {
                   ListaIngredientes().add(Ingrediente(value));
                   indice = ListaIngredientes().length() - 1;
                 }
-
                 ListaCompra().add(ListaIngredientes().get(indice));
+                widget._controller.text = "";
               });
             },
           ),
