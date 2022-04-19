@@ -6,13 +6,12 @@ class RecipeImage extends StatefulWidget {
 
   RecipeImage(this._imagen);
   @override
-  _RecipeImageState createState() => _RecipeImageState(_imagen);
+  // String get imagen => _imagen;
+  _RecipeImageState createState() => _RecipeImageState();
 }
 
 class _RecipeImageState extends State<RecipeImage> {
-  String _imagen;
-
-  _RecipeImageState(this._imagen);
+  _RecipeImageState();
 
   @override
   Widget build(
@@ -25,7 +24,7 @@ class _RecipeImageState extends State<RecipeImage> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Image.network(_imagen, fit: BoxFit.cover),
+      child: Image.network(widget._imagen, fit: BoxFit.cover),
     );
   }
 }

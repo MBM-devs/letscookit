@@ -46,7 +46,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Center(
         child: Form(
           key: _formKey,
@@ -58,7 +58,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
               // const SizedBox(height: 24.0),
 
               _getImagen(
-                imagen,
+                _imagenReceta.text,
                 (() {
                   showDialog(
                     context: context,
@@ -94,7 +94,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
                                 Navigator.pop(context);
                               }
                             }),
-                            child: Text("Confirmar"))
+                            child: const Text("Confirmar"))
                       ],
                     ),
                   );
@@ -177,14 +177,14 @@ class _CreateRecipeState extends State<CreateRecipe> {
                     // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      libro.crearNuevaReceta(widget._lista, '', nombre,
+                      libro.crearNuevaReceta(widget._lista, nombre, imagen,
                           numPersonas, tiempo, pasosList);
 
                       _clearInputs();
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
+                        const SnackBar(content: Text('Añadiendo Receta...')),
                       );
                     }
                   },
@@ -199,6 +199,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
   }
 
   void _clearInputs() {
+    _imagenReceta.clear();
     _nombreReceta.clear();
     _numeroPersonas.clear();
     _tiempoReceta.clear();
@@ -208,7 +209,9 @@ class _CreateRecipeState extends State<CreateRecipe> {
 
   Widget _getImagen(String linkImg, Function()? onTap) {
     RecipeImage imagen = RecipeImage('assets/noimageavailable.png');
-    if (linkImg != '') imagen = RecipeImage(linkImg);
+    if (linkImg != '') {
+      imagen = RecipeImage(linkImg);
+    }
 
     return GestureDetector(
       onTap: onTap,

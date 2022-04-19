@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
                 _paginaActual = index;
               });
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home_rounded),
                 label: "",
