@@ -69,11 +69,12 @@ class _shoppingBasketState extends State<shoppingBasket> {
           ),
         ),
         ..._getIngredientes(),
-        FloatingActionButton(
-            //TODO: Borrar los elementos con el checkbox marcado
-            child: Icon(Icons.add),
-            backgroundColor: Palette.mainBlue.shade200,
-            onPressed: () => setState(() => {})),
+        ElevatedButton(
+            child: Text("Borrar comprados"),
+            onPressed: () {
+              ListaCompra().borrarComprados();
+              setState(() {});
+            }),
       ],
     );
   }

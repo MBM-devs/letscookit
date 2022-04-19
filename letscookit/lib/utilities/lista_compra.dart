@@ -38,4 +38,17 @@ class ListaCompra {
   int length() {
     return lista.length;
   }
+
+  void borrarComprados() {
+    List<Ingrediente> aBorrar = [];
+    lista.forEach((key, value) {
+      if (value == true) {
+        aBorrar.add(key);
+      }
+    });
+
+    aBorrar.forEach((element) {
+      lista.remove(element);
+    });
+  }
 }
