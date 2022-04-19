@@ -11,7 +11,9 @@ abstract class Lista {
   String get nombre => _nombre;
   void set nombre(String nombre) => this._nombre = nombre;
 
-  dynamic get(int i) => lista[i];
+  dynamic get(int i) {
+    if (i >= 0 && i < lista.length) return lista[i];
+  }
 
   int length() => lista.length;
 

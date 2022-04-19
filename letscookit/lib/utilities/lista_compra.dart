@@ -1,8 +1,9 @@
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/lista.dart';
 
-class ListaCompra extends Lista {
-  ListaCompra._privateConstructor() : super("Lista de la Compra");
+class ListaCompra {
+  Map<Ingrediente, bool> lista;
+  ListaCompra._privateConstructor() : lista = {};
 
   static final ListaCompra _instance = ListaCompra._privateConstructor();
 
@@ -10,17 +11,29 @@ class ListaCompra extends Lista {
     return _instance;
   }
 
-  bool existeIngrediente(Ingrediente ingrediente) {
-    for (int i = 0; i < super.lista.length; i++) {
-      if (super.lista[i].keys.first == ingrediente) {
-        return true;
-      }
-    }
-    return false;
+  void add(Ingrediente ingrediente) {
+    lista[ingrediente] = false;
   }
 
-  @override
-  void add(dynamic elemento) {
-    if (!existeIngrediente(elemento.keys.first)) lista.add(elemento);
+  Ingrediente getIngrediente(int i) {
+    return lista.keys.elementAt(i);
+  }
+
+  bool getCheck(Ingrediente i) {
+    if (lista.containsKey(i)) {
+      return lista[i]!;
+    } else {
+      return false;
+    }
+  }
+
+  void setCheck(Ingrediente ingrediente, bool check) {
+    if (lista.containsKey(ingrediente)) {
+      lista[ingrediente] = check;
+    }
+  }
+
+  int length() {
+    return lista.length;
   }
 }

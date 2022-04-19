@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
+import 'package:letscookit/widgets/ingrediente_lista.dart';
 import '../utilities/lista_compra.dart';
-import '../utilities/lista_Ingredientes.dart';
+import '../utilities/lista_ingredientes.dart';
+import '../widgets/search_ingrediente.dart';
 import 'package:searchfield/searchfield.dart';
 
 class shoppingBasket extends StatefulWidget {
@@ -13,20 +15,20 @@ class shoppingBasket extends StatefulWidget {
 }
 
 class _shoppingBasketState extends State<shoppingBasket> {
-  ListaCompra listaCompra = ListaCompra();
-  ListaIngredientes listaIngredientes = ListaIngredientes();
+  // ListaCompra _listaCompra = ListaCompra();
+  ListaIngredientes _listaIngredientes = ListaIngredientes();
   int _cont = 0;
   @override
   Widget build(BuildContext context) {
-    listaIngredientes.add(Ingrediente("pimientos"));
-    listaIngredientes.add(Ingrediente("aguacate"));
+    _listaIngredientes.add(Ingrediente("pimientos"));
+    _listaIngredientes.add(Ingrediente("aguacate"));
 
     return Column(
       children: [
         Container(
           padding: EdgeInsets.all(10.0),
           child: SearchField<Ingrediente>(
-            suggestions: listaIngredientes.lista
+            suggestions: _listaIngredientes.lista
                 .map((e) => SearchFieldListItem<Ingrediente>(e.nombre, item: e))
                 .toList(),
             hint: 'Buscar ingrediente...',
@@ -54,49 +56,30 @@ class _shoppingBasketState extends State<shoppingBasket> {
             ),
             onSuggestionTap: (value) {
               setState(() {
-                if (!listaCompra.existeIngrediente(value.item!))
-                  listaCompra.add({value.item!: false});
+                ListaCompra().add(value.item!);
               });
             },
           ),
         ),
-        ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: listaCompra.lista.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                child: Container(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      CheckboxListTile(
-                        activeColor: Palette.mainBlue.shade500,
-                        dense: true,
-                        title:
-                            Text(listaCompra.get(_cont - 1).keys.first.nombre),
-                        value: listaCompra.get(_cont - 1).values.first,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            listaCompra.get(_cont - 1).update(
-                                listaCompra.get(_cont - 1).keys.first,
-                                (value) => !value);
-                            print(
-                                "Ingrediente: ${listaCompra.get(_cont - 1).keys.first.nombre}, ${listaCompra.get(_cont - 1).values.first}");
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              );
-            }),
+        ..._getIngredientes(),
         FloatingActionButton(
+            //TODO: Borrar los elementos con el checkbox marcado
             child: Icon(Icons.add),
             backgroundColor: Palette.mainBlue.shade200,
             onPressed: () => setState(() => {})),
       ],
     );
+  }
+
+  List<Widget> _getIngredientes() {
+    List<Widget> ingredienteCard = [];
+
+    for (var i = 0; i < ListaCompra().length(); i++) {
+      ingredienteCard.add(
+        IngredienteLista(ListaCompra().getIngrediente(i)),
+      );
+    }
+
+    return ingredienteCard;
   }
 }

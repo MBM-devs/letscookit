@@ -7,7 +7,7 @@ import 'pages/home.dart';
 import 'pages/bookmark.dart';
 import 'pages/create_recipe.dart';
 import 'pages/search.dart';
-import 'pages/shoppingBasket.dart';
+import 'pages/shopping_basket.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_ingredientes.dart';
@@ -32,14 +32,6 @@ void main() {
 
   // receta.ingredientes.forEach((key, value) =>
   //     print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
-  libro.misRecetas.forEach((receta) {
-    print(receta.nombre);
-    print(receta.numPasos);
-  });
-
-  l1.forEach((ingrediente) {
-    print(ingrediente.nombre);
-  });
 
   runApp(MyApp());
 }
@@ -50,7 +42,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _paginaActual = 0;
+  int _paginaActual = 4;
   final List<Widget> _paginas = [
     Home(),
     Bookmark(),
