@@ -15,20 +15,16 @@ class shoppingBasket extends StatefulWidget {
 }
 
 class _shoppingBasketState extends State<shoppingBasket> {
-  // ListaCompra _listaCompra = ListaCompra();
-  ListaIngredientes _listaIngredientes = ListaIngredientes();
   int _cont = 0;
   @override
   Widget build(BuildContext context) {
-    _listaIngredientes.add(Ingrediente("pimientos"));
-    _listaIngredientes.add(Ingrediente("aguacate"));
-
     return Column(
       children: [
         Container(
           padding: EdgeInsets.all(10.0),
           child: SearchField<Ingrediente>(
-            suggestions: _listaIngredientes.lista
+            suggestions: ListaIngredientes()
+                .lista
                 .map((e) => SearchFieldListItem<Ingrediente>(e.nombre, item: e))
                 .toList(),
             hint: 'Buscar ingrediente...',
