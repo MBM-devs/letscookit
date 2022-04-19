@@ -6,6 +6,7 @@ import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/receta.dart';
+import 'package:letscookit/widgets/ingrediente_input.dart';
 import 'package:letscookit/widgets/recipe_image.dart';
 import '../widgets/pasos_text_fields.dart';
 
@@ -37,6 +38,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
   TextEditingController _pasoController = TextEditingController();
 
   static List<String> pasosList = [""];
+  static List<String> ingredientesList = [""];
 
   String nombre = '';
   String imagen = '';
@@ -161,6 +163,14 @@ class _CreateRecipeState extends State<CreateRecipe> {
               const Padding(
                 padding: EdgeInsets.only(top: 16.0),
                 child: Text(
+                  'Añadir Ingredientes',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                ),
+              ),
+
+              const Padding(
+                padding: EdgeInsets.only(top: 16.0),
+                child: Text(
                   'Añadir Pasos',
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                 ),
@@ -180,12 +190,12 @@ class _CreateRecipeState extends State<CreateRecipe> {
                       libro.crearNuevaReceta(widget._lista, nombre, imagen,
                           numPersonas, tiempo, pasosList);
 
-                      _clearInputs();
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Añadiendo Receta...')),
+                        const SnackBar(content: Text('Receta Añadida.')),
                       );
+                      _clearInputs();
                     }
                   },
                   child: const Text('Crear'),
@@ -241,6 +251,29 @@ class _CreateRecipeState extends State<CreateRecipe> {
       );
     }
     return pasosTextFields;
+  }
+
+  List<Widget> _getIngredientes() {
+    List<Widget> ingredientesFields = [];
+    for (int i = 0; i < ingredientesList.length; i++) {
+      ingredientesFields.add(
+        // Padding(
+        // padding: const EdgeInsets.symmetric(vertical: 16.0),
+        // child:
+        Row(
+          children: [
+            Expanded(child: IngredienteInput(i, ingredientesList)),
+            const SizedBox(
+              width: 16,
+            ),
+            // we need add button at last friends row
+            _addRemoveButton(i == pasosList.length - 1, i),
+          ],
+        ),
+        // )
+      );
+    }
+    return ingredientesFields;
   }
 
   ///Añade el boton de añadir y eliminat
