@@ -74,12 +74,12 @@ class _CreateRecipeState extends State<CreateRecipe> {
                             hintText: 'Introduce el enlace de la imagen',
                             labelText: 'Imagen',
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Por favor, introduzca una imagen';
-                            }
-                            return null;
-                          },
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Por favor, introduzca una imagen';
+                          //   }
+                          //   return null;
+                          // },
                           onSaved: (value) {
                             if (value != null) imagen = value;
                             setState(() {});
@@ -89,6 +89,13 @@ class _CreateRecipeState extends State<CreateRecipe> {
                       actions: [
                         ElevatedButton(
                             onPressed: (() {
+                              _imagenReceta.clear();
+                              setState(() {});
+                              Navigator.pop(context);
+                            }),
+                            child: const Text("Eliminar Imagen")),
+                        ElevatedButton(
+                            onPressed: (() {
                               if (_formImg.currentState!.validate()) {
                                 _formImg.currentState!.save();
 
@@ -96,7 +103,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
                                 Navigator.pop(context);
                               }
                             }),
-                            child: const Text("Confirmar"))
+                            child: const Text("Confirmar")),
                       ],
                     ),
                   );
@@ -218,10 +225,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
   }
 
   Widget _getImagen(String linkImg, Function()? onTap) {
-    RecipeImage imagen = RecipeImage('assets/noimageavailable.png');
-    if (linkImg != '') {
-      imagen = RecipeImage(linkImg);
-    }
+    RecipeImage imagen = RecipeImage(linkImg);
 
     return GestureDetector(
       onTap: onTap,
