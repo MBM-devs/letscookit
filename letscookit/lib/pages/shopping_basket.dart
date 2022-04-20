@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
-import 'package:letscookit/widgets/ingrediente_lista.dart';
+import 'package:letscookit/widgets/ingrediente_comprar.dart';
 import '../utilities/lista_compra.dart';
 import '../utilities/lista_ingredientes.dart';
-import '../widgets/search_ingrediente.dart';
+import '../widgets/search_bar.dart';
 import 'package:searchfield/searchfield.dart';
 
 class ShoppingBasket extends StatefulWidget {
@@ -23,7 +23,7 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
       children: [
         Container(
           padding: EdgeInsets.all(10.0),
-          child: SearchBarIngrediente(
+          child: SearchBar(
             controller: _searchController,
             hint: "Buscar o añadir nuevo ingrediente...",
             suggestions: ListaIngredientes()
@@ -85,7 +85,7 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
 
     for (var i = 0; i < ListaCompra().length(); i++) {
       ingredienteCard.add(
-        IngredienteLista(ListaCompra().get(i)),
+        IngredienteComprar(ListaCompra().get(i)),
       );
     }
 
