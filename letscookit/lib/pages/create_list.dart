@@ -79,7 +79,7 @@ class _CreateListState extends State<CreateList> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.grey[700],
                       padding: const EdgeInsets.symmetric(
@@ -102,8 +102,7 @@ class _CreateListState extends State<CreateList> {
                           )
                       );
                     },
-                    child: Text(
-                        'Crear'), //Podriamos poner que si el campo esta vacío, ponga 'Saltar' en vez de 'Crear'
+                    child: const Text('Crear'),
                     style: ElevatedButton.styleFrom(
                       primary: Palette.mainGreen,
                       padding: const EdgeInsets.symmetric(

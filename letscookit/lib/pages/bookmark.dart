@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
+import 'package:letscookit/pages/recipe_list.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 
@@ -18,6 +19,7 @@ class _BookmarkState extends State<Bookmark> {
   LibroRecetas libroRecetas = LibroRecetas();
   ListaReceta listaRecetas = ListaReceta("Mi Lista");
   String _receta = "Receta1"; //Tiene que estar inicializado al valor de alguno de los items
+  Receta receta1 = new Receta("Pollo al limon", 2, 3);
   @override
   Widget build(BuildContext context) {
     //libroRecetas.add(listaRecetas);
@@ -36,7 +38,7 @@ class _BookmarkState extends State<Bookmark> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => libroRecetas.get(index), //tendria que llevar a la pagina ReceiptList del indice correspondiente
+                          builder: (context) => RecipeList("Mi Lista"), //tendria que llevar a la pagina RecipeList del indice correspondiente
                         ),
                     );
                   },
@@ -46,6 +48,10 @@ class _BookmarkState extends State<Bookmark> {
                 ),
               );
             }
+        ),
+        const SizedBox(
+          height: 10.0,
+          width: 1.0,
         ),
         FloatingActionButton(
           child: Icon(Icons.add),
