@@ -7,69 +7,46 @@ import '../utilities/lista_ingredientes.dart';
 import '../widgets/search_ingrediente.dart';
 import 'package:searchfield/searchfield.dart';
 
-class shoppingBasket extends StatefulWidget {
-  shoppingBasket({Key? key}) : super(key: key);
-  final TextEditingController _controller = TextEditingController();
+class ShoppingBasket extends StatefulWidget {
+  ShoppingBasket({Key? key}) : super(key: key);
 
   @override
-  State<shoppingBasket> createState() => _shoppingBasketState();
+  State<ShoppingBasket> createState() => _ShoppingBasketState();
 }
 
-class _shoppingBasketState extends State<shoppingBasket> {
+class _ShoppingBasketState extends State<ShoppingBasket> {
   int _cont = 0;
+  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
           padding: EdgeInsets.all(10.0),
-          child: SearchField<Ingrediente>(
-            controller: widget._controller,
+          child: SearchBarIngrediente(
+            controller: _searchController,
+            hint: "Buscar o añadir nuevo ingrediente...",
             suggestions: ListaIngredientes()
                 .lista
                 .map((e) => SearchFieldListItem<Ingrediente>(e.nombre, item: e))
                 .toList(),
-            hint: 'Buscar ingrediente...',
-            searchInputDecoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.blueGrey.shade200,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  width: 2,
-                  color: Palette.mainBlue.shade400,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            maxSuggestionsInViewPort: 6,
-            itemHeight: 50,
-            suggestionsDecoration: BoxDecoration(
-              color: Palette.mainBlue.shade600,
-              borderRadius: BorderRadius.circular(10),
-            ),
             onSuggestionTap: (value) {
               setState(() {
                 ListaCompra().add(value.item!);
               });
-              widget._controller.text = "";
             },
             onSubmit: (value) {
-              setState(() {
-                int indice = ListaIngredientes().buscaIngrediente(value);
-                if (indice == -1) {
-                  ListaIngredientes().add(Ingrediente(value));
-                  indice = ListaIngredientes().length() - 1;
-                }
-                ListaCompra().add(ListaIngredientes().get(indice));
-                widget._controller.text = "";
-              });
+              int indice = ListaIngredientes().buscaIngrediente(value);
+              if (indice == -1) {
+                ListaIngredientes().add(Ingrediente(value));
+                indice = ListaIngredientes().length() - 1;
+              }
+              ListaCompra().add(ListaIngredientes().get(indice));
+              _searchController.clear();
+              setState(() {});
             },
           ),
+          // controller.text = "";
         ),
         ..._getIngredientes(),
         ElevatedButton(
@@ -108,7 +85,7 @@ class _shoppingBasketState extends State<shoppingBasket> {
 
     for (var i = 0; i < ListaCompra().length(); i++) {
       ingredienteCard.add(
-        IngredienteLista(ListaCompra().getIngrediente(i)),
+        IngredienteLista(ListaCompra().get(i)),
       );
     }
 

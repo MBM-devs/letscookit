@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
-import 'package:letscookit/utilities/lista_Ingredientes.dart';
 import 'package:letscookit/utilities/lista_compra.dart';
 
-class IngredienteLista extends StatefulWidget {
+class IngredienteComprar extends StatefulWidget {
   Ingrediente _ingrediente;
-  IngredienteLista(this._ingrediente, {Key? key}) : super(key: key);
+  IngredienteComprar(this._ingrediente, {Key? key}) : super(key: key);
 
   @override
-  State<IngredienteLista> createState() => _IngredienteListaState();
+  State<IngredienteComprar> createState() => _IngredienteComprarState();
 }
 
-class _IngredienteListaState extends State<IngredienteLista> {
+class _IngredienteComprarState extends State<IngredienteComprar> {
   @override
   Widget build(BuildContext context) {
     return Container(

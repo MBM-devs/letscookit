@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     CreateRecipe(),
     RecipeView(LibroRecetas().misRecetas.get(0)),
     // Search(),
-    shoppingBasket()
+    ShoppingBasket()
   ];
   final List<String> _titulos = [
     "Mis Recetas",

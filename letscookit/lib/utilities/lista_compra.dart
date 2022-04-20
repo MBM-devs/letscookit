@@ -17,7 +17,7 @@ class ListaCompra {
     }
   }
 
-  Ingrediente getIngrediente(int i) {
+  Ingrediente get(int i) {
     return lista.keys.elementAt(i);
   }
 
@@ -55,7 +55,6 @@ class ListaCompra {
   bool hayComprados() {
     bool hayComprados = false;
     for (var comprado in lista.values) {
-      print("iteracion.......");
       if (comprado) {
         hayComprados = true;
         break;
