@@ -175,12 +175,12 @@ class _HomeState extends State<Home> {
                                                     .width *
                                                 0.2,
                                             child: GestureDetector(
-                                              onTap: (() {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (_) =>
-                                                        RecipeView(receta));
-                                              }),
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                    context,
+                                                    '/receta/' +
+                                                        _current.toString());
+                                              },
                                               child: Row(
                                                 children: [
                                                   Icon(

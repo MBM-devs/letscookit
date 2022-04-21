@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:letscookit/pages/recipe_list_view.dart';
 import 'package:letscookit/pages/recipe_view.dart';
+import 'package:letscookit/widgets/my_scaffold.dart';
 import 'pages/home.dart';
 import 'pages/bookmark.dart';
 import 'pages/create_recipe.dart';
@@ -22,6 +23,8 @@ void main() {
   receta.crearPaso("Calentar Pollo");
   receta.crearPaso("Poner limon");
   receta.crearPaso("Poner Sal");
+  // receta.crearPaso("Comer");
+
   ListaIngredientes l1 = ListaIngredientes();
   LibroRecetas libro = LibroRecetas();
 
@@ -51,8 +54,8 @@ class _MyAppState extends State<MyApp> {
     Home(),
     Bookmark(),
     CreateRecipe(),
-    RecipeView(LibroRecetas().misRecetas.get(0)),
-    // Search(),
+    // RecipeView(LibroRecetas().misRecetas.get(0)),
+    Search(),
     ShoppingBasket(),
   ];
   final List<String> _titulos = [
@@ -62,6 +65,7 @@ class _MyAppState extends State<MyApp> {
     "Buscar",
     "Lista de la compra"
   ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -69,23 +73,43 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Palette.mainBlue,
       ),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 60,
-          title: Text(_titulos[_paginaActual]),
-        ),
-        body: SingleChildScrollView(child: _paginas[_paginaActual]),
-        bottomNavigationBar: SizedBox(
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        // Handle '/'
+        switch (settings.name) {
+          case '/crear_receta':
+            return MaterialPageRoute(
+                builder: (context) =>
+                    MyScaffold(CreateRecipe(), "Crear Receta"));
+        }
+
+        // Handle '/details/:id'
+        var uri = Uri.parse(settings.name!);
+        if (uri.pathSegments.length == 2 &&
+            uri.pathSegments.first == 'receta') {
+          int id = int.parse(uri.pathSegments[1]);
+          return MaterialPageRoute(
+              builder: (context) =>
+                  RecipeView(LibroRecetas().misRecetas.get(id)));
+        }
+
+        return MaterialPageRoute(
+            builder: (context) => RecipeView(LibroRecetas().misRecetas.get(0)));
+      },
+      title: "Let's Cook It",
+      home: MyScaffold(
+        _paginas[_paginaActual],
+        _titulos[_paginaActual],
+        child: SizedBox(
           height: 60,
           child: BottomNavigationBar(
             // selectedIconTheme: IconThemeData(color: Palette.mainBlue[200]),
             // unselectedIconTheme: IconThemeData(color: Palette.mainBlue),
             type: BottomNavigationBarType.fixed,
             currentIndex: _paginaActual,
-            onTap: (index) {
+            onTap: (value) {
               setState(() {
-                _paginaActual = index;
+                _paginaActual = value;
               });
             },
             items: const [
