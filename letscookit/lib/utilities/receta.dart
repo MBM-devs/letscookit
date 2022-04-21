@@ -27,9 +27,9 @@ class Receta {
         _etiquetas = [];
 
   // setters
-  void setNombre(String nombre) => this._nombre = nombre;
-  void setNumPersonas(int numPersonas) => this._numPersonas = numPersonas;
-  void setRealizada(bool realizada) => this._realizada = realizada;
+  set nombre(String nombre) => _nombre = nombre;
+  set numPersonas(int numPersonas) => _numPersonas = numPersonas;
+  set realizada(bool realizada) => _realizada = realizada;
 
   // getters
   String get nombre => _nombre;

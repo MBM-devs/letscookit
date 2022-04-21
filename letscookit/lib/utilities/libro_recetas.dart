@@ -1,6 +1,10 @@
 // ? clase template
+import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_mis_recetas.dart';
+import 'package:letscookit/utilities/medida.dart';
+import 'package:letscookit/widgets/search_bar.dart';
+import 'package:searchfield/searchfield.dart';
 
 import 'lista_receta.dart';
 import 'receta.dart';
@@ -23,11 +27,22 @@ class LibroRecetas extends Lista {
     super.add(misRecetas);
   }
 
-  void crearNuevaReceta(ListaReceta? lista, String nombre, String imagen,
-      int numPersonas, int tiempo, List<String> pasos) {
+  void crearNuevaReceta(
+      ListaReceta? lista,
+      String nombre,
+      String imagen,
+      int numPersonas,
+      int tiempo,
+      List<String> pasos,
+      List<Ingrediente> ingredientes,
+      List<Medida> medidas) {
     Receta receta = Receta(nombre, numPersonas, tiempo, imagen);
     for (var i = 0; i < pasos.length; i++) {
       receta.crearPaso(pasos[i]);
+    }
+
+    for (var i = 0; i < ingredientes.length; i++) {
+      receta.addIngrediente(medidas[i], ingredientes[i]);
     }
 
     if (misRecetas.buscaReceta(nombre) == -1) misRecetas.add(receta);

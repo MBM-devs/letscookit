@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:letscookit/config/palette.dart';
+import 'package:letscookit/pages/create_recipe.dart';
+import 'package:letscookit/pages/recipe_view.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/widgets/recipe_image.dart';
@@ -168,28 +170,36 @@ class _HomeState extends State<Home> {
                                           ),
                                         ),
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.2,
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.remove_red_eye_rounded,
-                                                color: Colors.grey.shade600,
-                                                size: 20,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.2,
+                                            child: GestureDetector(
+                                              onTap: (() {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (_) =>
+                                                        RecipeView(receta));
+                                              }),
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons
+                                                        .remove_red_eye_rounded,
+                                                    color: Colors.grey.shade600,
+                                                    size: 20,
+                                                  ),
+                                                  SizedBox(width: 5),
+                                                  Text(
+                                                    'Ver',
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        color: Colors
+                                                            .grey.shade600),
+                                                  )
+                                                ],
                                               ),
-                                              SizedBox(width: 5),
-                                              Text(
-                                                'Ver',
-                                                style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    color:
-                                                        Colors.grey.shade600),
-                                              )
-                                            ],
-                                          ),
-                                        ),
+                                            )),
                                       ],
                                     ),
                                   ),

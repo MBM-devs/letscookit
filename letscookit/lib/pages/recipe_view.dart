@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/receta.dart';
+import 'package:letscookit/widgets/ingrediente_view.dart';
 import 'package:letscookit/widgets/paso_view.dart';
 import 'package:letscookit/widgets/recipe_image.dart';
 
@@ -98,9 +99,16 @@ class _RecipeViewState extends State<RecipeView> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
+                      "Ingredientes: ",
+                      style: TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
+                    ),
+                    ...getIngredientes(),
+                    SizedBox(height: 20),
+                    const Text(
                       "Pasos: ",
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
                     ...getPasos()
@@ -120,5 +128,14 @@ class _RecipeViewState extends State<RecipeView> {
       pasos.add(PasoView(i, _receta.getPaso(i)));
     }
     return pasos;
+  }
+
+  List<IngredienteView> getIngredientes() {
+    List<IngredienteView> ingredientes = [];
+    for (var i = 0; i < _receta.numPasos; i++) {
+      ingredientes.add(IngredienteView(_receta.ingredientes.keys.elementAt(i),
+          _receta.ingredientes.values.elementAt(i)));
+    }
+    return ingredientes;
   }
 }

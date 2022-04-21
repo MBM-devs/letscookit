@@ -7,13 +7,10 @@ class PasoView extends StatefulWidget {
   PasoView(this.index, this._paso);
 
   @override
-  _PasoViewState createState() => _PasoViewState(this._paso);
+  _PasoViewState createState() => _PasoViewState();
 }
 
 class _PasoViewState extends State<PasoView> {
-  Paso _paso;
-  _PasoViewState(this._paso);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +23,7 @@ class _PasoViewState extends State<PasoView> {
           ),
           const SizedBox(width: 5),
           Text(
-            _paso.descripcion,
+            widget._paso.descripcion,
             style: const TextStyle(fontSize: 15),
           )
         ],

@@ -2,9 +2,11 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
+import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
+import 'package:letscookit/utilities/medida.dart';
 import 'package:letscookit/utilities/receta.dart';
 import 'package:letscookit/widgets/ingrediente_input.dart';
 import 'package:letscookit/widgets/recipe_image.dart';
@@ -35,10 +37,12 @@ class _CreateRecipeState extends State<CreateRecipe> {
   TextEditingController _nombreReceta = TextEditingController();
   TextEditingController _numeroPersonas = TextEditingController();
   TextEditingController _tiempoReceta = TextEditingController();
-  TextEditingController _pasoController = TextEditingController();
+  // TextEditingController _pasoController = TextEditingController();
 
   static List<String> pasosList = [""];
-  static List<String> ingredientesList = [""];
+
+  List<Ingrediente> ingredientes = [Ingrediente("")];
+  List<Medida> medidas = [Medida(0, "")];
 
   String nombre = '';
   String imagen = '';
@@ -175,6 +179,8 @@ class _CreateRecipeState extends State<CreateRecipe> {
                 ),
               ),
 
+              ..._getIngredientes(),
+
               const Padding(
                 padding: EdgeInsets.only(top: 16.0),
                 child: Text(
@@ -194,8 +200,15 @@ class _CreateRecipeState extends State<CreateRecipe> {
                     // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      libro.crearNuevaReceta(widget._lista, nombre, imagen,
-                          numPersonas, tiempo, pasosList);
+                      libro.crearNuevaReceta(
+                          widget._lista,
+                          nombre,
+                          imagen,
+                          numPersonas,
+                          tiempo,
+                          pasosList,
+                          ingredientes,
+                          medidas);
 
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
@@ -221,6 +234,8 @@ class _CreateRecipeState extends State<CreateRecipe> {
     _numeroPersonas.clear();
     _tiempoReceta.clear();
     pasosList = [''];
+    ingredientes.clear();
+    ingredientes = [Ingrediente('')];
     setState(() {});
   }
 
@@ -244,11 +259,11 @@ class _CreateRecipeState extends State<CreateRecipe> {
         Row(
           children: [
             Expanded(child: PasosTextFields(i, pasosList)),
-            SizedBox(
+            const SizedBox(
               width: 16,
             ),
             // we need add button at last friends row
-            _addRemoveButton(i == pasosList.length - 1, i),
+            _addRemoveButton(i == pasosList.length - 1, i, true),
           ],
         ),
         // )
@@ -259,36 +274,46 @@ class _CreateRecipeState extends State<CreateRecipe> {
 
   List<Widget> _getIngredientes() {
     List<Widget> ingredientesFields = [];
-    for (int i = 0; i < ingredientesList.length; i++) {
+    for (int i = 0; i < ingredientes.length; i++) {
       ingredientesFields.add(
         // Padding(
-        // padding: const EdgeInsets.symmetric(vertical: 16.0),
-        // child:
+        //   padding: const EdgeInsets.symmetric(vertical: 16.0),
+        //   child:
         Row(
           children: [
-            Expanded(child: IngredienteInput(i, ingredientesList)),
+            Expanded(child: IngredienteInput(i, ingredientes, medidas)),
             const SizedBox(
               width: 16,
             ),
-            // we need add button at last friends row
-            _addRemoveButton(i == pasosList.length - 1, i),
+            _addRemoveButton(i == ingredientes.length - 1, i, false),
           ],
         ),
-        // )
+        // ),
       );
     }
     return ingredientesFields;
   }
 
   ///Añade el boton de añadir y eliminat
-  Widget _addRemoveButton(bool add, int index) {
+  Widget _addRemoveButton(bool add, int index, bool pasos) {
     return InkWell(
       onTap: () {
         if (add) {
-          // add new text-fields at the bottom of all friends textfields
-          pasosList.add('');
-        } else
-          pasosList.removeAt(index);
+          if (pasos) {
+            // add new text-fields at the bottom of all friends textfields
+            pasosList.add('');
+          } else {
+            ingredientes.add(Ingrediente(""));
+            medidas.add(Medida(0, ""));
+          }
+        } else {
+          if (pasos) {
+            pasosList.removeAt(index);
+          } else {
+            ingredientes.removeAt(index);
+            medidas.removeAt(index);
+          }
+        }
         setState(() {});
       },
       child: Container(

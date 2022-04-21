@@ -6,7 +6,6 @@ class Medida {
 
   int get cantidad => _cantidad;
   String get unidad => _unidad;
-
-  void setCantidad(int cantidad) => this._cantidad = cantidad;
-  void setUnidad(String unidad) => this._unidad = unidad;
+  set unidad(String unidad) => _unidad = unidad;
+  set cantidad(int cantidad) => _cantidad = cantidad;
 }

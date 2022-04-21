@@ -2,8 +2,8 @@ import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/lista.dart';
 
 class ListaCompra {
-  Map<Ingrediente, bool> lista;
-  ListaCompra._privateConstructor() : lista = {};
+  Map<Ingrediente, bool> _lista;
+  ListaCompra._privateConstructor() : _lista = {};
 
   static final ListaCompra _instance = ListaCompra._privateConstructor();
 
@@ -16,6 +16,8 @@ class ListaCompra {
       lista[ingrediente] = false;
     }
   }
+
+  Map<Ingrediente, bool> get lista => _lista;
 
   Ingrediente get(int i) {
     return lista.keys.elementAt(i);

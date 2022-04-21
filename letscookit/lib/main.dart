@@ -30,9 +30,9 @@ void main() {
       .add(Receta("Pollo al Curry", 4, 120, 'assets/pollo-al-curry.jpeg'));
   // libro2.misRecetas.add(Receta("Esparragos", 4));
 
-  // receta.crearIngrediente(2, "Rodajas", "Limón");
-  // receta.crearIngrediente(1, "", "Pollo");
-  // receta.crearIngrediente(1, "pizca", "Sal");
+  receta.crearIngrediente(2, "Rodajas", "Limón");
+  receta.crearIngrediente(1, "", "Pollo");
+  receta.crearIngrediente(1, "pizca", "Sal");
 
   // receta.ingredientes.forEach((key, value) =>
   //     print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     CreateRecipe(),
     RecipeView(LibroRecetas().misRecetas.get(0)),
     // Search(),
-    ShoppingBasket()
+    ShoppingBasket(),
   ];
   final List<String> _titulos = [
     "Mis Recetas",

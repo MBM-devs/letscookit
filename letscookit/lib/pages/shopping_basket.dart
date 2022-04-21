@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/widgets/ingrediente_comprar.dart';
 import '../utilities/lista_compra.dart';
@@ -33,6 +32,7 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
             onSuggestionTap: (value) {
               setState(() {
                 ListaCompra().add(value.item!);
+                _searchController.clear();
               });
             },
             onSubmit: (value) {
@@ -50,13 +50,13 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
         ),
         ..._getIngredientes(),
         ElevatedButton(
-            child: Text("Borrar comprados"),
+            child: const Text("Borrar comprados"),
             onPressed: () {
               if (ListaCompra().hayComprados()) {
                 showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                          content: Text(
+                          content: const Text(
                               "¿Está seguro de borrar los ingredientes marcados?"),
                           actions: [
                             ElevatedButton(
