@@ -30,17 +30,11 @@ class _BookmarkState extends State<Bookmark> {
                 child: ListTile(
                   title: Text(LibroRecetas().get(index).nombre),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RecipeList(LibroRecetas().get(
-                            index)), //tendria que llevar a la pagina RecipeList del indice correspondiente
-                      ),
-                    );
+                    Navigator.pushNamed(context, '/lista/' + index.toString());
                   },
-                  leading: CircleAvatar(
-                      //backgroundImage: AssetImage('assets/elfary.jpg'),
-                      ),
+                  // leading: CircleAvatar(
+
+                  //     ),
                 ),
               );
             }),
@@ -55,7 +49,7 @@ class _BookmarkState extends State<Bookmark> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CreateList(),
+                  builder: (context) => const CreateList(),
                 ));
             setState(() {});
           },

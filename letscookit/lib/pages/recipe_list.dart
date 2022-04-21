@@ -63,9 +63,11 @@ class _RecipeListState extends State<RecipeList> {
                                   ._listaRecetas
                                   .get(index)), //Lleva a la página de la receta
                             ),
-                          );
+                          ).then((_) => setState(() {}));
                         },
-                        leading: CircleAvatar(),
+                        leading: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                widget._listaRecetas.get(index).imagen)),
                       ),
                     );
                   }),

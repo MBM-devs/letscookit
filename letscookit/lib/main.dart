@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:letscookit/pages/recipe_list_view.dart';
+import 'package:letscookit/pages/create_list.dart';
+import 'package:letscookit/pages/recipe_list.dart';
+
 import 'package:letscookit/pages/recipe_view.dart';
 import 'package:letscookit/widgets/my_scaffold.dart';
 import 'pages/home.dart';
@@ -54,7 +56,6 @@ class _MyAppState extends State<MyApp> {
     Home(),
     Bookmark(),
     CreateRecipe(),
-    // RecipeView(LibroRecetas().misRecetas.get(0)),
     Search(),
     ShoppingBasket(),
   ];
@@ -85,12 +86,18 @@ class _MyAppState extends State<MyApp> {
 
         // Handle '/details/:id'
         var uri = Uri.parse(settings.name!);
-        if (uri.pathSegments.length == 2 &&
-            uri.pathSegments.first == 'receta') {
-          int id = int.parse(uri.pathSegments[1]);
-          return MaterialPageRoute(
-              builder: (context) =>
-                  RecipeView(LibroRecetas().misRecetas.get(id)));
+        if (uri.pathSegments.length == 2) {
+          if (uri.pathSegments.first == 'receta') {
+            int id = int.parse(uri.pathSegments[1]);
+            return MaterialPageRoute(
+                builder: (context) =>
+                    RecipeView(LibroRecetas().misRecetas.get(id)));
+          }
+          if (uri.pathSegments.first == 'lista') {
+            int id = int.parse(uri.pathSegments[1]);
+            return MaterialPageRoute(
+                builder: (context) => RecipeList(LibroRecetas().get(id)));
+          }
         }
 
         return MaterialPageRoute(
