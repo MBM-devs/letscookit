@@ -5,12 +5,14 @@ import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/receta.dart';
+import 'package:searchfield/searchfield.dart';
 import '../widgets/pasos_text_fields.dart';
+import '../widgets/search_bar.dart';
 import 'create_recipe.dart';
 
 class RecipeList extends StatefulWidget {
-  ListaReceta listaRecetas;
-  RecipeList(this.listaRecetas, {Key? key}) : super(key: key);
+  ListaReceta _listaRecetas;
+  RecipeList(this._listaRecetas, {Key? key}) : super(key: key);
   @override
   State<RecipeList> createState() => _RecipeListState();
 }
@@ -18,12 +20,13 @@ class RecipeList extends StatefulWidget {
 class _RecipeListState extends State<RecipeList> {
   List<String> _settingsMenu = ["Cambiar Nombre", "Eliminar Lista"];
   TextEditingController _nombreLista = TextEditingController();
+  TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.listaRecetas.nombre),
+        title: Text(widget._listaRecetas.nombre),
         actions: [
           PopupMenuButton(
             onSelected: handleClick,
@@ -47,17 +50,17 @@ class _RecipeListState extends State<RecipeList> {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: widget.listaRecetas.length(),
+                  itemCount: widget._listaRecetas.length(),
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                       child: ListTile(
-                        title: Text(widget.listaRecetas.get(index).nombre),
+                        title: Text(widget._listaRecetas.get(index).nombre),
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => RecipeView(widget
-                                  .listaRecetas
+                                  ._listaRecetas
                                   .get(index)), //Lleva a la página de la receta
                             ),
                           );
@@ -73,7 +76,32 @@ class _RecipeListState extends State<RecipeList> {
               ElevatedButton.icon(
                 icon: const Icon(Icons.add),
                 label: const Text("Añadir Receta"),
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                        content: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: SearchBar(
+                        controller: _searchController,
+                        hint: "Buscar receta...",
+                        suggestions: LibroRecetas()
+                            .misRecetas
+                            .lista
+                            .map((e) =>
+                                SearchFieldListItem<Receta>(e.nombre, item: e))
+                            .toList(),
+                        onSuggestionTap: (value) {
+                          setState(() {
+                            widget._listaRecetas.add(value.item);
+                          });
+                          _searchController.clear();
+                        },
+                      ),
+                      // controller.text = "";
+                    )),
+                  );
+                },
               ),
             ],
           ),
@@ -115,7 +143,7 @@ class _RecipeListState extends State<RecipeList> {
             child: TextFormField(
               controller: _nombreLista,
               decoration: InputDecoration(
-                  hintText: widget.listaRecetas.nombre,
+                  hintText: widget._listaRecetas.nombre,
                   hintStyle: TextStyle(
                     color: Colors.grey[700],
                   )),
@@ -129,7 +157,7 @@ class _RecipeListState extends State<RecipeList> {
               onPressed: () {
                 if (_nombreLista.value.text != "" &&
                     LibroRecetas().nombreValido(_nombreLista.value.text)) {
-                  widget.listaRecetas.nombre = _nombreLista.value.text;
+                  widget._listaRecetas.nombre = _nombreLista.value.text;
                 }
                 _nombreLista.clear();
                 setState(() {});
@@ -175,7 +203,7 @@ class _RecipeListState extends State<RecipeList> {
                 child: const Text(
                     'Eliminar'), //Podriamos poner que si el campo esta vacío, ponga 'Saltar' en vez de 'Crear'
                 onPressed: () {
-                  LibroRecetas().eliminarLista(widget.listaRecetas);
+                  LibroRecetas().eliminarLista(widget._listaRecetas);
                   setState(() {});
                   Navigator.pop(context);
                   Navigator.pop(context);

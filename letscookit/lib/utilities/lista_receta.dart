@@ -11,4 +11,11 @@ class ListaReceta extends Lista {
     return super.lista.indexWhere(
         (element) => element.nombre == nombre); //Devuelve -1 si no lo encuentra
   }
+
+  @override
+  void add(dynamic elemento) {
+    if (!lista.any((element) => element == elemento)) {
+      super.add(elemento);
+    }
+  }
 }

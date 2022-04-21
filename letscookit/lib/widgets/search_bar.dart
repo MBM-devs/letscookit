@@ -8,7 +8,7 @@ import 'package:searchfield/searchfield.dart';
 class SearchBar extends SearchField {
   SearchBar(
       {Key? key,
-      required List<SearchFieldListItem<Ingrediente>> suggestions,
+      required List<SearchFieldListItem<dynamic>> suggestions,
       TextEditingController? controller,
       String? hint,
       Function(SearchFieldListItem<dynamic>)? onSuggestionTap,
