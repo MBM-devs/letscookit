@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:letscookit/utilities/lista_ingredientes.dart';
-
 import 'package:letscookit/utilities/paso.dart';
 import 'ingrediente.dart';
 import 'etiqueta.dart';
@@ -53,8 +51,6 @@ class Receta {
   /// Devuelve la etiqueta en la posicion i
   Etiqueta getEtiqueta(int i) => _etiquetas[i];
 
-  // File getImagen(int i) => imagen[i];
-
   void addIngrediente(Medida medida, Ingrediente ingrediente) {
     _ingredientes[ingrediente] = medida;
     _listaIngredientes.add(ingrediente);
@@ -81,9 +77,4 @@ class Receta {
     _listaIngredientes.add(ingrediente);
     _ingredientes[ingrediente] = medida;
   }
-
-  //void addImagen(File imagen) => imagenes.add(imagen);
-
-  //void empezarReceta() => empiesa;
-
 }

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:letscookit/utilities/receta.dart';
 
 class RecipeImage extends StatefulWidget {
   String _imagen;
 
   RecipeImage(this._imagen);
   @override
-  // String get imagen => _imagen;
   _RecipeImageState createState() => _RecipeImageState();
 }
 

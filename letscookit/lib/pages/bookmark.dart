@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:letscookit/config/palette.dart';
-import 'package:letscookit/pages/recipe_list.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
-import 'package:letscookit/utilities/lista_receta.dart';
-
-import '../utilities/receta.dart';
 import 'create_list.dart';
 
 class Bookmark extends StatefulWidget {
@@ -17,7 +12,6 @@ class Bookmark extends StatefulWidget {
 class _BookmarkState extends State<Bookmark> {
   @override
   Widget build(BuildContext context) {
-    //libroRecetas.add(listaRecetas);
     return Column(
       children: [
         ListView.builder(
@@ -33,8 +27,6 @@ class _BookmarkState extends State<Bookmark> {
                     Navigator.pushNamed(context, '/lista/' + index.toString())
                         .then((_) => setState(() {}));
                   },
-                  // leading: CircleAvatar(
-                  //     ),
                 ),
               );
             }),

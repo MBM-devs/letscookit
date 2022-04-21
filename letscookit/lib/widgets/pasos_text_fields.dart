@@ -42,13 +42,6 @@ class _PasosTextFields extends State<PasosTextFields> {
               style: const TextStyle(color: Colors.grey, fontSize: 18),
             ),
           ),
-          // decoration: BoxDecoration(
-          //   border: Border.all(
-          //     width: 2,
-          //     color: Colors.grey,
-          //   ),
-          //   borderRadius: BorderRadius.circular(20),
-          // ),
         ),
         hintText: 'Introduce el paso ',
         labelText: 'Descripcion Paso',

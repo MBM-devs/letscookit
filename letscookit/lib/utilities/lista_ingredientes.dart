@@ -1,4 +1,3 @@
-import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/lista.dart';
 
 class ListaIngredientes extends Lista {
@@ -17,14 +16,4 @@ class ListaIngredientes extends Lista {
   bool existeIngrediente(String nombre) {
     return super.lista.any((element) => element.nombre == nombre);
   }
-
-  // List<String> listToString() {
-  //   List<String> result = [];
-  //   print("haosdflalsdfjaldsfj");
-  //   print("----------" + super.lista.length.toString());
-  //   for (int i = 0; i < super.length(); i++) {
-  //     result.add(get(i).nombre);
-  //   }
-  //   return result;
-  // }
 }

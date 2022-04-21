@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Palette {
   static const MaterialColor mainBlue = MaterialColor(
-    0xff34a0a4, // 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch.
+    0xff34a0a4,
     <int, Color>{
       50: Color(0xff48aaad), //10%
       100: Color(0xff5db3b6), //20%
@@ -17,7 +17,7 @@ class Palette {
     },
   );
   static const MaterialColor mainGreen = MaterialColor(
-    0xff76c893, // 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch.
+    0xff76c893,
     <int, Color>{
       50: Color(0xff84ce9e), //10%
       100: Color(0xff91d3a9), //20%
@@ -31,4 +31,4 @@ class Palette {
       900: Color(0xffffffff), //100%
     },
   );
-} // you can define define int 500 as the default shade and add your lighter tints above and darker tints below.
+}

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/medida.dart';
-import 'package:letscookit/utilities/paso.dart';
 
 class IngredienteView extends StatefulWidget {
   Ingrediente _ingrediente;

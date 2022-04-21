@@ -1,4 +1,3 @@
-import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista.dart';
 
 class ListaReceta extends Lista {

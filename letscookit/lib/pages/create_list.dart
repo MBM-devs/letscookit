@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
-import 'package:letscookit/pages/recipe_list.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
-import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
-import '../widgets/pasos_text_fields.dart';
 
 class CreateList extends StatefulWidget {
   const CreateList({Key? key}) : super(key: key);
@@ -22,7 +19,6 @@ class _CreateListState extends State<CreateList> {
       appBar: AppBar(
         title: const Text("Crear Lista"),
       ),
-      //padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       body: Center(
         child: Form(
           child: Column(
@@ -47,8 +43,7 @@ class _CreateListState extends State<CreateList> {
                 child: TextFormField(
                   controller: _nombreLista,
                   decoration: InputDecoration(
-                      hintText:
-                          'Lista nº ${LibroRecetas().length() + 1}', //Que el hint text sea el que escribirá por defecto
+                      hintText: 'Lista nº ${LibroRecetas().length() + 1}',
                       hintStyle: TextStyle(
                         color: Colors.grey[700],
                       )),

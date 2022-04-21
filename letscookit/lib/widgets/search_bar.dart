@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
-import 'package:letscookit/utilities/ingrediente.dart';
-import 'package:letscookit/utilities/lista_compra.dart';
-import 'package:letscookit/utilities/lista_ingredientes.dart';
 import 'package:searchfield/searchfield.dart';
 
 class SearchBar extends SearchField {

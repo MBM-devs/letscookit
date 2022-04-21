@@ -1,5 +1,4 @@
 import 'package:letscookit/utilities/ingrediente.dart';
-import 'package:letscookit/utilities/lista.dart';
 
 class ListaCompra {
   Map<Ingrediente, bool> _lista;

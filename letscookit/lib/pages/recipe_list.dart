@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/pages/recipe_view.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
-import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/receta.dart';
-import 'package:letscookit/widgets/my_scaffold.dart';
 import 'package:searchfield/searchfield.dart';
-import '../widgets/pasos_text_fields.dart';
 import '../widgets/search_bar.dart';
-import 'create_recipe.dart';
 
 class RecipeList extends StatefulWidget {
   ListaReceta _listaRecetas;
@@ -60,9 +55,8 @@ class _RecipeListState extends State<RecipeList> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => RecipeView(widget
-                                  ._listaRecetas
-                                  .get(index)), //Lleva a la página de la receta
+                              builder: (context) =>
+                                  RecipeView(widget._listaRecetas.get(index)),
                             ),
                           ).then((_) => setState(() {}));
                         },
@@ -218,8 +212,7 @@ class _RecipeListState extends State<RecipeList> {
                       horizontal: 8.0, vertical: 5.0),
                   textStyle: const TextStyle(color: Colors.black),
                 ),
-                child: const Text(
-                    'Eliminar'), //Podriamos poner que si el campo esta vacío, ponga 'Saltar' en vez de 'Crear'
+                child: const Text('Eliminar'),
                 onPressed: () {
                   LibroRecetas().eliminarLista(widget._listaRecetas);
                   Navigator.pop(context);

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 abstract class Lista {
   @protected
   List<dynamic> lista;
-  // @protected
   String _nombre;
 
   Lista(this._nombre) : lista = [];

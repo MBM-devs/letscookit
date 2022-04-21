@@ -1,5 +1,4 @@
 import 'package:letscookit/utilities/libro_recetas.dart';
-import 'package:letscookit/utilities/lista_ingredientes.dart';
 import 'package:letscookit/utilities/receta.dart';
 
 class GenerarRecetas {

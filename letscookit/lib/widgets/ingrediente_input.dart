@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
-import 'package:letscookit/utilities/lista_compra.dart';
 import 'package:letscookit/utilities/lista_ingredientes.dart';
 import 'package:letscookit/utilities/medida.dart';
 import 'package:letscookit/widgets/search_bar.dart';

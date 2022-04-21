@@ -1,10 +1,7 @@
 // ? clase template
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/lista.dart';
-import 'package:letscookit/utilities/lista_mis_recetas.dart';
 import 'package:letscookit/utilities/medida.dart';
-import 'package:letscookit/widgets/search_bar.dart';
-import 'package:searchfield/searchfield.dart';
 
 import 'lista_receta.dart';
 import 'receta.dart';

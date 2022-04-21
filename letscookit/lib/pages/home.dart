@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:letscookit/config/palette.dart';
-import 'package:letscookit/pages/create_recipe.dart';
-import 'package:letscookit/pages/recipe_view.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/widgets/recipe_image.dart';

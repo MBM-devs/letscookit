@@ -1,18 +1,12 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
-import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/medida.dart';
-import 'package:letscookit/utilities/receta.dart';
 import 'package:letscookit/widgets/ingrediente_input.dart';
 import 'package:letscookit/widgets/recipe_image.dart';
 import '../widgets/pasos_text_fields.dart';
-
-//import 'dynamic_fields.dart';
 
 class CreateRecipe extends StatefulWidget {
   ListaReceta? _lista;
@@ -37,7 +31,6 @@ class _CreateRecipeState extends State<CreateRecipe> {
   TextEditingController _nombreReceta = TextEditingController();
   TextEditingController _numeroPersonas = TextEditingController();
   TextEditingController _tiempoReceta = TextEditingController();
-  // TextEditingController _pasoController = TextEditingController();
 
   static List<String> pasosList = [""];
 
@@ -78,12 +71,6 @@ class _CreateRecipeState extends State<CreateRecipe> {
                             hintText: 'Introduce el enlace de la imagen',
                             labelText: 'Imagen',
                           ),
-                          // validator: (value) {
-                          //   if (value == null || value.isEmpty) {
-                          //     return 'Por favor, introduzca una imagen';
-                          //   }
-                          //   return null;
-                          // },
                           onSaved: (value) {
                             if (value != null) imagen = value;
                             setState(() {});
@@ -194,10 +181,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
 
               Center(
                 child: ElevatedButton(
-                  // style: ElevatedButton.styleFrom(
-                  // primary: Color.fromARGB(255, 52, 160, 164)),
                   onPressed: () {
-                    // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
                       libro.crearNuevaReceta(
@@ -210,8 +194,6 @@ class _CreateRecipeState extends State<CreateRecipe> {
                           ingredientes,
                           medidas);
 
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Receta Añadida.')),
                       );
@@ -253,20 +235,15 @@ class _CreateRecipeState extends State<CreateRecipe> {
     List<Widget> pasosTextFields = [];
     for (int i = 0; i < pasosList.length; i++) {
       pasosTextFields.add(
-        // Padding(
-        // padding: const EdgeInsets.symmetric(vertical: 16.0),
-        // child:
         Row(
           children: [
             Expanded(child: PasosTextFields(i, pasosList)),
             const SizedBox(
               width: 16,
             ),
-            // we need add button at last friends row
             _addRemoveButton(i == pasosList.length - 1, i, true),
           ],
         ),
-        // )
       );
     }
     return pasosTextFields;
@@ -276,9 +253,6 @@ class _CreateRecipeState extends State<CreateRecipe> {
     List<Widget> ingredientesFields = [];
     for (int i = 0; i < ingredientes.length; i++) {
       ingredientesFields.add(
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(vertical: 16.0),
-        //   child:
         Row(
           children: [
             Expanded(child: IngredienteInput(i, ingredientes, medidas)),
@@ -288,7 +262,6 @@ class _CreateRecipeState extends State<CreateRecipe> {
             _addRemoveButton(i == ingredientes.length - 1, i, false),
           ],
         ),
-        // ),
       );
     }
     return ingredientesFields;
@@ -300,7 +273,6 @@ class _CreateRecipeState extends State<CreateRecipe> {
       onTap: () {
         if (add) {
           if (pasos) {
-            // add new text-fields at the bottom of all friends textfields
             pasosList.add('');
           } else {
             ingredientes.add(Ingrediente(""));
