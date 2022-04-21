@@ -14,12 +14,7 @@ class CreateList extends StatefulWidget {
 }
 
 class _CreateListState extends State<CreateList> {
-  LibroRecetas libro = LibroRecetas();
-
   TextEditingController _nombreLista = TextEditingController();
-  String nombre = '';
-
-  int numListas = 1; //libro.length();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +32,7 @@ class _CreateListState extends State<CreateList> {
               const SizedBox(
                 height: 60.0,
               ),
-              Text(
+              const Text(
                 'Ponle un título a tu lista',
                 style: TextStyle(
                   fontSize: 30.0,
@@ -53,63 +48,62 @@ class _CreateListState extends State<CreateList> {
                   controller: _nombreLista,
                   decoration: InputDecoration(
                       hintText:
-                          'Mi lista nº${numListas}', //Que el hint text sea el que escribirá por defecto
+                          'Lista nº ${LibroRecetas().length() + 1}', //Que el hint text sea el que escribirá por defecto
                       hintStyle: TextStyle(
                         color: Colors.grey[700],
-                        fontStyle: FontStyle.italic,
                       )),
-                  onSaved: (value) {
-                    if (value != null)
-                      nombre = value;
-                    else {
-                      nombre = 'Mi lista nº${numListas}';
-                      numListas++;
-                    }
-                  },
                 ),
               ),
               const SizedBox(
-                height: 60.0,
+                height: 20,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Cancelar'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.grey[700],
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 5.0),
-                      textStyle: TextStyle(color: Colors.grey[200]),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cancelar'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey[700],
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 5.0),
+                        textStyle: TextStyle(color: Colors.grey[200]),
+                      ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      //libro.crearLista(nombre);
-                      _clearInput();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
-                      //Una vez crea la lista, se dirige a la página de la misma
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RecipeList(nombre),
-                          )
-                      );
-                    },
-                    child: const Text('Crear'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Palette.mainGreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 5.0),
-                      textStyle: TextStyle(color: Colors.black),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        String nombre =
+                            "Lista nº ${LibroRecetas().length() + 1}";
+
+                        if (_nombreLista.value.text != "" &&
+                            LibroRecetas()
+                                .nombreValido(_nombreLista.value.text)) {
+                          nombre = _nombreLista.value.text;
+                        }
+
+                        LibroRecetas().add(ListaReceta(nombre));
+                        _nombreLista.clear();
+                        setState(() {});
+                        //Una vez crea la lista, se dirige a la página de la misma
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Crear'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Palette.mainBlue,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 5.0),
+                        textStyle: TextStyle(color: Colors.black),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               )
             ],
@@ -117,10 +111,5 @@ class _CreateListState extends State<CreateList> {
         ),
       ),
     );
-  }
-
-  void _clearInput() {
-    _nombreLista.clear();
-    setState(() {});
   }
 }
