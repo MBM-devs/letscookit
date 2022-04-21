@@ -32,8 +32,9 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
             onSuggestionTap: (value) {
               setState(() {
                 ListaCompra().add(value.item!);
-                _searchController.clear();
               });
+              _searchController.clear();
+              FocusScope.of(context).unfocus();
             },
             onSubmit: (value) {
               int indice = ListaIngredientes().buscaIngrediente(value);
@@ -44,8 +45,9 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
               if (value != "") {
                 ListaCompra().add(ListaIngredientes().get(indice));
               }
-              _searchController.clear();
               setState(() {});
+              _searchController.clear();
+              FocusScope.of(context).unfocus();
             },
           ),
           // controller.text = "";
