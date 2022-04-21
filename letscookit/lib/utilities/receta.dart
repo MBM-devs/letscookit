@@ -70,11 +70,11 @@ class Receta {
     Ingrediente ingrediente;
     if (index == -1) {
       ingrediente = Ingrediente(nombre);
+      _listaIngredientes.add(ingrediente);
     } else {
       ingrediente = ListaIngredientes().get(index);
     }
     Medida medida = Medida(cantidad, unidad);
-    _listaIngredientes.add(ingrediente);
     _ingredientes[ingrediente] = medida;
   }
 }

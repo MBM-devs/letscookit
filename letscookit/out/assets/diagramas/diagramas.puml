@@ -1,4 +1,4 @@
-@startuml diagrama
+@startuml clases
 set namespaceSeparator ::
 
 class "letscookit::config::palette.dart::Palette" {
