@@ -36,91 +36,93 @@ class _RecipeViewState extends State<RecipeView> {
                 color: Palette.mainBlue.shade900,
                 // borderRadius: BorderRadius.circular(20.0),
               ),
-              child: Column(
-                children: [
-                  RecipeImage(_receta.imagen),
-                  SizedBox(height: 20),
-                  Text(
-                    _receta.nombre,
-                    style: const TextStyle(
-                        fontSize: 16.0, fontWeight: FontWeight.bold),
-                  ),
-                  // rating
-                  SizedBox(height: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    RecipeImage(_receta.imagen),
+                    SizedBox(height: 20),
+                    Text(
+                      _receta.nombre,
+                      style: const TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
+                    ),
+                    // rating
+                    SizedBox(height: 20),
 
-                  Padding(
-                    padding: EdgeInsets.only(left: 60),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    Padding(
+                      padding: EdgeInsets.only(left: 60),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.person_rounded,
+                                    color: Color.fromARGB(255, 117, 117, 117),
+                                    size: 20,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    _receta.numPersonas.toString(),
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.grey.shade600),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.access_time_rounded,
+                                    color: Colors.grey.shade600,
+                                    size: 20,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    _receta.duracion.toString() + " min",
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.grey.shade600),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.only(left: 60.0, bottom: 30),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.person_rounded,
-                                  color: Color.fromARGB(255, 117, 117, 117),
-                                  size: 20,
-                                ),
-                                const SizedBox(width: 5),
-                                Text(
-                                  _receta.numPersonas.toString(),
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Colors.grey.shade600),
-                                )
-                              ],
-                            ),
+                          const Text(
+                            "Ingredientes: ",
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.25,
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.access_time_rounded,
-                                  color: Colors.grey.shade600,
-                                  size: 20,
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  _receta.duracion.toString() + " min",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Colors.grey.shade600),
-                                )
-                              ],
-                            ),
+                          ...getIngredientes(),
+                          SizedBox(height: 20),
+                          const Text(
+                            "Pasos: ",
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
                           ),
+                          ...getPasos()
                         ],
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: 80.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Ingredientes: ",
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
-                        ),
-                        ...getIngredientes(),
-                        SizedBox(height: 20),
-                        const Text(
-                          "Pasos: ",
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
-                        ),
-                        ...getPasos()
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             _receta.nombre);
@@ -138,7 +140,7 @@ class _RecipeViewState extends State<RecipeView> {
 
   List<IngredienteView> getIngredientes() {
     List<IngredienteView> ingredientes = [];
-    for (var i = 0; i < _receta.numPasos; i++) {
+    for (var i = 0; i < _receta.numIngredientes; i++) {
       ingredientes.add(IngredienteView(_receta.ingredientes.keys.elementAt(i),
           _receta.ingredientes.values.elementAt(i)));
     }

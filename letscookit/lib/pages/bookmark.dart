@@ -30,10 +30,10 @@ class _BookmarkState extends State<Bookmark> {
                 child: ListTile(
                   title: Text(LibroRecetas().get(index).nombre),
                   onTap: () {
-                    Navigator.pushNamed(context, '/lista/' + index.toString());
+                    Navigator.pushNamed(context, '/lista/' + index.toString())
+                        .then((_) => setState(() {}));
                   },
                   // leading: CircleAvatar(
-
                   //     ),
                 ),
               );
@@ -42,16 +42,15 @@ class _BookmarkState extends State<Bookmark> {
           height: 10.0,
           width: 1.0,
         ),
-        FloatingActionButton(
-          child: Icon(Icons.add),
-          backgroundColor: Palette.mainGreen,
+        ElevatedButton(
+          child: const Text("Crear Nueva Lista"),
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CreateList(),
-                ));
-            setState(() {});
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CreateList(),
+              ),
+            ).then((_) => setState(() {}));
           },
         ),
       ],

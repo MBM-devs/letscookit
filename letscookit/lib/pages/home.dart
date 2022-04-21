@@ -39,7 +39,6 @@ class _HomeState extends State<Home> {
       width: MediaQuery.of(context).size.width,
       child: Stack(
         children: [
-          // Image.network(_movies[_current]['image'], fit: BoxFit.fitHeight),
           Positioned(
             top: 0,
             left: 0,
@@ -60,16 +59,6 @@ class _HomeState extends State<Home> {
                     Palette.mainBlue.shade200.withOpacity(1.0),
                     Palette.mainBlue.shade100.withOpacity(1.0),
                     Palette.mainBlue.shade50.withOpacity(1.0),
-
-                    // Colors.grey.shade50.withOpacity(1),
-                    // Colors.grey.shade50.withOpacity(1),
-                    // Colors.grey.shade50.withOpacity(1),
-                    // Colors.grey.shade50.withOpacity(1),
-
-                    // Colors.grey.shade50.withOpacity(0.0),
-                    // Colors.grey.shade50.withOpacity(0.0),
-                    // Colors.grey.shade50.withOpacity(0.0),
-                    // Colors.grey.shade50.withOpacity(0.0),
                   ])),
             ),
           ),

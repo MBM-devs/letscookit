@@ -5,6 +5,7 @@ import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/receta.dart';
+import 'package:letscookit/widgets/my_scaffold.dart';
 import 'package:searchfield/searchfield.dart';
 import '../widgets/pasos_text_fields.dart';
 import '../widgets/search_bar.dart';
@@ -75,36 +76,7 @@ class _RecipeListState extends State<RecipeList> {
                 height: 20.0,
                 width: 1.0,
               ),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.add),
-                label: const Text("Añadir Receta"),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                        content: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: SearchBar(
-                        controller: _searchController,
-                        hint: "Buscar receta...",
-                        suggestions: LibroRecetas()
-                            .misRecetas
-                            .lista
-                            .map((e) =>
-                                SearchFieldListItem<Receta>(e.nombre, item: e))
-                            .toList(),
-                        onSuggestionTap: (value) {
-                          setState(() {
-                            widget._listaRecetas.add(value.item);
-                          });
-                          _searchController.clear();
-                        },
-                      ),
-                      // controller.text = "";
-                    )),
-                  );
-                },
-              ),
+              _buttonAddReceta(),
             ],
           ),
         ),
@@ -162,13 +134,56 @@ class _RecipeListState extends State<RecipeList> {
                   widget._listaRecetas.nombre = _nombreLista.value.text;
                 }
                 _nombreLista.clear();
-                setState(() {});
                 Navigator.pop(context);
+                setState(() {});
               },
               child: const Text("Cambiar")),
         ],
       ),
     );
+  }
+
+  Widget _buttonAddReceta() {
+    ElevatedButton button = ElevatedButton.icon(
+      icon: const Icon(Icons.add),
+      label: const Text("Añadir Receta"),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+              content: Container(
+            height: 300,
+            padding: EdgeInsets.all(10.0),
+            child: SearchBar(
+              controller: _searchController,
+              hint: "Buscar receta...",
+              suggestions: LibroRecetas()
+                  .misRecetas
+                  .lista
+                  .map((e) => SearchFieldListItem<Receta>(e.nombre, item: e))
+                  .toList(),
+              onSuggestionTap: (value) {
+                setState(() {
+                  widget._listaRecetas.add(value.item);
+                });
+                _searchController.clear();
+              },
+            ),
+          )),
+        );
+      },
+    );
+    if (widget._listaRecetas == LibroRecetas().misRecetas) {
+      button = ElevatedButton.icon(
+        icon: const Icon(Icons.add),
+        label: const Text("Crear Receta"),
+        onPressed: () {
+          Navigator.pushNamed(context, '/crear_receta')
+              .then((_) => setState(() {}));
+        },
+      );
+    }
+    return button;
   }
 
   Widget _buildDeletePopupDialog(BuildContext context) {
@@ -193,6 +208,7 @@ class _RecipeListState extends State<RecipeList> {
                 child: const Text('Cancelar'),
                 onPressed: () {
                   Navigator.pop(context);
+                  setState(() {});
                 },
               ),
               ElevatedButton(
@@ -206,9 +222,9 @@ class _RecipeListState extends State<RecipeList> {
                     'Eliminar'), //Podriamos poner que si el campo esta vacío, ponga 'Saltar' en vez de 'Crear'
                 onPressed: () {
                   LibroRecetas().eliminarLista(widget._listaRecetas);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
                   setState(() {});
-                  Navigator.pop(context);
-                  Navigator.pop(context);
                 },
               ),
             ],

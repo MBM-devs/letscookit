@@ -71,12 +71,15 @@ class Receta {
   /// Crea un Ingrediente, le asigna una cantidad y unidad y lo añade a la lista
   void crearIngrediente(int cantidad, String unidad, String nombre) {
     int index = _listaIngredientes.buscaIngrediente(nombre);
+    Ingrediente ingrediente;
     if (index == -1) {
-      Ingrediente ingrediente = Ingrediente(nombre);
-      Medida medida = Medida(cantidad, unidad);
-      _listaIngredientes.add(ingrediente);
-      _ingredientes[ingrediente] = medida;
+      ingrediente = Ingrediente(nombre);
+    } else {
+      ingrediente = ListaIngredientes().get(index);
     }
+    Medida medida = Medida(cantidad, unidad);
+    _listaIngredientes.add(ingrediente);
+    _ingredientes[ingrediente] = medida;
   }
 
   //void addImagen(File imagen) => imagenes.add(imagen);

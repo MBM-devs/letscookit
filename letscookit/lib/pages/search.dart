@@ -21,45 +21,48 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
-      child: SearchBar(
-        controller: _searchController,
-        hint: "Buscar receta...",
-        suggestions: LibroRecetas()
-            .misRecetas
-            .lista
-            .map((e) => SearchFieldListItem<Receta>(e.nombre, item: e))
-            .toList(),
-        onSuggestionTap: (value) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RecipeView(value.item),
-              ));
-          setState(() {});
-          _searchController.clear();
-        },
-        // onSubmit: (value) {
-        //   int index = LibroRecetas().misRecetas.buscaReceta(value);
-        //   if (index != -1) {
-        //     Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) =>
-        //               RecipeView(LibroRecetas().misRecetas.get(index)),
-        //         ));
-        //   } else {
-        //     Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) => CreateRecipe(),
-        //         ));
-        //   }
+      child: Column(
+        children: [
+          SearchBar(
+            controller: _searchController,
+            hint: "Buscar receta...",
+            suggestions: LibroRecetas()
+                .misRecetas
+                .lista
+                .map((e) => SearchFieldListItem<Receta>(e.nombre, item: e))
+                .toList(),
+            onSuggestionTap: (value) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RecipeView(value.item),
+                  ));
+              setState(() {});
+              _searchController.clear();
+            },
+            // onSubmit: (value) {
+            //   int index = LibroRecetas().misRecetas.buscaReceta(value);
+            //   if (index != -1) {
+            //     Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) =>
+            //               RecipeView(LibroRecetas().misRecetas.get(index)),
+            //         ));
+            //   } else {
+            //     Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => CreateRecipe(),
+            //         ));
+            //   }
 
-        //   setState(() {});
-        //   _searchController.clear();
-        // },
+            //   setState(() {});
+            //   _searchController.clear();
+            // },
+          ),
+        ],
       ),
-      // controller.text = "";
     );
   }
 }

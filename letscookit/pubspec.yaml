@@ -37,6 +37,7 @@ dependencies:
   searchfield: ^0.6.3
   carousel_slider: ^4.0.0
   image_picker: ^0.8.5
+  dcdg: ^4.0.1
 
 dev_dependencies:
   flutter_test:

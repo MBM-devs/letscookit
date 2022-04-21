@@ -1,47 +1,26 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:letscookit/pages/create_list.dart';
+
 import 'package:letscookit/pages/recipe_list.dart';
 
 import 'package:letscookit/pages/recipe_view.dart';
+import 'package:letscookit/utilities/generar_recetas.dart';
 import 'package:letscookit/widgets/my_scaffold.dart';
 import 'pages/home.dart';
 import 'pages/bookmark.dart';
 import 'pages/create_recipe.dart';
 import 'pages/search.dart';
 import 'pages/shopping_basket.dart';
-import 'package:letscookit/utilities/ingrediente.dart';
+
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_ingredientes.dart';
-import 'package:letscookit/utilities/lista_compra.dart';
-import 'package:letscookit/utilities/lista_receta.dart';
-import 'package:letscookit/utilities/medida.dart';
+
 import 'package:letscookit/utilities/receta.dart';
 import 'config/palette.dart';
 
 void main() {
-  Receta receta = Receta("Pollo al limón", 2, 60, 'assets/PolloAlLimon.jpeg');
-  receta.crearPaso("Calentar Pollo");
-  receta.crearPaso("Poner limon");
-  receta.crearPaso("Poner Sal");
-  // receta.crearPaso("Comer");
-
-  ListaIngredientes l1 = ListaIngredientes();
-  LibroRecetas libro = LibroRecetas();
-
-  libro.misRecetas.add(receta);
-  libro.misRecetas
-      .add(Receta("Pollo al Curry", 4, 120, 'assets/pollo-al-curry.jpeg'));
-  // libro2.misRecetas.add(Receta("Esparragos", 4));
-
-  receta.crearIngrediente(2, "Rodajas", "Limón");
-  receta.crearIngrediente(1, "", "Pollo");
-  receta.crearIngrediente(1, "pizca", "Sal");
-
-  // receta.ingredientes.forEach((key, value) =>
-  //     print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
-
+  GenerarRecetas().crear();
   runApp(MyApp());
 }
 

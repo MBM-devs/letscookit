@@ -20,7 +20,7 @@ class _CreateListState extends State<CreateList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Crear Lista"),
+        title: const Text("Crear Lista"),
       ),
       //padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       body: Center(

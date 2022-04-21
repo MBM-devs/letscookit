@@ -1,0 +1,446 @@
+@startuml diagrama
+set namespaceSeparator ::
+
+class "letscookit::config::palette.dart::Palette" {
+  {static} +MaterialColor mainBlue
+  {static} +MaterialColor mainGreen
+}
+
+"letscookit::config::palette.dart::Palette" o-- "flutter::src::material::colors.dart::MaterialColor"
+
+class "letscookit::main.dart::MyApp" {
+  +_MyAppState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::main.dart::MyApp"
+
+class "letscookit::main.dart::_MyAppState" {
+  -int _paginaActual
+  -List<Widget> _paginas
+  -List<String> _titulos
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::main.dart::_MyAppState"
+
+abstract class "letscookit::utilities::lista.dart::Lista" {
+  #List<dynamic> lista
+  -String _nombre
+  +String nombre
+  +dynamic get()
+  +int length()
+  +void add()
+  +void forEach()
+  +void remove()
+}
+
+class "letscookit::utilities::receta.dart::Receta" {
+  -String _nombre
+  -int _numPersonas
+  -int _duracion
+  -String _imagen
+  -bool _realizada
+  -List<Paso> _pasos
+  -Map<Ingrediente, Medida> _ingredientes
+  -List<Etiqueta> _etiquetas
+  -ListaIngredientes _listaIngredientes
+  +String nombre
+  +int numPersonas
+  +bool realizada
+  +int duracion
+  +String imagen
+  +int numPasos
+  +int numIngredientes
+  +Map<Ingrediente, Medida> ingredientes
+  +Paso getPaso()
+  +Etiqueta getEtiqueta()
+  +void addIngrediente()
+  +void addEtiqueta()
+  +void crearPaso()
+  +void crearIngrediente()
+}
+
+"letscookit::utilities::receta.dart::Receta" o-- "letscookit::utilities::lista_ingredientes.dart::ListaIngredientes"
+
+class "letscookit::utilities::lista_receta.dart::ListaReceta" {
+  +String nombre
+  +int buscaReceta()
+  +void add()
+}
+
+"letscookit::utilities::lista.dart::Lista" <|-- "letscookit::utilities::lista_receta.dart::ListaReceta"
+
+class "letscookit::utilities::menu_diario.dart::MenuDiario" {
+  -ListaReceta _desayuno
+  -ListaReceta _comida
+  -ListaReceta _cena
+  +void addDesayuno()
+  +void addComida()
+  +void addCena()
+  +void removeDesayuno()
+  +void removeComida()
+  +void removeCena()
+}
+
+"letscookit::utilities::menu_diario.dart::MenuDiario" o-- "letscookit::utilities::lista_receta.dart::ListaReceta"
+
+class "letscookit::utilities::medida.dart::Medida" {
+  -int _cantidad
+  -String _unidad
+  +int cantidad
+  +String unidad
+}
+
+class "letscookit::utilities::lista_mis_recetas.dart::MisRecetas" {
+  {static} -MisRecetas _instance
+}
+
+"letscookit::utilities::lista_mis_recetas.dart::MisRecetas" o-- "letscookit::utilities::lista_mis_recetas.dart::MisRecetas"
+"letscookit::utilities::lista_receta.dart::ListaReceta" <|-- "letscookit::utilities::lista_mis_recetas.dart::MisRecetas"
+
+class "letscookit::utilities::categoria.dart::Categoria" {
+  +int index
+  {static} +List<Categoria> values
+  {static} +Categoria sabor
+  {static} +Categoria nacionalidad
+  {static} +Categoria alergenos
+  {static} +Categoria plato
+  {static} +Categoria otro
+}
+
+"letscookit::utilities::categoria.dart::Categoria" o-- "letscookit::utilities::categoria.dart::Categoria"
+"dart::core::Enum" <|-- "letscookit::utilities::categoria.dart::Categoria"
+
+class "letscookit::utilities::generar_recetas.dart::GenerarRecetas" {
+  +void crear()
+}
+
+class "letscookit::utilities::ingrediente.dart::Ingrediente" {
+  -String _nombre
+  +String nombre
+}
+
+class "letscookit::utilities::lista_compra.dart::ListaCompra" {
+  -Map<Ingrediente, bool> _lista
+  {static} -ListaCompra _instance
+  +Map<Ingrediente, bool> lista
+  +void add()
+  +Ingrediente get()
+  +bool getCheck()
+  +void setCheck()
+  +int length()
+  +void borrarComprados()
+  +bool hayComprados()
+}
+
+"letscookit::utilities::lista_compra.dart::ListaCompra" o-- "letscookit::utilities::lista_compra.dart::ListaCompra"
+
+class "letscookit::utilities::lista_ingredientes.dart::ListaIngredientes" {
+  {static} -ListaIngredientes _instance
+  +int buscaIngrediente()
+  +bool existeIngrediente()
+}
+
+"letscookit::utilities::lista_ingredientes.dart::ListaIngredientes" o-- "letscookit::utilities::lista_ingredientes.dart::ListaIngredientes"
+"letscookit::utilities::lista.dart::Lista" <|-- "letscookit::utilities::lista_ingredientes.dart::ListaIngredientes"
+
+class "letscookit::utilities::paso.dart::Paso" {
+  -int _numero
+  -String _descripcion
+  +int numero
+  +String descripcion
+}
+
+class "letscookit::utilities::libro_recetas.dart::LibroRecetas" {
+  {static} -LibroRecetas _instance
+  +ListaReceta misRecetas
+  +void crearLista()
+  +void eliminarLista()
+  +void inicializarLibro()
+  +void crearNuevaReceta()
+  +bool nombreValido()
+}
+
+"letscookit::utilities::libro_recetas.dart::LibroRecetas" o-- "letscookit::utilities::libro_recetas.dart::LibroRecetas"
+"letscookit::utilities::libro_recetas.dart::LibroRecetas" o-- "letscookit::utilities::lista_receta.dart::ListaReceta"
+"letscookit::utilities::lista.dart::Lista" <|-- "letscookit::utilities::libro_recetas.dart::LibroRecetas"
+
+class "letscookit::utilities::etiqueta.dart::Etiqueta" {
+  -String _tag
+  -Categoria _categoria
+  +String tag
+}
+
+"letscookit::utilities::etiqueta.dart::Etiqueta" o-- "letscookit::utilities::categoria.dart::Categoria"
+
+class "letscookit::pages::recipe_view.dart::RecipeView" {
+  -Receta _receta
+  +State<RecipeView> createState()
+}
+
+"letscookit::pages::recipe_view.dart::RecipeView" o-- "letscookit::utilities::receta.dart::Receta"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::pages::recipe_view.dart::RecipeView"
+
+class "letscookit::pages::recipe_view.dart::_RecipeViewState" {
+  -CarouselController _carouselController
+  -int _current
+  -Receta _receta
+  +Widget build()
+  +List<PasoView> getPasos()
+  +List<IngredienteView> getIngredientes()
+}
+
+"letscookit::pages::recipe_view.dart::_RecipeViewState" o-- "carousel_slider::carousel_controller.dart::CarouselController"
+"letscookit::pages::recipe_view.dart::_RecipeViewState" o-- "letscookit::utilities::receta.dart::Receta"
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::pages::recipe_view.dart::_RecipeViewState"
+
+class "letscookit::pages::shopping_basket.dart::ShoppingBasket" {
+  +State<ShoppingBasket> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::pages::shopping_basket.dart::ShoppingBasket"
+
+class "letscookit::pages::shopping_basket.dart::_ShoppingBasketState" {
+  -int _cont
+  -TextEditingController _searchController
+  +Widget build()
+  -List<Widget> _getIngredientes()
+}
+
+"letscookit::pages::shopping_basket.dart::_ShoppingBasketState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::pages::shopping_basket.dart::_ShoppingBasketState"
+
+class "letscookit::pages::home.dart::Home" {
+  -ListaReceta _lista
+  +_HomeState createState()
+}
+
+"letscookit::pages::home.dart::Home" o-- "letscookit::utilities::lista_receta.dart::ListaReceta"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::pages::home.dart::Home"
+
+class "letscookit::pages::home.dart::_HomeState" {
+  -CarouselController _carouselController
+  -int _current
+  -ListaReceta _recetas
+  +void initState()
+  +Widget build()
+}
+
+"letscookit::pages::home.dart::_HomeState" o-- "carousel_slider::carousel_controller.dart::CarouselController"
+"letscookit::pages::home.dart::_HomeState" o-- "letscookit::utilities::lista_receta.dart::ListaReceta"
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::pages::home.dart::_HomeState"
+
+class "letscookit::pages::bookmark.dart::Bookmark" {
+  +State<Bookmark> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::pages::bookmark.dart::Bookmark"
+
+class "letscookit::pages::bookmark.dart::_BookmarkState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::pages::bookmark.dart::_BookmarkState"
+
+class "letscookit::pages::create_list.dart::CreateList" {
+  +State<CreateList> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::pages::create_list.dart::CreateList"
+
+class "letscookit::pages::create_list.dart::_CreateListState" {
+  -TextEditingController _nombreLista
+  +Widget build()
+}
+
+"letscookit::pages::create_list.dart::_CreateListState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::pages::create_list.dart::_CreateListState"
+
+class "letscookit::pages::create_recipe.dart::CreateRecipe" {
+  -ListaReceta? _lista
+  +State<CreateRecipe> createState()
+}
+
+"letscookit::pages::create_recipe.dart::CreateRecipe" o-- "letscookit::utilities::lista_receta.dart::ListaReceta"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::pages::create_recipe.dart::CreateRecipe"
+
+class "letscookit::pages::create_recipe.dart::_CreateRecipeState" {
+  -GlobalKey<FormState> _formKey
+  -GlobalKey<FormState> _formImg
+  +List<TextEditingController> pasos
+  +LibroRecetas libro
+  -TextEditingController _imagenReceta
+  -TextEditingController _nombreReceta
+  -TextEditingController _numeroPersonas
+  -TextEditingController _tiempoReceta
+  {static} +List<String> pasosList
+  +List<Ingrediente> ingredientes
+  +List<Medida> medidas
+  +String nombre
+  +String imagen
+  +int numPersonas
+  +int tiempo
+  +Widget build()
+  -void _clearInputs()
+  -Widget _getImagen()
+  -List<Widget> _getPasos()
+  -List<Widget> _getIngredientes()
+  -Widget _addRemoveButton()
+}
+
+"letscookit::pages::create_recipe.dart::_CreateRecipeState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"letscookit::pages::create_recipe.dart::_CreateRecipeState" o-- "letscookit::utilities::libro_recetas.dart::LibroRecetas"
+"letscookit::pages::create_recipe.dart::_CreateRecipeState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::pages::create_recipe.dart::_CreateRecipeState"
+
+class "letscookit::pages::recipe_list.dart::RecipeList" {
+  -ListaReceta _listaRecetas
+  +State<RecipeList> createState()
+}
+
+"letscookit::pages::recipe_list.dart::RecipeList" o-- "letscookit::utilities::lista_receta.dart::ListaReceta"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::pages::recipe_list.dart::RecipeList"
+
+class "letscookit::pages::recipe_list.dart::_RecipeListState" {
+  -List<String> _settingsMenu
+  -TextEditingController _nombreLista
+  -TextEditingController _searchController
+  +Widget build()
+  +void handleClick()
+  -Widget _buildChangePopupDialog()
+  -Widget _buttonAddReceta()
+  -Widget _buildDeletePopupDialog()
+}
+
+"letscookit::pages::recipe_list.dart::_RecipeListState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::pages::recipe_list.dart::_RecipeListState"
+
+class "letscookit::pages::search.dart::Search" {
+  +State<Search> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::pages::search.dart::Search"
+
+class "letscookit::pages::search.dart::_SearchState" {
+  -TextEditingController _searchController
+  +Widget build()
+}
+
+"letscookit::pages::search.dart::_SearchState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::pages::search.dart::_SearchState"
+
+class "letscookit::widgets::search_bar.dart::SearchBar" {
+}
+
+"searchfield::src::searchfield.dart::SearchField" <|-- "letscookit::widgets::search_bar.dart::SearchBar"
+
+class "letscookit::widgets::ingrediente_view.dart::IngredienteView" {
+  -Ingrediente _ingrediente
+  -Medida _medida
+  +_IngredienteViewState createState()
+}
+
+"letscookit::widgets::ingrediente_view.dart::IngredienteView" o-- "letscookit::utilities::ingrediente.dart::Ingrediente"
+"letscookit::widgets::ingrediente_view.dart::IngredienteView" o-- "letscookit::utilities::medida.dart::Medida"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::widgets::ingrediente_view.dart::IngredienteView"
+
+class "letscookit::widgets::ingrediente_view.dart::_IngredienteViewState" {
+  +Widget build()
+  -Text _getUnidad()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::widgets::ingrediente_view.dart::_IngredienteViewState"
+
+class "letscookit::widgets::my_scaffold.dart::MyScaffold" {
+  -Widget _pagina
+  -String _titulo
+  {static} +int current
+}
+
+"letscookit::widgets::my_scaffold.dart::MyScaffold" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::material::scaffold.dart::Scaffold" <|-- "letscookit::widgets::my_scaffold.dart::MyScaffold"
+
+class "letscookit::widgets::ingrediente_input.dart::IngredienteInput" {
+  -int _index
+  -List<Ingrediente> _ingredientes
+  -List<Medida> _medidas
+  +State<IngredienteInput> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::widgets::ingrediente_input.dart::IngredienteInput"
+
+class "letscookit::widgets::ingrediente_input.dart::_IngredienteInputState" {
+  -TextEditingController _cantidadIngrediente
+  -TextEditingController _unidadIngrediente
+  -TextEditingController _searchController
+  -TextEditingController _ingredienteController
+  -Ingrediente? _selecionado
+  +Widget build()
+}
+
+"letscookit::widgets::ingrediente_input.dart::_IngredienteInputState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"letscookit::widgets::ingrediente_input.dart::_IngredienteInputState" o-- "letscookit::utilities::ingrediente.dart::Ingrediente"
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::widgets::ingrediente_input.dart::_IngredienteInputState"
+
+class "letscookit::widgets::paso_view.dart::PasoView" {
+  +int index
+  -Paso _paso
+  +_PasoViewState createState()
+}
+
+"letscookit::widgets::paso_view.dart::PasoView" o-- "letscookit::utilities::paso.dart::Paso"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::widgets::paso_view.dart::PasoView"
+
+class "letscookit::widgets::paso_view.dart::_PasoViewState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::widgets::paso_view.dart::_PasoViewState"
+
+class "letscookit::widgets::recipe_image.dart::RecipeImage" {
+  -String _imagen
+  +_RecipeImageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::widgets::recipe_image.dart::RecipeImage"
+
+class "letscookit::widgets::recipe_image.dart::_RecipeImageState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::widgets::recipe_image.dart::_RecipeImageState"
+
+class "letscookit::widgets::pasos_text_fields.dart::PasosTextFields" {
+  +int index
+  +List<String> pasosList
+  +_PasosTextFields createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::widgets::pasos_text_fields.dart::PasosTextFields"
+
+class "letscookit::widgets::pasos_text_fields.dart::_PasosTextFields" {
+  -TextEditingController _pasoController
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"letscookit::widgets::pasos_text_fields.dart::_PasosTextFields" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::widgets::pasos_text_fields.dart::_PasosTextFields"
+
+class "letscookit::widgets::ingrediente_comprar.dart::IngredienteComprar" {
+  -Ingrediente _ingrediente
+  +State<IngredienteComprar> createState()
+}
+
+"letscookit::widgets::ingrediente_comprar.dart::IngredienteComprar" o-- "letscookit::utilities::ingrediente.dart::Ingrediente"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "letscookit::widgets::ingrediente_comprar.dart::IngredienteComprar"
+
+class "letscookit::widgets::ingrediente_comprar.dart::_IngredienteComprarState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "letscookit::widgets::ingrediente_comprar.dart::_IngredienteComprarState"
+
+
+@enduml

@@ -37,11 +37,13 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
             },
             onSubmit: (value) {
               int indice = ListaIngredientes().buscaIngrediente(value);
-              if (indice == -1) {
+              if (indice == -1 && value != "") {
                 ListaIngredientes().add(Ingrediente(value));
                 indice = ListaIngredientes().length() - 1;
               }
-              ListaCompra().add(ListaIngredientes().get(indice));
+              if (value != "") {
+                ListaCompra().add(ListaIngredientes().get(indice));
+              }
               _searchController.clear();
               setState(() {});
             },
@@ -54,26 +56,44 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
             onPressed: () {
               if (ListaCompra().hayComprados()) {
                 showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                          content: const Text(
-                              "¿Está seguro de borrar los ingredientes marcados?"),
-                          actions: [
-                            ElevatedButton(
-                                onPressed: (() {
-                                  setState(() {});
-                                  Navigator.pop(context);
-                                }),
-                                child: Text("Cancelar")),
-                            ElevatedButton(
-                                onPressed: (() {
-                                  ListaCompra().borrarComprados();
-                                  setState(() {});
-                                  Navigator.pop(context);
-                                }),
-                                child: Text("Si")),
-                          ],
-                        ));
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: const Text(
+                        "¿Seguro que quiere borrar todos los ingredientes comprados?"),
+                    actions: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.grey[700],
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 5.0),
+                                textStyle: TextStyle(color: Colors.grey[200]),
+                              ),
+                              onPressed: (() {
+                                setState(() {});
+                                Navigator.pop(context);
+                              }),
+                              child: Text("Cancelar")),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.red[400],
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 5.0),
+                                textStyle: const TextStyle(color: Colors.black),
+                              ),
+                              onPressed: (() {
+                                ListaCompra().borrarComprados();
+                                setState(() {});
+                                Navigator.pop(context);
+                              }),
+                              child: Text("Si")),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
               }
             }),
       ],
