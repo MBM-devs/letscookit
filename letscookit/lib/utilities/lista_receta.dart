@@ -8,8 +8,9 @@ class ListaReceta extends Lista {
   void set nombre(String nombre) => super.nombre = nombre;
 
   int buscaReceta(String nombre) {
-    return super.lista.indexWhere(
-        (element) => element.nombre == nombre); //Devuelve -1 si no lo encuentra
+    return super.lista.indexWhere((element) =>
+        element.nombre.toLowerCase() ==
+        nombre.toLowerCase()); //Devuelve -1 si no lo encuentra
   }
 
   @override
