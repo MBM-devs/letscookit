@@ -14,7 +14,6 @@ class ShoppingBasket extends StatefulWidget {
 }
 
 class _ShoppingBasketState extends State<ShoppingBasket> {
-  int _cont = 0;
   TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -30,9 +29,8 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
                 .map((e) => SearchFieldListItem<Ingrediente>(e.nombre, item: e))
                 .toList(),
             onSuggestionTap: (value) {
-              setState(() {
-                ListaCompra().add(value.item!);
-              });
+              ListaCompra().add(value.item!);
+              setState(() {});
               _searchController.clear();
               FocusScope.of(context).unfocus();
             },
