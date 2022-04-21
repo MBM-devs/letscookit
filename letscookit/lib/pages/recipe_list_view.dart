@@ -108,7 +108,7 @@ class _RecipeListViewState extends State<RecipeListView> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: Image.network(receta.imagen,
+                                child: Image.asset(receta.imagen,
                                     fit: BoxFit.cover),
                               ),
                               SizedBox(height: 20),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:letscookit/utilities/lista_ingredientes.dart';
 
 import 'package:letscookit/utilities/paso.dart';
@@ -9,6 +10,7 @@ class Receta {
   String _nombre;
   int _numPersonas;
   int _duracion;
+  // String _imagen;
   String _imagen;
   bool _realizada;
   List<Paso> _pasos; // * Tiene que estar ordenada
@@ -17,9 +19,8 @@ class Receta {
   ListaIngredientes _listaIngredientes;
 
   //Constructor
-  Receta(this._nombre, this._numPersonas, this._duracion)
+  Receta(this._nombre, this._numPersonas, this._duracion, this._imagen)
       : _realizada = false,
-        _imagen = '',
         _pasos = [],
         _ingredientes = {},
         _listaIngredientes = ListaIngredientes(),

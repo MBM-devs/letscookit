@@ -4,6 +4,7 @@ import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/receta.dart';
 import 'package:letscookit/widgets/paso_view.dart';
+import 'package:letscookit/widgets/recipe_image.dart';
 
 class RecipeView extends StatefulWidget {
   Receta _receta;
@@ -33,15 +34,7 @@ class _RecipeViewState extends State<RecipeView> {
           ),
           child: Column(
             children: [
-              Container(
-                height: 300,
-                margin: const EdgeInsets.only(top: 30),
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Image.network(_receta.imagen, fit: BoxFit.cover),
-              ),
+              RecipeImage(_receta.imagen),
               SizedBox(height: 20),
               Text(
                 _receta.nombre,

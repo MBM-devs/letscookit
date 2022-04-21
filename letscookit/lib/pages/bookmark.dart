@@ -15,12 +15,6 @@ class Bookmark extends StatefulWidget {
 }
 
 class _BookmarkState extends State<Bookmark> {
-  List<Receta> lista = [];
-  LibroRecetas libroRecetas = LibroRecetas();
-  ListaReceta listaRecetas = ListaReceta("Mi Lista");
-  String _receta =
-      "Receta1"; //Tiene que estar inicializado al valor de alguno de los items
-  Receta receta1 = new Receta("Pollo al limon", 2, 3);
   @override
   Widget build(BuildContext context) {
     //libroRecetas.add(listaRecetas);
@@ -30,16 +24,16 @@ class _BookmarkState extends State<Bookmark> {
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: libroRecetas.length(),
+            itemCount: LibroRecetas().length(),
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 child: ListTile(
-                  title: Text(libroRecetas.get(index).nombre),
+                  title: Text(LibroRecetas().get(index).nombre),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RecipeList(libroRecetas.get(
+                        builder: (context) => RecipeList(LibroRecetas().get(
                             index)), //tendria que llevar a la pagina RecipeList del indice correspondiente
                       ),
                     );
@@ -69,23 +63,4 @@ class _BookmarkState extends State<Bookmark> {
       ],
     );
   }
-
-  //Metodo que redirige al usuario a la receta que ha seleccionado del menu desplegable
-  void viewReceta(String? selectedReceta) {
-    //se le pasa Receta receta
-    if (selectedReceta is String) {
-      setState(() {
-        _receta = selectedReceta;
-      });
-    }
-  }
-  /*
-  void viewReceta(Receta? selectedReceta){ //se le pasa Receta receta
-    if(selectedReceta is Receta){
-      setState(() {
-        _receta = selectedReceta;
-      });
-    }
-  }
-  */
 }

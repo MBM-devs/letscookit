@@ -1,8 +1,13 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
+import 'package:letscookit/utilities/receta.dart';
+import 'package:letscookit/widgets/ingrediente_input.dart';
+import 'package:letscookit/widgets/recipe_image.dart';
 import '../widgets/pasos_text_fields.dart';
 
 //import 'dynamic_fields.dart';
@@ -20,26 +25,30 @@ class CreateRecipe extends StatefulWidget {
 
 class _CreateRecipeState extends State<CreateRecipe> {
   final _formKey = GlobalKey<FormState>();
+  final _formImg = GlobalKey<FormState>();
 
   List<TextEditingController> pasos = [TextEditingController()];
 
   LibroRecetas libro = LibroRecetas();
 
+  TextEditingController _imagenReceta = TextEditingController();
   TextEditingController _nombreReceta = TextEditingController();
   TextEditingController _numeroPersonas = TextEditingController();
   TextEditingController _tiempoReceta = TextEditingController();
   TextEditingController _pasoController = TextEditingController();
 
   static List<String> pasosList = [""];
+  static List<String> ingredientesList = [""];
 
   String nombre = '';
+  String imagen = '';
   int numPersonas = 1;
   int tiempo = 0;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Center(
         child: Form(
           key: _formKey,
@@ -48,7 +57,59 @@ class _CreateRecipeState extends State<CreateRecipe> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(height: 24.0),
+              // const SizedBox(height: 24.0),
+
+              _getImagen(
+                _imagenReceta.text,
+                (() {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      content: Form(
+                        key: _formImg,
+                        child: TextFormField(
+                          controller: _imagenReceta,
+                          decoration: const InputDecoration(
+                            icon: Icon(Icons.camera_rounded),
+                            hintText: 'Introduce el enlace de la imagen',
+                            labelText: 'Imagen',
+                          ),
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Por favor, introduzca una imagen';
+                          //   }
+                          //   return null;
+                          // },
+                          onSaved: (value) {
+                            if (value != null) imagen = value;
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: (() {
+                              _imagenReceta.clear();
+                              setState(() {});
+                              Navigator.pop(context);
+                            }),
+                            child: const Text("Eliminar Imagen")),
+                        ElevatedButton(
+                            onPressed: (() {
+                              if (_formImg.currentState!.validate()) {
+                                _formImg.currentState!.save();
+
+                                setState(() {});
+                                Navigator.pop(context);
+                              }
+                            }),
+                            child: const Text("Confirmar")),
+                      ],
+                    ),
+                  );
+                }),
+              ),
+
               TextFormField(
                 controller: _nombreReceta,
                 decoration: const InputDecoration(
@@ -101,6 +162,17 @@ class _CreateRecipeState extends State<CreateRecipe> {
                 onSaved: (value) {
                   if (value != null) tiempo = int.parse(value);
                 },
+                onEditingComplete: () {
+                  setState(() {});
+                },
+              ),
+
+              const Padding(
+                padding: EdgeInsets.only(top: 16.0),
+                child: Text(
+                  'Añadir Ingredientes',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                ),
               ),
 
               const Padding(
@@ -122,15 +194,15 @@ class _CreateRecipeState extends State<CreateRecipe> {
                     // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      libro.crearNuevaReceta(widget._lista, nombre, numPersonas,
-                          tiempo, pasosList);
+                      libro.crearNuevaReceta(widget._lista, nombre, imagen,
+                          numPersonas, tiempo, pasosList);
 
-                      _clearInputs();
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
+                        const SnackBar(content: Text('Receta Añadida.')),
                       );
+                      _clearInputs();
                     }
                   },
                   child: const Text('Crear'),
@@ -144,11 +216,21 @@ class _CreateRecipeState extends State<CreateRecipe> {
   }
 
   void _clearInputs() {
+    _imagenReceta.clear();
     _nombreReceta.clear();
     _numeroPersonas.clear();
     _tiempoReceta.clear();
     pasosList = [''];
     setState(() {});
+  }
+
+  Widget _getImagen(String linkImg, Function()? onTap) {
+    RecipeImage imagen = RecipeImage(linkImg);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: imagen,
+    );
   }
 
   /// get firends text-fields
@@ -173,6 +255,29 @@ class _CreateRecipeState extends State<CreateRecipe> {
       );
     }
     return pasosTextFields;
+  }
+
+  List<Widget> _getIngredientes() {
+    List<Widget> ingredientesFields = [];
+    for (int i = 0; i < ingredientesList.length; i++) {
+      ingredientesFields.add(
+        // Padding(
+        // padding: const EdgeInsets.symmetric(vertical: 16.0),
+        // child:
+        Row(
+          children: [
+            Expanded(child: IngredienteInput(i, ingredientesList)),
+            const SizedBox(
+              width: 16,
+            ),
+            // we need add button at last friends row
+            _addRemoveButton(i == pasosList.length - 1, i),
+          ],
+        ),
+        // )
+      );
+    }
+    return ingredientesFields;
   }
 
   ///Añade el boton de añadir y eliminat

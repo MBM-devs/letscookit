@@ -7,7 +7,7 @@ import 'pages/home.dart';
 import 'pages/bookmark.dart';
 import 'pages/create_recipe.dart';
 import 'pages/search.dart';
-import 'pages/shoppingBasket.dart';
+import 'pages/shopping_basket.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_ingredientes.dart';
@@ -18,7 +18,7 @@ import 'package:letscookit/utilities/receta.dart';
 import 'config/palette.dart';
 
 void main() {
-  Receta receta = Receta("Pollo al limón", 2, 60);
+  Receta receta = Receta("Pollo al limón", 2, 60, 'assets/PolloAlLimon.jpeg');
   receta.crearPaso("Calentar Pollo");
   receta.crearPaso("Poner limon");
   receta.crearPaso("Poner Sal");
@@ -26,7 +26,8 @@ void main() {
   LibroRecetas libro = LibroRecetas();
 
   libro.misRecetas.add(receta);
-  libro.misRecetas.add(Receta("Pollo al Curry", 4, 120));
+  libro.misRecetas
+      .add(Receta("Pollo al Curry", 4, 120, 'assets/pollo-al-curry.jpeg'));
   // libro2.misRecetas.add(Receta("Esparragos", 4));
 
   // receta.crearIngrediente(2, "Rodajas", "Limón");
@@ -35,14 +36,6 @@ void main() {
 
   // receta.ingredientes.forEach((key, value) =>
   //     print('${key.nombre}: ${value.cantidad} ${value.unidad} '));
-  libro.misRecetas.forEach((receta) {
-    print(receta.nombre);
-    print(receta.numPasos);
-  });
-
-  l1.forEach((ingrediente) {
-    print(ingrediente.nombre);
-  });
 
   runApp(MyApp());
 }
@@ -58,9 +51,9 @@ class _MyAppState extends State<MyApp> {
     Home(),
     Bookmark(),
     CreateRecipe(),
-    // RecipeView(LibroRecetas().misRecetas.get(0)),
-    Search(),
-    shoppingBasket()
+    RecipeView(LibroRecetas().misRecetas.get(0)),
+    // Search(),
+    ShoppingBasket()
   ];
   final List<String> _titulos = [
     "Mis Recetas",
@@ -95,7 +88,7 @@ class _MyAppState extends State<MyApp> {
                 _paginaActual = index;
               });
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home_rounded),
                 label: "",

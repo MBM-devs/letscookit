@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
+import 'package:letscookit/widgets/recipe_image.dart';
 
 class Home extends StatefulWidget {
   ListaReceta _lista;
@@ -100,16 +101,7 @@ class _HomeState extends State<Home> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              Container(
-                                height: 320,
-                                margin: EdgeInsets.only(top: 30),
-                                clipBehavior: Clip.hardEdge,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Image.network(receta.imagen,
-                                    fit: BoxFit.cover),
-                              ),
+                              RecipeImage(receta.imagen),
                               SizedBox(height: 20),
                               Text(
                                 receta.nombre,
@@ -121,7 +113,7 @@ class _HomeState extends State<Home> {
                               SizedBox(height: 20),
 
                               Padding(
-                                padding: EdgeInsets.only(left: 60),
+                                padding: const EdgeInsets.only(left: 60),
                                 child: AnimatedOpacity(
                                   duration: Duration(milliseconds: 500),
                                   opacity:
