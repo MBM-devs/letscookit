@@ -42,5 +42,10 @@ app.*.map.json
 
 # Android Studio will place build artifacts here
 /android/app/debug
+/android/app/debug
 /android/app/profile
 /android/app/release
+letscookit/windows/flutter/generated_plugin_registrant.cc
+letscookit/windows/flutter/generated_plugin_registrant.h
+letscookit/windows/
+
