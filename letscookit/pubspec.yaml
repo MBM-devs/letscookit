@@ -40,6 +40,7 @@ dependencies:
   dcdg: ^4.0.1
 
 dev_dependencies:
+  test: any
   flutter_test:
     sdk: flutter
 
