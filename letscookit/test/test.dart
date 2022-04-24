@@ -24,8 +24,9 @@ void main () {
     test('ingrediente comprados borrados',(){
       ListaCompra lista = ListaCompra();
       int longitud = lista.length();
+      expect(lista.hayComprados(), true);
       lista.borrarComprados();
-      
+      expect(lista.hayComprados(), false);
       expect(lista.length(), longitud - 1);
     });
   });
