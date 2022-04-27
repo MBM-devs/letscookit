@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
+import 'package:letscookit/utilities/funciones_comprobacion.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
+import 'package:letscookit/utilities/lista_mis_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/medida.dart';
 import 'package:letscookit/widgets/ingrediente_input.dart';
@@ -111,6 +113,8 @@ class _CreateRecipeState extends State<CreateRecipe> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, introduzca un nombre';
+                  } else if (!nombreValido(value, LibroRecetas().misRecetas)) {
+                    return 'Por favor, introduzca otro nombre, ya existe una receta con este nombre';
                   }
                   return null;
                 },

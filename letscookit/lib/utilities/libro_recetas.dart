@@ -1,8 +1,9 @@
 // ? clase template
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/lista.dart';
+import 'package:letscookit/utilities/lista_mis_recetas.dart';
 import 'package:letscookit/utilities/medida.dart';
-
+import 'funciones_comprobacion.dart';
 import 'lista_receta.dart';
 import 'receta.dart';
 
@@ -50,14 +51,4 @@ class LibroRecetas extends Lista {
   }
 
   ListaReceta get misRecetas => super.lista[0];
-
-  bool nombreValido(String nombre) {
-    bool nombreValido = true;
-    for (int i = 0; i < LibroRecetas().length() && nombreValido; i++) {
-      if (nombre.toLowerCase() == LibroRecetas().get(i).nombre.toLowerCase()) {
-        nombreValido = false;
-      }
-    }
-    return nombreValido;
-  }
 }

@@ -26,8 +26,6 @@ class _IngredienteComprarState extends State<IngredienteComprar> {
             onChanged: (value) {
               setState(() {
                 ListaCompra().setCheck(widget._ingrediente, value!);
-                print(
-                    "Ingrediente: ${widget._ingrediente.nombre}, ${ListaCompra().getCheck(widget._ingrediente)}");
               });
             },
           ),

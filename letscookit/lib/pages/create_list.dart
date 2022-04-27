@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
+import 'package:letscookit/utilities/funciones_comprobacion.dart';
 
 class CreateList extends StatefulWidget {
   const CreateList({Key? key}) : super(key: key);
@@ -79,8 +80,8 @@ class _CreateListState extends State<CreateList> {
                             "Lista nº ${LibroRecetas().length() + 1}";
 
                         if (_nombreLista.value.text != "" &&
-                            LibroRecetas()
-                                .nombreValido(_nombreLista.value.text)) {
+                            nombreValido(
+                                _nombreLista.value.text, LibroRecetas())) {
                           nombre = _nombreLista.value.text;
                         }
 

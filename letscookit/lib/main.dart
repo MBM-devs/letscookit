@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:letscookit/pages/recipe_list.dart';
-
 import 'package:letscookit/pages/recipe_view.dart';
 import 'package:letscookit/utilities/generar_recetas.dart';
 import 'package:letscookit/widgets/my_scaffold.dart';
@@ -12,11 +9,7 @@ import 'pages/bookmark.dart';
 import 'pages/create_recipe.dart';
 import 'pages/search.dart';
 import 'pages/shopping_basket.dart';
-
 import 'package:letscookit/utilities/libro_recetas.dart';
-import 'package:letscookit/utilities/lista_ingredientes.dart';
-
-import 'package:letscookit/utilities/receta.dart';
 import 'config/palette.dart';
 
 void main() {

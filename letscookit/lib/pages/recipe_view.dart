@@ -99,7 +99,7 @@ class _RecipeViewState extends State<RecipeView> {
                     SizedBox(height: 20),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.only(left: 60.0, bottom: 30),
+                      padding: const EdgeInsets.only(left: 60.0, bottom: 50),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

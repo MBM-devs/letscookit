@@ -5,6 +5,7 @@ import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/receta.dart';
 import 'package:searchfield/searchfield.dart';
 import '../widgets/search_bar.dart';
+import 'package:letscookit/utilities/funciones_comprobacion.dart';
 
 class RecipeList extends StatefulWidget {
   ListaReceta _listaRecetas;
@@ -124,7 +125,7 @@ class _RecipeListState extends State<RecipeList> {
           ElevatedButton(
               onPressed: () {
                 if (_nombreLista.value.text != "" &&
-                    LibroRecetas().nombreValido(_nombreLista.value.text)) {
+                    nombreValido(_nombreLista.value.text, LibroRecetas())) {
                   widget._listaRecetas.nombre = _nombreLista.value.text;
                 }
                 _nombreLista.clear();
