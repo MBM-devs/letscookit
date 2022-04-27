@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:letscookit/pages/recipe_list.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'create_list.dart';
 
@@ -24,7 +25,7 @@ class _BookmarkState extends State<Bookmark> {
                 child: ListTile(
                   title: Text(LibroRecetas().get(index).nombre),
                   onTap: () {
-                    Navigator.pushNamed(context, '/lista/' + index.toString())
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeList(LibroRecetas().get(index))))
                         .then((_) => setState(() {}));
                   },
                 ),

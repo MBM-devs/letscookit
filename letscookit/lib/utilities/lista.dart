@@ -23,4 +23,5 @@ abstract class Lista {
   void forEach(void Function(dynamic) action) => lista.forEach(action);
 
   void remove(dynamic elemento) => lista.remove(elemento);
+  void removeAt(int pos) => lista.removeAt(pos);
 }

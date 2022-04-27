@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class RecipeImage extends StatefulWidget {
   String _imagen;
 
+  String get imagen=> _imagen;
+
   RecipeImage(this._imagen);
   @override
   _RecipeImageState createState() => _RecipeImageState();

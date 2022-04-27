@@ -1,3 +1,4 @@
+import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/lista.dart';
 
 class ListaIngredientes extends Lista {
@@ -14,6 +15,12 @@ class ListaIngredientes extends Lista {
   }
 
   bool existeIngrediente(String nombre) {
-    return super.lista.any((element) => element.nombre == nombre);
+    return super.lista.any((element) => element.nombre.toLowerCase() == nombre.toLowerCase());
+  }
+
+  void add(dynamic ingrediente){
+    if (!existeIngrediente(ingrediente.nombre) && ingrediente is Ingrediente) {
+      super.lista.add(ingrediente);
+    }
   }
 }
