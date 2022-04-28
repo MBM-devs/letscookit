@@ -28,7 +28,7 @@ void main () {
       int longitud = lista.length();
       lista.borrarComprados();
       
-      expect(lista.length(), longitud - 1);
+      expect(lista.hayComprados(), false);
     });
   });
 
