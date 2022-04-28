@@ -51,8 +51,6 @@ void main() {
     expect(ListaCompra().hayComprados(), false);
     ListaCompra().add(Ingrediente("Rábanos"));
     ListaCompra().add(Ingrediente("Plátanos"));
-    int lenghtAntesComprar = ListaCompra().length();
-    expect(lenghtAntesComprar > 0, true);
     
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
@@ -76,8 +74,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(ListaCompra().hayComprados(), false);
-    expect(ListaCompra().length() == (lenghtAntesComprar - 1), true);
-
   }); 
 
   testWidgets('Se crea una lista del libro de recetas', (WidgetTester tester) async {
