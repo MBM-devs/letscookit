@@ -17,13 +17,17 @@ void main () {
     });
     test('se marca un ingrediente como comprado',(){
       ListaCompra lista = ListaCompra();
+      
       expect(lista.hayComprados(), false);
+      
       int longitud = lista.length();
       lista.setCheck(lista.get(longitud - 1), true);
       
       expect(lista.hayComprados(), true);
     });
     test('se borran los ingredientes comprados',(){
+      expect(lista.hayComprados(), true);
+      
       ListaCompra lista = ListaCompra();
       lista.borrarComprados();
       
