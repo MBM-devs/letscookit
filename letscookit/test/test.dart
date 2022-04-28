@@ -25,7 +25,6 @@ void main () {
     });
     test('se borran los ingredientes comprados',(){
       ListaCompra lista = ListaCompra();
-      int longitud = lista.length();
       lista.borrarComprados();
       
       expect(lista.hayComprados(), false);
