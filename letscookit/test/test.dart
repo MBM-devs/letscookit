@@ -26,12 +26,11 @@ void main () {
       expect(lista.hayComprados(), true);
     });
     test('se borran los ingredientes comprados',(){
-      expect(lista.hayComprados(), true);
+      expect( ListaCompra().hayComprados(), true);
+
+      ListaCompra().borrarComprados();
       
-      ListaCompra lista = ListaCompra();
-      lista.borrarComprados();
-      
-      expect(lista.hayComprados(), false);
+      expect( ListaCompra().hayComprados(), false);
     });
   });
 
