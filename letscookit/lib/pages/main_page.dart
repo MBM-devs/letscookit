@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:letscookit/pages/login.dart';
 import 'package:letscookit/pages/recipe_list.dart';
 import 'package:letscookit/pages/recipe_view.dart';
-import 'package:letscookit/pages/splash.dart';
+import 'package:letscookit/pages/search.dart';
+import 'package:letscookit/pages/shopping_basket.dart';
 import 'package:letscookit/utilities/generar_recetas.dart';
 import 'package:letscookit/widgets/my_scaffold.dart';
-import 'pages/home.dart';
-import 'pages/bookmark.dart';
-import 'pages/create_recipe.dart';
-import 'pages/search.dart';
-import 'pages/shopping_basket.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
-import 'config/palette.dart';
 
+import '../config/palette.dart';
+import 'bookmark.dart';
+import 'create_recipe.dart';
+import 'home.dart';
+
+/*
 void main() {
   GenerarRecetas().crear();
   runApp(MyApp());
 }
+*/
 
-class MyApp extends StatefulWidget {
+
+class MainPage extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MainPageState extends State<MainPage> {
   int _paginaActual = 0;
   final List<Widget> _paginas = [
     Home(),
@@ -78,8 +80,6 @@ class _MyAppState extends State<MyApp> {
             builder: (context) => RecipeView(LibroRecetas().misRecetas.get(0)));
       },
       title: "Let's Cook It",
-      home: Splash(),
-      /*
       home: MyScaffold(
         _paginas[_paginaActual],
         _titulos[_paginaActual],
@@ -111,7 +111,6 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      */
     );
   }
 }
