@@ -27,7 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  http:
+  http: ^0.13.4
   flutter:
     sdk: flutter
     
@@ -38,7 +38,6 @@ dependencies:
   searchfield: ^0.6.3
   carousel_slider: ^4.0.0
   dcdg: ^4.0.1
-  http: ^0.13.4
 
 dev_dependencies:
   test: any
