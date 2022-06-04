@@ -5,6 +5,8 @@ import 'package:letscookit/config/palette.dart';
 import 'package:http/http.dart' as http;
 import 'package:letscookit/widgets/search_bar.dart';
 
+import 'main_page.dart';
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -133,7 +135,17 @@ Widget buildLoginBtn(context){
     width: MediaQuery.of(context).size.width/2,
     child: RaisedButton(
       elevation: 5,
-      onPressed: () => print("Login presionado"),
+      onPressed: () {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context){
+              return MainPage();
+            },
+          ),
+              (route) => false,
+        );
+      },
       padding: EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15)
@@ -187,63 +199,65 @@ class _LoginState extends State<Login>{
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          child: Stack(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height - 120,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Palette.mainBlue.shade800.withOpacity(1.0),
-                      Palette.mainBlue.shade700.withOpacity(1.0),
-                      Palette.mainBlue.shade600.withOpacity(1.0),
-                      Palette.mainBlue.shade500.withOpacity(1.0),
-                      Palette.mainBlue.shade400.withOpacity(1.0),
-                      Palette.mainBlue.shade200.withOpacity(1.0),
-                      Palette.mainBlue.shade100.withOpacity(1.0),
-                      Palette.mainBlue.shade50.withOpacity(1.0),
-                    ]
+    return Material(
+      child:  SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: GestureDetector(
+            child: Stack(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Palette.mainBlue.shade800.withOpacity(1.0),
+                        Palette.mainBlue.shade700.withOpacity(1.0),
+                        Palette.mainBlue.shade600.withOpacity(1.0),
+                        Palette.mainBlue.shade500.withOpacity(1.0),
+                        Palette.mainBlue.shade400.withOpacity(1.0),
+                        Palette.mainBlue.shade200.withOpacity(1.0),
+                        Palette.mainBlue.shade100.withOpacity(1.0),
+                        Palette.mainBlue.shade50.withOpacity(1.0),
+                      ]
+                    ),
                   ),
-                ),
-                child: SingleChildScrollView(
-                  //physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 25,
-                    vertical: 100,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Let's Cook It",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
+                  child: SingleChildScrollView(
+                    //physics: AlwaysScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 25,
+                      vertical: 100,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Let's Cook It",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 30),
-                      buildUser(),
-                      SizedBox(height: 30),
-                      buildPassword(),
-                      //buildForgotPassword(),
-                      //buildRememberMe(),
-                      SizedBox(height: 30),
-                      buildLoginBtn(context),
-                    ],
+                        SizedBox(height: 30),
+                        buildUser(),
+                        SizedBox(height: 30),
+                        buildPassword(),
+                        //buildForgotPassword(),
+                        //buildRememberMe(),
+                        SizedBox(height: 30),
+                        buildLoginBtn(context),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
