@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,162 +14,186 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-Widget buildUser(){
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Text(
-        'Nombre de usuario',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      SizedBox(height: 10),
-      Container(
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 6,
-              offset: Offset(0,2),
-            )
-          ],
-        ),
-        height: 60,
-        child: TextField(
-          keyboardType: TextInputType.emailAddress,
-          style: TextStyle(
-            color: Colors.black87,
-          ),
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.only(top: 14),
-            prefixIcon: Icon(
-                Icons.person,
-              color: Palette.mainBlue,
-            ),
-            hintText: 'Nombre de usuario',
-            hintStyle: TextStyle(
-              color: Colors.black38,
-            )
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-Widget buildPassword(){
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Text(
-        'Contraseña',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      SizedBox(height: 10),
-      Container(
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 6,
-              offset: Offset(0,2),
-            )
-          ],
-        ),
-        height: 60,
-        child: TextField(
-          obscureText: true,
-          style: TextStyle(
-            color: Colors.black87,
-          ),
-          decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Palette.mainBlue,
-              ),
-              hintText: 'Contraseña',
-              hintStyle: TextStyle(
-                color: Colors.black38,
-              )
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-Widget buildForgotPassword(){
-  return Container(
-    alignment: Alignment.centerRight,
-    child: FlatButton(
-      onPressed: () => print("Olvidé la contraseña presionado"),
-      padding: EdgeInsets.only(right: 0),
-      child: Text(
-        'Olvidé mi contraseña',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ),
-  );
-}
-
-Widget buildLoginBtn(context){
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 25),
-    width: MediaQuery.of(context).size.width/2,
-    child: RaisedButton(
-      elevation: 5,
-      onPressed: () {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context){
-              return MainPage();
-            },
-          ),
-              (route) => false,
-        );
-      },
-      padding: EdgeInsets.all(15),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15)
-      ),
-      color: Colors.white,
-      child: Text(
-        'Iniciar sesión',
-        style: TextStyle(
-          color: Palette.mainBlue,
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
-        ),
-      ),
-    ),
-  );
-}
-
-class _LoginState extends State<Login>{
-
+class _LoginState extends State<Login> {
   bool isRememberMe = false;
 
-  Widget buildRememberMe(){
+  TextEditingController _nombreUsuario = TextEditingController();
+  TextEditingController _password = TextEditingController();
+
+  Widget buildUser() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          'Nombre de usuario',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            // ignore: prefer_const_literals_to_create_immutables
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 6,
+                offset: Offset(0, 2),
+              )
+            ],
+          ),
+          height: 60,
+          child: TextField(
+            controller: _nombreUsuario,
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(
+              color: Colors.black87,
+            ),
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 14),
+                prefixIcon: Icon(
+                  Icons.person,
+                  color: Palette.mainBlue,
+                ),
+                hintText: 'Nombre de usuario',
+                hintStyle: TextStyle(
+                  color: Colors.black38,
+                )),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildPassword() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          'Contraseña',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 6,
+                offset: Offset(0, 2),
+              )
+            ],
+          ),
+          height: 60,
+          child: TextField(
+            controller: _password,
+            obscureText: true,
+            style: TextStyle(
+              color: Colors.black87,
+            ),
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 14),
+                prefixIcon: Icon(
+                  Icons.lock,
+                  color: Palette.mainBlue,
+                ),
+                hintText: 'Contraseña',
+                hintStyle: TextStyle(
+                  color: Colors.black38,
+                )),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildForgotPassword() {
+    return Container(
+      alignment: Alignment.centerRight,
+      child: FlatButton(
+        onPressed: () => print("Olvidé la contraseña presionado"),
+        padding: EdgeInsets.only(right: 0),
+        child: Text(
+          'Olvidé mi contraseña',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildLoginBtn(context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 25),
+      width: MediaQuery.of(context).size.width / 2,
+      child: RaisedButton(
+        elevation: 5,
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return MainPage();
+              },
+            ),
+            (route) => false,
+          );
+          /* if (_nombreUsuario.text == '' || _password == '') {
+            //Si los datos no son correctos, lo notifica y sigue en la pagina (he puesto que recargue por ahora)
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return Login();
+                },
+              ),
+              (route) => false,
+            );
+          } else {
+            //Si el usuario introducido es correcto, accede a la pagina
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return MainPage();
+                },
+              ),
+              (route) => false,
+            );
+          }*/
+        },
+        padding: EdgeInsets.all(15),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        color: Colors.white,
+        child: Text(
+          'Iniciar sesión',
+          style: TextStyle(
+            color: Palette.mainBlue,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildRememberMe() {
     return Container(
       height: 20,
       child: Row(
@@ -178,7 +204,7 @@ class _LoginState extends State<Login>{
               value: isRememberMe,
               checkColor: Palette.mainBlue,
               activeColor: Colors.white,
-              onChanged: (value){
+              onChanged: (value) {
                 setState(() {
                   isRememberMe = value!;
                 });
@@ -197,10 +223,35 @@ class _LoginState extends State<Login>{
     );
   }
 
+  //key con el estado para el acceso del usuario
+  /* GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  Future<bool> acceso({debug = false}) async {
+    if (debug) {
+      return peticion_acceso();
+    } else {
+      if (formKey.currentState.validate()) {
+        return peticion_acceso();
+      }
+    }
+  }
+
+  Future<bool> peticion_acceso() async {
+    String nombre = _nombreUsuario.text;
+    String pass = _password.text;
+
+    //Comprobar usuario y password
+
+    //Conectarse a la api
+    String url = "clados.ugr.es";
+    final response =
+        await http.post(url, body: {'username': nombre, 'password': pass});
+  } */
+
   @override
   Widget build(BuildContext context) {
     return Material(
-      child:  SizedBox(
+      child: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -213,19 +264,18 @@ class _LoginState extends State<Login>{
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Palette.mainBlue.shade800.withOpacity(1.0),
-                        Palette.mainBlue.shade700.withOpacity(1.0),
-                        Palette.mainBlue.shade600.withOpacity(1.0),
-                        Palette.mainBlue.shade500.withOpacity(1.0),
-                        Palette.mainBlue.shade400.withOpacity(1.0),
-                        Palette.mainBlue.shade200.withOpacity(1.0),
-                        Palette.mainBlue.shade100.withOpacity(1.0),
-                        Palette.mainBlue.shade50.withOpacity(1.0),
-                      ]
-                    ),
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Palette.mainBlue.shade800.withOpacity(1.0),
+                          Palette.mainBlue.shade700.withOpacity(1.0),
+                          Palette.mainBlue.shade600.withOpacity(1.0),
+                          Palette.mainBlue.shade500.withOpacity(1.0),
+                          Palette.mainBlue.shade400.withOpacity(1.0),
+                          Palette.mainBlue.shade200.withOpacity(1.0),
+                          Palette.mainBlue.shade100.withOpacity(1.0),
+                          Palette.mainBlue.shade50.withOpacity(1.0),
+                        ]),
                   ),
                   child: SingleChildScrollView(
                     //physics: AlwaysScrollableScrollPhysics(),
@@ -263,7 +313,6 @@ class _LoginState extends State<Login>{
       ),
     );
   }
-
 
   /*Widget build(BuildContext build){
     //Declaro dos variables para acceder mas facilmente a las dimensiones

@@ -15,7 +15,7 @@ import 'package:letscookit/utilities/libro_recetas.dart';
 import 'config/palette.dart';
 
 void main() {
-  GenerarRecetas().crear();
+  GenerarRecetas().obtenerRecetas();
   runApp(MyApp());
 }
 

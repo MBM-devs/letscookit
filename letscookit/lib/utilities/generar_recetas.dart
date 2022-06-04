@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:letscookit/bd/bd.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/receta.dart';
 
@@ -68,5 +70,17 @@ class GenerarRecetas {
     receta.crearIngrediente(3, "dientes", "Ajo");
     receta.crearIngrediente(1, "pizca", "Sal");
     libro.misRecetas.add(receta);
+  }
+
+  Future<void> obtenerRecetas() async {
+    RecetaDB recetaDB = await RecetaDB.getReceta("1");
+
+    // recetaDB.then((RecetaDB value) {
+    //   Receta receta = Receta(value.nombre, value.nPersonas, value.duracion,
+    //       'assets/PolloAlLimon.jpeg');
+    //   LibroRecetas libro = LibroRecetas();
+
+    //   libro.misRecetas.add(receta);
+    // });
   }
 }

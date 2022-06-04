@@ -11,21 +11,20 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-
   @override
-  void initState(){
-    var d = Duration(seconds: 3);
+  void initState() {
+    const d = Duration(seconds: 1);
     //se retarda 3 segundos en pasar de página
-    Future.delayed(d, (){
+    Future.delayed(d, () {
       //pasa a la siguiente página y cierra esta
       Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context){
-                return SingleChildScrollView(child: Login());
-              },
-          ),
-          (route) => false,
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return SingleChildScrollView(child: Login());
+          },
+        ),
+        (route) => false,
       );
     });
 
@@ -41,7 +40,7 @@ class _SplashState extends State<Splash> {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(
           horizontal: 50,
-          vertical: MediaQuery.of(context).size.height/3,
+          vertical: MediaQuery.of(context).size.height / 3,
         ),
         child: Image.network(
           "assets/icono letscookit 1.png",

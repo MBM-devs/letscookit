@@ -1,37 +1,50 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
-class Usuario {
+class RecetaDB {
   final String nombre;
-  final String email;
-  final String password;
+  final int duracion;
+  final int nPersonas;
 
-  static String _direccionBD = 'clados.ugr.es'; //URL del servidor web
+  static const String _baseAddress = 'clados.ugr.es';
 
-  Usuario(this.nombre, this.email, this.password);
+  static const String _applicationName = 'DS1_2/api/v1/';
 
-  Map<String, dynamic> toJson() => {
-    'nombre': nombre,
-    'email': email,
-    'password': password,
-  };
+  RecetaDB(this.nombre, this.duracion, this.nPersonas);
 
-  Usuario.fromJson(Map<String, dynamic> json)
-    :   nombre = json["nombre"],
-        email = json["email"],
-        password = json["password"];
-
-  //GET
-  static Future<Usuario> getUsuario(String nombre) async {
-    final response = await http.get(Uri.https(_direccionBD, '/DS1_2/api/v1/users' + nombre));
-
-    //Si la respuesta no da código de error (200 es de confirmacion)
-    if(response.statusCode == 200){
-      return Usuario.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception("Fallo al obtener el usuario");
-    }
-
+  String toString() {
+    return "nombre: " +
+        nombre +
+        ", duracion: " +
+        duracion.toString() +
+        ", nPersonas: " +
+        nPersonas.toString();
   }
 
+  Map<String, dynamic> toJson() => {
+        'name': nombre,
+        'duration': duracion,
+        'people': nPersonas,
+      };
+
+  RecetaDB.fromJson(Map<String, dynamic> json)
+      : nombre = json["name"],
+        duracion = json["duration"],
+        nPersonas = json["people"];
+
+  //GET
+  static Future<RecetaDB> getReceta(String id) async {
+    final response = await http.get(
+        Uri.https(_baseAddress, '$_applicationName/recipes/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+
+    if (response.statusCode == 200) {
+      return RecetaDB.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to get project');
+    }
+  }
 }
