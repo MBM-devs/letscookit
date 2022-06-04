@@ -37,6 +37,7 @@ dependencies:
   searchfield: ^0.6.3
   carousel_slider: ^4.0.0
   dcdg: ^4.0.1
+  http: ^0.13.4
 
 dev_dependencies:
   test: any
