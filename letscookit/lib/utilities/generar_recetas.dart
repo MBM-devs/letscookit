@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/bd/bd.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
+import 'package:letscookit/utilities/paso.dart';
 import 'package:letscookit/utilities/receta.dart';
 
 class GenerarRecetas {
@@ -73,14 +74,34 @@ class GenerarRecetas {
   }
 
   Future<void> obtenerRecetas() async {
-    RecetaDB recetaDB = await RecetaDB.getReceta("1");
+    /*RecetaDB recetaDB = await RecetaDB.getReceta("1");
 
-    // recetaDB.then((RecetaDB value) {
-    //   Receta receta = Receta(value.nombre, value.nPersonas, value.duracion,
-    //       'assets/PolloAlLimon.jpeg');
-    //   LibroRecetas libro = LibroRecetas();
+    Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas, recetaDB.duracion, "assets/polloAlLimon.jpeg");
 
-    //   libro.misRecetas.add(receta);
-    // });
+    LibroRecetas libro = LibroRecetas();
+    libro.misRecetas.add(receta);
+     */
+
+    List<RecetaDB> listaRecetasDB = await RecetaDB.getRecetas();
+    List<PasosDB> listaPasosDB = await PasosDB.getPasos();
+
+    RecetaDB recetaDB = RecetaDB("", 0, 0);
+
+    for(int i = 0; i<listaRecetasDB.length; i++){
+      recetaDB = listaRecetasDB[i];
+      Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas, recetaDB.duracion, "assets/polloAlLimon.jpeg");
+
+      for(int j=0; j<listaPasosDB.length; j++){
+        PasosDB pasoDB = listaPasosDB[j];
+        //pasoDB = await PasosDB.getPaso((j+1).toString());
+        if(pasoDB.receta == i+1){
+          receta.crearPaso(pasoDB.descripcion);
+        }
+      }
+
+      LibroRecetas libro = LibroRecetas();
+      libro.misRecetas.add(receta);
+    }
+
   }
 }

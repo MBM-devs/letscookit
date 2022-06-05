@@ -102,7 +102,7 @@ class _HomeState extends State<Home> {
                               SizedBox(height: 20),
 
                               Padding(
-                                padding: const EdgeInsets.only(left: 60),
+                                padding: const EdgeInsets.only(left: 45),
                                 child: AnimatedOpacity(
                                   duration: Duration(milliseconds: 500),
                                   opacity:

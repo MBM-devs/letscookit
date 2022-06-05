@@ -13,8 +13,8 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    const d = Duration(seconds: 1);
-    //se retarda 3 segundos en pasar de página
+    const d = Duration(seconds: 2);
+    //se retarda d segundos en pasar de página
     Future.delayed(d, () {
       //pasa a la siguiente página y cierra esta
       Navigator.pushAndRemoveUntil(
@@ -42,9 +42,7 @@ class _SplashState extends State<Splash> {
           horizontal: 50,
           vertical: MediaQuery.of(context).size.height / 3,
         ),
-        child: Image.network(
-          "assets/icono letscookit 1.png",
-        ),
+        child: Image.asset("assets/icono-letscookit-1.png"),
       ),
     );
   }

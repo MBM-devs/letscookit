@@ -29,7 +29,7 @@ class _RecipeImageState extends State<RecipeImage> {
         fit: BoxFit.cover,
         errorBuilder:
             (BuildContext context, Object exception, StackTrace? stackTrace) {
-          return Image.network(
+          return Image.asset(
             "assets/noimageavailable.png",
             fit: BoxFit.cover,
           );
