@@ -1,7 +1,9 @@
 import 'package:letscookit/utilities/ingrediente.dart';
 
 class ListaCompra {
+  //La lista de ingredientes es la de la bd
   Map<Ingrediente, bool> _lista;
+
   ListaCompra._privateConstructor() : _lista = {};
 
   static final ListaCompra _instance = ListaCompra._privateConstructor();
@@ -30,6 +32,7 @@ class ListaCompra {
     }
   }
 
+  //Tendrá que comunicar a la bd que ha pulsado el checkbox
   void setCheck(Ingrediente ingrediente, bool check) {
     if (lista.containsKey(ingrediente)) {
       lista[ingrediente] = check;
@@ -40,6 +43,7 @@ class ListaCompra {
     return lista.length;
   }
 
+  //Dira a la bd que se borre los ingredientes marcados
   void borrarComprados() {
     List<Ingrediente> aBorrar = [];
     lista.forEach((key, value) {
@@ -53,6 +57,7 @@ class ListaCompra {
     });
   }
 
+  //Pregunta a la bd si hay alguno comprado
   bool hayComprados() {
     bool hayComprados = false;
     for (var comprado in lista.values) {

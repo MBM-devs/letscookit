@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//FUERA
+
 abstract class Lista {
   @protected
   List<dynamic> lista;

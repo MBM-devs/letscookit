@@ -7,6 +7,8 @@ import 'funciones_comprobacion.dart';
 import 'lista_receta.dart';
 import 'receta.dart';
 
+//FUERA
+
 class LibroRecetas extends Lista {
   static final LibroRecetas _instance = LibroRecetas._internal();
   factory LibroRecetas() {

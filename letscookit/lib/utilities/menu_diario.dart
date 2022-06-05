@@ -1,6 +1,8 @@
 import 'lista_receta.dart';
 import 'receta.dart';
 
+//FUERA
+
 class MenuDiario {
   ListaReceta _desayuno;
   ListaReceta _comida;

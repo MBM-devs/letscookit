@@ -1,3 +1,5 @@
+//igual q receta
+
 class Paso {
   int _numero;
   String _descripcion;

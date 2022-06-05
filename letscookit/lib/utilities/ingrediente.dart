@@ -1,3 +1,5 @@
+//Igual que receta y pasos
+
 class Ingrediente {
   String _nombre;
 

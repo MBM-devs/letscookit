@@ -4,6 +4,8 @@ import 'ingrediente.dart';
 import 'etiqueta.dart';
 import 'medida.dart';
 
+//Convertirlo al de la db
+
 class Receta {
   String _nombre;
   int _numPersonas;

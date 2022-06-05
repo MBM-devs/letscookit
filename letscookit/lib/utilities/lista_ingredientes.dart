@@ -2,6 +2,8 @@ import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'funciones_comprobacion.dart';
 
+//Hacer que obtenga la lista de la bd
+
 class ListaIngredientes extends Lista {
   static final ListaIngredientes _instance = ListaIngredientes._internal();
   factory ListaIngredientes() {
