@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
                                 child: AnimatedOpacity(
                                   duration: Duration(milliseconds: 500),
                                   opacity:
-                                      _current == _recetas.lista.indexOf(receta)
+                                      _current == _recetas.listaz.indexOf(receta)
                                           ? 1.0
                                           : 0.0,
                                   child: Container(

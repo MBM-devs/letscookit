@@ -26,7 +26,7 @@ class _SearchState extends State<Search> {
             hint: "Buscar receta...",
             suggestions: LibroRecetas()
                 .misRecetas
-                .lista
+                .listaRecetas
                 .map((e) => SearchFieldListItem<Receta>(e.nombre, item: e))
                 .toList(),
             onSuggestionTap: (value) {

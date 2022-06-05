@@ -3,6 +3,7 @@ import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_mis_recetas.dart';
 import 'package:letscookit/utilities/medida.dart';
+import 'package:letscookit/utilities/paso.dart';
 import 'funciones_comprobacion.dart';
 import 'lista_receta.dart';
 import 'receta.dart';
@@ -31,20 +32,20 @@ class LibroRecetas extends Lista {
 
   void crearNuevaReceta(
       ListaReceta? lista,
+      int id,
       String nombre,
       String imagen,
       int numPersonas,
       int tiempo,
-      List<String> pasos,
-      List<Ingrediente> ingredientes,
-      List<Medida> medidas) {
-    Receta receta = Receta(nombre, numPersonas, tiempo, imagen);
+      List<Paso> pasos,
+      List<Ingrediente> ingredientes) {
+    Receta receta = Receta(id, nombre, numPersonas, tiempo);
     for (var i = 0; i < pasos.length; i++) {
-      receta.crearPaso(pasos[i]);
+      receta.addPaso(pasos[i]);
     }
 
     for (var i = 0; i < ingredientes.length; i++) {
-      receta.addIngrediente(medidas[i], ingredientes[i]);
+      receta.addIngrediente(ingredientes[i]);
     }
 
     if (misRecetas.buscaReceta(nombre) == -1) misRecetas.add(receta);

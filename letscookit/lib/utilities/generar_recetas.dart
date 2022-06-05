@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/bd/bd.dart';
+import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
+import 'package:letscookit/utilities/lista_ingredientes.dart';
 import 'package:letscookit/utilities/paso.dart';
 import 'package:letscookit/utilities/receta.dart';
 
 class GenerarRecetas {
+
+  /*
   void crear() {
     Receta receta = Receta("Pollo al limón", 4, 20, 'assets/PolloAlLimon.jpeg');
     receta.crearPaso(
@@ -72,6 +76,7 @@ class GenerarRecetas {
     receta.crearIngrediente(1, "pizca", "Sal");
     libro.misRecetas.add(receta);
   }
+   */
 
   Future<void> obtenerRecetas() async {
     /*RecetaDB recetaDB = await RecetaDB.getReceta("1");
@@ -83,21 +88,29 @@ class GenerarRecetas {
      */
 
     List<RecetaDB> listaRecetasDB = await RecetaDB.getRecetas();
-    List<PasosDB> listaPasosDB = await PasosDB.getPasos();
+    List<Paso> listaPasos= await Paso.getPasos();
 
     RecetaDB recetaDB = RecetaDB("", 0, 0);
 
     for(int i = 0; i<listaRecetasDB.length; i++){
       recetaDB = listaRecetasDB[i];
-      Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas, recetaDB.duracion, "assets/polloAlLimon.jpeg");
+      Receta receta = Receta(i+1, (recetaDB.nombre), recetaDB.nPersonas, recetaDB.duracion);
 
-      for(int j=0; j<listaPasosDB.length; j++){
-        PasosDB pasoDB = listaPasosDB[j];
+
+      for(int j=0; j<listaPasos.length; j++){
+        Paso paso = listaPasos[j];
         //pasoDB = await PasosDB.getPaso((j+1).toString());
-        if(pasoDB.receta == i+1){
-          receta.crearPaso(pasoDB.descripcion);
+        if(paso.receta == i+1){
+          receta.addPaso(paso);
         }
       }
+
+
+      Ingrediente ingrediente = await Ingrediente.getIngrediente("1");
+
+      //receta.addIngrediente(ingrediente);
+      ListaIngredientes lista = ListaIngredientes();
+      lista.listaIngredientes.add(ingrediente);
 
       LibroRecetas libro = LibroRecetas();
       libro.misRecetas.add(receta);

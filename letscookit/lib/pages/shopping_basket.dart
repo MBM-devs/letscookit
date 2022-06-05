@@ -25,7 +25,7 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
             controller: _searchController,
             hint: "Buscar o añadir nuevo ingrediente...",
             suggestions: ListaIngredientes()
-                .lista
+                .listaIngredientes
                 .map((e) => SearchFieldListItem<Ingrediente>(e.nombre, item: e))
                 .toList(),
             onSuggestionTap: (value) {
@@ -38,7 +38,7 @@ class _ShoppingBasketState extends State<ShoppingBasket> {
               int indice = ListaIngredientes().buscaIngrediente(value);
               if (indice == -1 && value != "") {
                 ListaIngredientes().add(Ingrediente(value));
-                indice = ListaIngredientes().length() - 1;
+                indice = ListaIngredientes().listaIngredientes.length - 1;
               }
               if (value != "") {
                 ListaCompra().add(ListaIngredientes().get(indice));
