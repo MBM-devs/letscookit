@@ -6,8 +6,10 @@ import 'package:letscookit/utilities/lista_ingredientes.dart';
 import 'package:letscookit/utilities/paso.dart';
 import 'package:letscookit/utilities/receta.dart';
 
-class GenerarRecetas {
+import '../bd/paso_bd.dart';
+import '../bd/receta_bd.dart';
 
+class GenerarRecetas {
   /*
   void crear() {
     Receta receta = Receta("Pollo al limón", 4, 20, 'assets/PolloAlLimon.jpeg');
@@ -79,32 +81,31 @@ class GenerarRecetas {
    */
 
   Future<void> obtenerRecetas() async {
-    /*RecetaDB recetaDB = await RecetaDB.getReceta("1");
+    /* RecetaDB recetaDB = await RecetaDB.getReceta("1");
 
     Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas, recetaDB.duracion, "assets/polloAlLimon.jpeg");
-
+   
     LibroRecetas libro = LibroRecetas();
     libro.misRecetas.add(receta);
-     */
+    */
 
-    /*
     List<RecetaDB> listaRecetasDB = await RecetaDB.getRecetas();
-    List<Paso> listaPasos= await Paso.getPasos();
+    List<PasosDB> listaPasos = await PasosDB.getPasos();
 
     RecetaDB recetaDB = RecetaDB("", 0, 0);
 
-    for(int i = 0; i<listaRecetasDB.length; i++){
+    for (int i = 0; i < listaRecetasDB.length; i++) {
       recetaDB = listaRecetasDB[i];
-      Receta receta = Receta(i+1, (recetaDB.nombre), recetaDB.nPersonas, recetaDB.duracion);
+      Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas,
+          recetaDB.duracion, 'assets/nonavailableimage.png');
 
-
-      for(int j=0; j<listaPasos.length; j++){
-        Paso paso = listaPasos[j];
+      /* for(int j=0; j<listaPasos.length; j++){
+        PasosDB paso = listaPasos[j];
         //pasoDB = await PasosDB.getPaso((j+1).toString());
         if(paso.receta == i+1){
           receta.addPaso(paso);
         }
-      }
+      } */
 
       Ingrediente ingrediente = await Ingrediente.getIngrediente("1");
 
@@ -114,9 +115,6 @@ class GenerarRecetas {
 
       LibroRecetas libro = LibroRecetas();
       libro.misRecetas.add(receta);
-
-     */
     }
-
   }
-
+}

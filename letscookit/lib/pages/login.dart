@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:http/http.dart' as http;
+import 'package:letscookit/utilities/usuario.dart';
 import 'package:letscookit/widgets/search_bar.dart';
 
 import 'main_page.dart';
@@ -16,6 +17,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isRememberMe = false;
+
+  Usuario _usuario = Usuario();
 
   TextEditingController _nombreUsuario = TextEditingController();
   TextEditingController _password = TextEditingController();
@@ -145,38 +148,21 @@ class _LoginState extends State<Login> {
       child: RaisedButton(
         elevation: 5,
         onPressed: () {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return MainPage();
-              },
-            ),
-            (route) => false,
-          );
-          /* if (_nombreUsuario.text == '' || _password == '') {
-            //Si los datos no son correctos, lo notifica y sigue en la pagina (he puesto que recargue por ahora)
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return Login();
-                },
-              ),
-              (route) => false,
-            );
-          } else {
-            //Si el usuario introducido es correcto, accede a la pagina
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return MainPage();
-                },
-              ),
-              (route) => false,
-            );
-          }*/
+          _usuario
+              .iniciarSesion(_nombreUsuario.text, _password.text)
+              .then(((value) {
+            if (value) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return MainPage();
+                  },
+                ),
+                (route) => false,
+              );
+            }
+          }));
         },
         padding: EdgeInsets.all(15),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -222,31 +208,6 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
-  //key con el estado para el acceso del usuario
-  /* GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  Future<bool> acceso({debug = false}) async {
-    if (debug) {
-      return peticion_acceso();
-    } else {
-      if (formKey.currentState.validate()) {
-        return peticion_acceso();
-      }
-    }
-  }
-
-  Future<bool> peticion_acceso() async {
-    String nombre = _nombreUsuario.text;
-    String pass = _password.text;
-
-    //Comprobar usuario y password
-
-    //Conectarse a la api
-    String url = "clados.ugr.es";
-    final response =
-        await http.post(url, body: {'username': nombre, 'password': pass});
-  } */
 
   @override
   Widget build(BuildContext context) {
@@ -313,46 +274,4 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
-  /*Widget build(BuildContext build){
-    //Declaro dos variables para acceder mas facilmente a las dimensiones
-    //double height = MediaQuery.of(context).size.height;
-    //double width = MediaQuery.of(context).size.width;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.all(10.0),
-          child: Text(
-            'Login: ',
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        SizedBox(height: 30.0,),
-        Center(
-          child: SizedBox(
-            width: 300,
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Nombre de usuario',
-                suffixIcon: Icon(Icons.supervised_user_circle),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 30.0,),
-        ElevatedButton(
-            onPressed: (){},
-            child: Text('Iniciar Sesión'),
-        ),
-      ],
-    );
-  }*/
 }
