@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> {
             int id = int.parse(uri.pathSegments[1]);
             return MaterialPageRoute(
                 builder: (context) =>
-                    RecipeView(LibroRecetas().misRecetas.listaRecetas[id]));
+                    RecipeView(LibroRecetas().misRecetas.get(id)));
           }
           if (uri.pathSegments.first == 'lista') {
             int id = int.parse(uri.pathSegments[1]);
@@ -77,7 +77,7 @@ class _MainPageState extends State<MainPage> {
         }
 
         return MaterialPageRoute(
-            builder: (context) => RecipeView(LibroRecetas().misRecetas.listaRecetas[0]));
+            builder: (context) => RecipeView(LibroRecetas().misRecetas.get(0)));
       },
       title: "Let's Cook It",
       home: MyScaffold(

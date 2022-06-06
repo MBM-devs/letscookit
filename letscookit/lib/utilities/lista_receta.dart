@@ -6,7 +6,7 @@ import 'lista.dart';
 
 
 //Es obtener la lista de recetas de la bd (metodo getRecetas del bd.dart)
-/*
+
 class ListaReceta extends Lista {
   ListaReceta(String nombre) : super(nombre);
 
@@ -26,9 +26,9 @@ class ListaReceta extends Lista {
     }
   }
 }
- */
 
 
+/*
 class ListaReceta {
 
   late List<Receta> _listaRecetas;
@@ -78,3 +78,5 @@ class ListaReceta {
   }
 
 }
+
+ */

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-/*
+
 class RecipesIngredients {
   final int _id;
   final int _idReceta;
@@ -31,11 +31,11 @@ class RecipesIngredients {
   };
 
   RecipesIngredients.fromJson(Map<String, dynamic> json)
-    : _id = json["id"],
-      _idReceta = json["recipe_id"],
-      _idIngrediente = json["ingredient_id"],
-      _cantidad = json["quantity"],
-      _unidad = json["unit"];
+      : _id = json["id"],
+        _idReceta = json["recipe_id"],
+        _idIngrediente = json["ingredient_id"],
+        _cantidad = json["quantity"],
+        _unidad = json["unit"];
 
   static Future<RecipesIngredients> getRecipesIngredients(String id) async {
     final response = await http.get(
@@ -67,5 +67,3 @@ class RecipesIngredients {
   }
 
 }
-
- */

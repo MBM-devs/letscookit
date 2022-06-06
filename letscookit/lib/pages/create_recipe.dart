@@ -198,7 +198,8 @@ class _CreateRecipeState extends State<CreateRecipe> {
                           numPersonas,
                           tiempo,
                           pasosList,
-                          ingredientes);
+                          ingredientes,
+                          medidas);
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Receta Añadida.')),

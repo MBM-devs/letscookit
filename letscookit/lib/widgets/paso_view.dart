@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/utilities/paso.dart';
 
-/*
+
 class PasoView extends StatefulWidget {
   final int index;
   Paso _paso;
@@ -35,9 +35,9 @@ class _PasoViewState extends State<PasoView> {
     );
   }
 }
- */
 
 
+/*
 class PasoView extends StatefulWidget {
   Paso _paso;
   PasoView(this._paso);
@@ -70,3 +70,5 @@ class _PasoViewState extends State<PasoView> {
     );
   }
 }
+
+ */

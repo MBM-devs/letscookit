@@ -87,6 +87,7 @@ class GenerarRecetas {
     libro.misRecetas.add(receta);
      */
 
+    /*
     List<RecetaDB> listaRecetasDB = await RecetaDB.getRecetas();
     List<Paso> listaPasos= await Paso.getPasos();
 
@@ -105,7 +106,6 @@ class GenerarRecetas {
         }
       }
 
-
       Ingrediente ingrediente = await Ingrediente.getIngrediente("1");
 
       //receta.addIngrediente(ingrediente);
@@ -114,7 +114,9 @@ class GenerarRecetas {
 
       LibroRecetas libro = LibroRecetas();
       libro.misRecetas.add(receta);
+
+     */
     }
 
   }
-}
+

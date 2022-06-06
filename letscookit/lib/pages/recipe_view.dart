@@ -22,7 +22,6 @@ class _RecipeViewState extends State<RecipeView> {
   CarouselController _carouselController = new CarouselController();
   int _current = 0;
   Receta _receta;
-  late RecipesIngredients recipesIngredients;
 
   _RecipeViewState(this._receta);
   @override
@@ -135,7 +134,8 @@ class _RecipeViewState extends State<RecipeView> {
   List<PasoView> getPasos() {
     List<PasoView> pasos = [];
     for (var i = 0; i < _receta.numPasos; i++) {
-      pasos.add(PasoView(_receta.getPaso(i)));
+      //pasos.add(PasoView(_receta.getPaso(i)));
+      pasos.add(PasoView(i, _receta.getPaso(i)));
     }
     return pasos;
   }
@@ -143,7 +143,8 @@ class _RecipeViewState extends State<RecipeView> {
   List<IngredienteView> getIngredientes() {
     List<IngredienteView> ingredientes = [];
     for (var i = 0; i < _receta.numIngredientes; i++) {
-      ingredientes.add(IngredienteView());
+      ingredientes.add(IngredienteView(_receta.ingredientes.keys.elementAt(i),
+          _receta.ingredientes.values.elementAt(i)));
     }
     return ingredientes;
   }

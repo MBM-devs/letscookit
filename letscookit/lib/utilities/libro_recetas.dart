@@ -38,14 +38,15 @@ class LibroRecetas extends Lista {
       int numPersonas,
       int tiempo,
       List<Paso> pasos,
-      List<Ingrediente> ingredientes) {
-    Receta receta = Receta(id, nombre, numPersonas, tiempo);
+      List<Ingrediente> ingredientes,
+      List<Medida> medidas) {
+    Receta receta = Receta(nombre, numPersonas, tiempo, imagen);
     for (var i = 0; i < pasos.length; i++) {
-      receta.addPaso(pasos[i]);
+      receta.crearPaso(pasos[i].descripcion);
     }
 
     for (var i = 0; i < ingredientes.length; i++) {
-      receta.addIngrediente(ingredientes[i]);
+      receta.addIngrediente(medidas[i], ingredientes[i]);
     }
 
     if (misRecetas.buscaReceta(nombre) == -1) misRecetas.add(receta);

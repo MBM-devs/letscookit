@@ -9,7 +9,7 @@ import 'medida.dart';
 
 //Convertirlo al de la db
 
-/*
+
 class Receta {
   String _nombre;
   int _numPersonas;
@@ -84,8 +84,9 @@ class Receta {
     _ingredientes[ingrediente] = medida;
   }
 }
- */
 
+
+/*
 class Receta {
   final String _nombre;
   final int _duracion;
@@ -205,6 +206,6 @@ class Receta {
       throw Exception('Failed to get recipe');
     }
   }
-
-
 }
+
+ */
