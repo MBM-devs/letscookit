@@ -1,17 +1,23 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_session/flutter_session.dart';
 
 
 class RecetaDB {
-  final String nombre;
-  final int duracion;
-  final int nPersonas;
+  String nombre;
+  int duracion;
+  int nPersonas;
+
+  int idUsuario = -1;
 
   static const String _baseAddress = 'clados.ugr.es';
 
   static const String _applicationName = 'DS1_2/api/v1/';
 
   RecetaDB(this.nombre, this.duracion, this.nPersonas);
+
+  
+
 
   String toString() {
     return "nombre: " +

@@ -3,10 +3,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:letscookit/bd/usuario_bd.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:http/http.dart' as http;
+import 'package:letscookit/utilities/generar_recetas.dart';
 import 'package:letscookit/utilities/usuario.dart';
-import 'package:letscookit/widgets/search_bar.dart';
+import 'package:flutter_session/flutter_session.dart';
 
 import 'main_page.dart';
 
@@ -16,12 +18,34 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  var session = FlutterSession();
+  int id = -1;
+  bool isLogin = false;
   bool isRememberMe = false;
 
   Usuario _usuario = Usuario();
 
   TextEditingController _nombreUsuario = TextEditingController();
   TextEditingController _password = TextEditingController();
+
+  @override
+  void initState(){
+    super.initState();
+    _getSession();
+    print("session == " + id.toString());
+  }
+
+  _getSession() async {
+    id = await session.get("id");
+    setState(() {
+      if(id >= 0) isLogin = true;
+    });
+  }
+
+  _setSession() async {
+    id = await UsuarioBD().iniciarSesion(_nombreUsuario.text, _password.text);
+    await session.set("id", id);
+  }
 
   Widget buildUser() {
     return Column(
@@ -148,10 +172,11 @@ class _LoginState extends State<Login> {
       child: RaisedButton(
         elevation: 5,
         onPressed: () {
-          _usuario
-              .iniciarSesion(_nombreUsuario.text, _password.text)
-              .then(((value) {
-            if (value) {
+          setState(() {
+            _setSession();
+            print("id == "+id.toString());
+            if(id>=0) {
+              GenerarRecetas().obtenerRecetas();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -159,10 +184,36 @@ class _LoginState extends State<Login> {
                     return MainPage();
                   },
                 ),
-                (route) => false,
+                    (route) => false,
               );
             }
-          }));
+          });
+          /* _usuario
+              .iniciarSesion(_nombreUsuario.text, _password.text)
+              .then(((value) {
+                if (value) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return MainPage();
+                      },
+                    ),
+                    (route) => false,
+                  );
+                } else {
+                  //Que muestre un mensaje de error, por ahora recarga la pagina
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return Login();
+                      },
+                    ),
+                    (route) => false,
+                  );
+                }
+          })); */
         },
         padding: EdgeInsets.all(15),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

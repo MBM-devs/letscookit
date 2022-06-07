@@ -9,6 +9,8 @@ import 'package:letscookit/utilities/receta.dart';
 import '../bd/paso_bd.dart';
 import '../bd/receta_bd.dart';
 
+import 'package:flutter_session/flutter_session.dart';
+
 class GenerarRecetas {
   /*
   void crear() {
@@ -80,14 +82,31 @@ class GenerarRecetas {
   }
    */
 
+  int user_id = 2;
+
+  _loadSession() async{
+    user_id = await FlutterSession().get("id");
+  }
+
   Future<void> obtenerRecetas() async {
+
+    //Obtenemos el id del usuario con el session
+    _loadSession();
+    print("User ID: "+user_id.toString());
+
+    LibroRecetas libro = LibroRecetas();
+    print("Libro: "+ libro.misRecetas.nombre);
+
+    libro.setListas(user_id);
+
+
     /* RecetaDB recetaDB = await RecetaDB.getReceta("1");
 
     Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas, recetaDB.duracion, "assets/polloAlLimon.jpeg");
    
     LibroRecetas libro = LibroRecetas();
     libro.misRecetas.add(receta);
-    */
+   
 
     List<RecetaDB> listaRecetasDB = await RecetaDB.getRecetas();
     List<PasosDB> listaPasos = await PasosDB.getPasos();
@@ -115,6 +134,6 @@ class GenerarRecetas {
 
       LibroRecetas libro = LibroRecetas();
       libro.misRecetas.add(receta);
-    }
+    } */
   }
 }

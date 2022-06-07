@@ -1,32 +1,33 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_session/flutter_session.dart';
 
 class ListaBD {
-  final int index;
-  final String nombre;
-  final int userID;
+  int id;
+  String nombre;
+  int idUsuario;
 
   static const String _baseAddress = 'clados.ugr.es';
 
-  static const String _applicationName = 'DS1_2/api/v1/';
+  static const String _applicationName = 'DS1_2/api/v1/lists';
 
-  ListaBD(this.index, this.nombre, this.userID);
+  ListaBD(this.id, this.nombre, this.idUsuario);
 
   Map<String, dynamic> toJson() => {
-    'index': index,
+    'id': id,
     'name': nombre,
-    'user_id': userID,
+    'user_id': idUsuario,
   };
 
   ListaBD.fromJson(Map<String, dynamic> json)
-      : index = json["index"],
+      : id = json["id"],
         nombre = json["name"],
-        userID = json["user_id"];
+        idUsuario = json["user_id"];
 
   //GET
   static Future<ListaBD> getLista(String id) async {
     final response = await http.get(
-        Uri.https(_baseAddress, '$_applicationName/lists/$id'),
+        Uri.https(_baseAddress, '$_applicationName/$id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
@@ -38,15 +39,17 @@ class ListaBD {
     }
   }
 
-  static Future<List<ListaBD>> getListas() async {
+  //Devuelve las listas que sean del usuario que se ha registrado
+  static Future<List<ListaBD>> getListas(String user_id) async {
     final response = await http.get(
-        Uri.https(_baseAddress, '$_applicationName/list'),
+        Uri.https(_baseAddress, '$_applicationName/$user_id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
 
     if(response.statusCode == 200){
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+      print("Parsed: "+parsed.toString());
       return parsed.map<ListaBD>((json) => ListaBD.fromJson(json)).toList();
     } else {
       throw Exception('Failed to get lists');

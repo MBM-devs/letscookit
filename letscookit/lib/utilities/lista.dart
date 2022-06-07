@@ -6,8 +6,9 @@ abstract class Lista {
   @protected
   List<dynamic> lista;
   String _nombre;
+  int id;
 
-  Lista(this._nombre) : lista = [];
+  Lista(this._nombre, this.id) : lista = [];
 
   String get nombre => _nombre;
   void set nombre(String nombre) => this._nombre = nombre;

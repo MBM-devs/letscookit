@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+
 class UsuarioBD {
   late int _id;
   late String _username;
@@ -15,7 +16,6 @@ class UsuarioBD {
         _email = "";
 
   Future<int> iniciarSesion(String username, String password) async {
-    // · Comprobar que la contraseña es correcta [True => devolver id] [False => devolver -1]
     //Hace post al servidor con los datos del usuario
     UsuarioBD usuario = await postLogin(username, password);
 
@@ -51,6 +51,7 @@ class UsuarioBD {
         'password': password,
       }),
     );
+    print(response.statusCode.toString());
     if (response.statusCode == 200) {
       return UsuarioBD.fromJson(jsonDecode(response.body));
     } else {
