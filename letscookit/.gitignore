@@ -48,4 +48,5 @@ app.*.map.json
 letscookit/windows/flutter/generated_plugin_registrant.cc
 letscookit/windows/flutter/generated_plugin_registrant.h
 letscookit/windows/
+letscookit/vscode/
 
