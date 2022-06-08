@@ -17,8 +17,9 @@ class UsuarioBD {
 
   Future<int> iniciarSesion(String username, String password) async {
     //Hace post al servidor con los datos del usuario
+    print("Usuario: "+username+", Contraseña: "+password);
     UsuarioBD usuario = await postLogin(username, password);
-
+    print(usuario.toJson());
     return usuario._id;
   }
 

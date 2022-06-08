@@ -19,7 +19,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   var session = FlutterSession();
-  int id = -1;
+
   bool isLogin = false;
   bool isRememberMe = false;
 
@@ -28,11 +28,16 @@ class _LoginState extends State<Login> {
   TextEditingController _nombreUsuario = TextEditingController();
   TextEditingController _password = TextEditingController();
 
+  //Instancia de tipo futuro que sirve para que el Future Builder espere a que
+  //se carguen los datos sin llamar varias veces al _setSession cada vez que cambia de pestaña
+  int id = -1;
+  //late Future<int> dataFuture;
+
   @override
   void initState(){
     super.initState();
-    _getSession();
-    print("session == " + id.toString());
+
+    //_setSession();
   }
 
   _getSession() async {
@@ -45,6 +50,9 @@ class _LoginState extends State<Login> {
   _setSession() async {
     id = await UsuarioBD().iniciarSesion(_nombreUsuario.text, _password.text);
     await session.set("id", id);
+    print("ID: "+id.toString());
+    //dataFuture = (id) as Future<int>;
+    //print("DATAFUTURE: "+dataFuture.toString()+", ID: "+id.toString());
   }
 
   Widget buildUser() {
@@ -172,9 +180,9 @@ class _LoginState extends State<Login> {
       child: RaisedButton(
         elevation: 5,
         onPressed: () {
-          setState(() {
-            _setSession();
-            print("id == "+id.toString());
+          //await _setSession();
+          setState(() async{
+            await _setSession();
             if(id>=0) {
               GenerarRecetas().obtenerRecetas();
               Navigator.pushAndRemoveUntil(
@@ -187,33 +195,40 @@ class _LoginState extends State<Login> {
                     (route) => false,
               );
             }
-          });
-          /* _usuario
-              .iniciarSesion(_nombreUsuario.text, _password.text)
-              .then(((value) {
-                if (value) {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return MainPage();
-                      },
-                    ),
-                    (route) => false,
-                  );
-                } else {
-                  //Que muestre un mensaje de error, por ahora recarga la pagina
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return Login();
-                      },
-                    ),
-                    (route) => false,
-                  );
+            /*
+            FutureBuilder<dynamic>(
+              future: _setSession(),
+              initialData: -1,
+              builder: (context, snapshot){
+                switch(snapshot.connectionState){
+                  case ConnectionState.waiting:
+                    print("Esperando...");
+                    return Center(child: CircularProgressIndicator(),);
+                  case ConnectionState.done:
+                    print("DONE");
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return MainPage();
+                        },
+                      ),
+                          (route) => false,
+                    );
+                    break;
+                  default:
+                    print("AAAAAAAAAAAAAAAAAAAAAAA");
+                    if(snapshot.hasError){
+                      return Text("Error en snapshot");
+                    }
+                    break;
                 }
-          })); */
+                return Text("ERROR EN FUTURE BUILDER");
+              },
+            );
+             */
+
+          });
         },
         padding: EdgeInsets.all(15),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

@@ -82,7 +82,7 @@ class GenerarRecetas {
   }
    */
 
-  int user_id = 2;
+  int user_id = -1;
 
   _loadSession() async{
     user_id = await FlutterSession().get("id");
@@ -91,8 +91,7 @@ class GenerarRecetas {
   Future<void> obtenerRecetas() async {
 
     //Obtenemos el id del usuario con el session
-    _loadSession();
-    print("User ID: "+user_id.toString());
+    await _loadSession();
 
     LibroRecetas libro = LibroRecetas();
     print("Libro: "+ libro.misRecetas.nombre);

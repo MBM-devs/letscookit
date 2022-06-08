@@ -7,16 +7,15 @@ class RecetaDB {
   String nombre;
   int duracion;
   int nPersonas;
+  String urlImg;
 
-  int idUsuario = -1;
+  int idReceta;
 
   static const String _baseAddress = 'clados.ugr.es';
 
   static const String _applicationName = 'DS1_2/api/v1/';
 
-  RecetaDB(this.nombre, this.duracion, this.nPersonas);
-
-  
+  RecetaDB(this.nombre, this.duracion, this.nPersonas, this.urlImg) : idReceta = -1;
 
 
   String toString() {
@@ -32,12 +31,16 @@ class RecetaDB {
     'name': nombre,
     'duration': duracion,
     'people': nPersonas,
+    'url_img': urlImg,
+    'id': idReceta,
   };
 
   RecetaDB.fromJson(Map<String, dynamic> json)
       : nombre = json["name"],
         duracion = json["duration"],
-        nPersonas = json["people"];
+        nPersonas = json["people"],
+        urlImg = json["url_img"],
+        idReceta = json["id"];
 
   //GET
   static Future<RecetaDB> getReceta(String id) async {

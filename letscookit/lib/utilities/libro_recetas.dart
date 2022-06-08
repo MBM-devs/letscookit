@@ -7,6 +7,7 @@ import 'package:letscookit/utilities/lista.dart';
 import 'package:letscookit/utilities/lista_mis_recetas.dart';
 import 'package:letscookit/utilities/medida.dart';
 import 'package:letscookit/utilities/paso.dart';
+import '../bd/paso_bd.dart';
 import 'funciones_comprobacion.dart';
 import 'lista_receta.dart';
 import 'receta.dart';
@@ -74,10 +75,21 @@ class LibroRecetas extends Lista {
   void inicializarLista(int idLista, int index) async{
     List<RecetaListaBD> listaRelacion = await RecetaListaBD.getRelaciones(idLista.toString());
 
+
     for(int i=0; i<listaRelacion.length; i++){
-      RecetaDB recetaDB = await RecetaDB.getReceta(listaRelacion[i].idReceta.toString());
+      int idReceta = listaRelacion[i].idReceta;
+      RecetaDB recetaDB = await RecetaDB.getReceta(idReceta.toString());
+      List<PasosDB> listaPasos = await PasosDB.getPasos();
     
-      Receta receta = Receta(recetaDB.nombre, recetaDB.nPersonas, recetaDB.duracion, "noimageavailable.png");
+      Receta receta = Receta(recetaDB.nombre, recetaDB.nPersonas, recetaDB.duracion, recetaDB.urlImg);
+
+      for(int j=0; j<listaPasos.length; j++){
+        PasosDB paso = listaPasos[j];
+        //pasoDB = await PasosDB.getPaso((j+1).toString());
+        if(paso.receta == idReceta){
+          receta.crearPaso(paso.descripcion);
+        }
+      }
 
       super.get(index).add(receta);
     }
