@@ -179,10 +179,10 @@ class _LoginState extends State<Login> {
       width: MediaQuery.of(context).size.width / 2,
       child: RaisedButton(
         elevation: 5,
-        onPressed: () {
-          //await _setSession();
-          setState(() async{
-            await _setSession();
+        onPressed: () async{
+          await _setSession();
+          setState(() {
+            //await _setSession();
             if(id>=0) {
               GenerarRecetas().obtenerRecetas();
               Navigator.pushAndRemoveUntil(

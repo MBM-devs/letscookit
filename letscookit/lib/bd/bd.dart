@@ -26,7 +26,6 @@ class BD {
   }
 
 //Inicializa la lista i (obtener sus recetas con la relacion receta-lista)
-//igual esta funcion sería lo suyo tenerla en otra clase pero de mientras la dejo aqui pa ir comprobando que el resto de cosas funciona
   void inicializarLista(int idLista, int index) async {
     List<RecetaListaBD> listaRelacion = await RecetaListaBD.getRelaciones(
         idLista.toString());

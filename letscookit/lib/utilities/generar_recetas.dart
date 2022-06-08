@@ -93,8 +93,8 @@ class GenerarRecetas {
     //Obtenemos el id del usuario con el session
     await _loadSession();
 
-    LibroRecetas libro = LibroRecetas();
-    print("Libro: "+ libro.misRecetas.nombre);
+    //LibroRecetas libro = LibroRecetas();
+    //print("Libro: "+ libro.misRecetas.nombre);
 
     BD().setListas(user_id);
     BD().setListaIngredientes();
