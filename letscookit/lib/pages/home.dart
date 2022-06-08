@@ -49,15 +49,15 @@ class _HomeState extends State<Home> {
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                       colors: [
-                    Palette.mainBlue.shade800.withOpacity(1.0),
-                    Palette.mainBlue.shade700.withOpacity(1.0),
-                    Palette.mainBlue.shade600.withOpacity(1.0),
-                    Palette.mainBlue.shade500.withOpacity(1.0),
-                    Palette.mainBlue.shade400.withOpacity(1.0),
-                    Palette.mainBlue.shade200.withOpacity(1.0),
-                    Palette.mainBlue.shade100.withOpacity(1.0),
-                    Palette.mainBlue.shade50.withOpacity(1.0),
-                  ])),
+                        Palette.mainBlue.shade800.withOpacity(1.0),
+                        Palette.mainBlue.shade700.withOpacity(1.0),
+                        Palette.mainBlue.shade600.withOpacity(1.0),
+                        Palette.mainBlue.shade500.withOpacity(1.0),
+                        Palette.mainBlue.shade400.withOpacity(1.0),
+                        Palette.mainBlue.shade200.withOpacity(1.0),
+                        Palette.mainBlue.shade100.withOpacity(1.0),
+                        Palette.mainBlue.shade50.withOpacity(1.0),
+                      ])),
             ),
           ),
           Positioned(
@@ -88,6 +88,114 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: SingleChildScrollView(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/receta/' + _current.toString()
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                RecipeImage(receta.imagen),
+                                SizedBox(height: 20),
+                                Text(
+                                  receta.nombre,
+                                  style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                // rating
+                                SizedBox(height: 20),
+
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 30),
+                                  child: AnimatedOpacity(
+                                    duration: Duration(milliseconds: 500),
+                                    opacity:
+                                    _current == _recetas.lista.indexOf(receta)
+                                        ? 1.0
+                                        : 0.0,
+                                    child: Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 20.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.person_rounded,
+                                                  color: Color.fromARGB(
+                                                      255, 117, 117, 117),
+                                                  size: 20,
+                                                ),
+                                                const SizedBox(width: 5),
+                                                Text(
+                                                  receta.numPersonas.toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 14.0,
+                                                      color:
+                                                      Colors.grey.shade600),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.access_time_rounded,
+                                                  color: Colors.grey.shade600,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(width: 5),
+                                                Text(
+                                                  receta.duracion.toString() +
+                                                      " min",
+                                                  style: TextStyle(
+                                                      fontSize: 14.0,
+                                                      color:
+                                                      Colors.grey.shade600),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.2,
+                                            child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Palette.mainBlue,
+                                                    size: 20,
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  Text(
+                                                    '5',
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        color: Colors
+                                                            .grey.shade600),
+                                                  )
+                                                ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          ),
+                          /*
                           child: Column(
                             children: [
                               RecipeImage(receta.imagen),
@@ -102,19 +210,19 @@ class _HomeState extends State<Home> {
                               SizedBox(height: 20),
 
                               Padding(
-                                padding: const EdgeInsets.only(left: 60),
+                                padding: const EdgeInsets.only(left: 30),
                                 child: AnimatedOpacity(
                                   duration: Duration(milliseconds: 500),
                                   opacity:
-                                      _current == _recetas.lista.indexOf(receta)
-                                          ? 1.0
-                                          : 0.0,
+                                  _current == _recetas.lista.indexOf(receta)
+                                      ? 1.0
+                                      : 0.0,
                                   child: Container(
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 20.0),
+                                    EdgeInsets.symmetric(horizontal: 20.0),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           child: Row(
@@ -131,7 +239,7 @@ class _HomeState extends State<Home> {
                                                 style: TextStyle(
                                                     fontSize: 14.0,
                                                     color:
-                                                        Colors.grey.shade600),
+                                                    Colors.grey.shade600),
                                               )
                                             ],
                                           ),
@@ -151,15 +259,15 @@ class _HomeState extends State<Home> {
                                                 style: TextStyle(
                                                     fontSize: 14.0,
                                                     color:
-                                                        Colors.grey.shade600),
+                                                    Colors.grey.shade600),
                                               )
                                             ],
                                           ),
                                         ),
                                         Container(
                                             width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                .size
+                                                .width *
                                                 0.2,
                                             child: GestureDetector(
                                               onTap: () {
@@ -171,14 +279,13 @@ class _HomeState extends State<Home> {
                                               child: Row(
                                                 children: [
                                                   Icon(
-                                                    Icons
-                                                        .remove_red_eye_rounded,
-                                                    color: Colors.grey.shade600,
+                                                    Icons.star,
+                                                    color: Palette.mainBlue,
                                                     size: 20,
                                                   ),
-                                                  SizedBox(width: 5),
+                                                  SizedBox(width: 10),
                                                   Text(
-                                                    'Ver',
+                                                    '5',
                                                     style: TextStyle(
                                                         fontSize: 14.0,
                                                         color: Colors
@@ -186,7 +293,8 @@ class _HomeState extends State<Home> {
                                                   )
                                                 ],
                                               ),
-                                            )),
+                                            ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -194,7 +302,8 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                           ),
-                        ));
+                          */
+                        );
                   },
                 );
               }).toList(),
