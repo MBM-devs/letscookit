@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/funciones_comprobacion.dart';
+import 'package:letscookit/utilities/generar_recetas.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_mis_recetas.dart';
@@ -8,6 +9,8 @@ import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/medida.dart';
 import 'package:letscookit/widgets/ingrediente_input.dart';
 import 'package:letscookit/widgets/recipe_image.dart';
+import '../bd/receta_bd.dart';
+import '../bd/paso_bd.dart';
 import '../utilities/paso.dart';
 import '../widgets/pasos_text_fields.dart';
 
@@ -35,7 +38,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
   TextEditingController _numeroPersonas = TextEditingController();
   TextEditingController _tiempoReceta = TextEditingController();
 
-  static List<Paso> pasosList = [];
+  static List<String> pasosList = [""];
 
   List<Ingrediente> ingredientes = [Ingrediente("")];
   List<Medida> medidas = [Medida(0, "")];
@@ -190,19 +193,39 @@ class _CreateRecipeState extends State<CreateRecipe> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      libro.crearNuevaReceta(
-                          widget._lista,
-                          nombre,
-                          imagen,
-                          numPersonas,
-                          tiempo,
-                          pasosList,
-                          ingredientes,
-                          medidas);
+                      try {
+                        RecetaDB receta;
+                        RecetaDB.addRecetaDB(
+                            nombre, numPersonas, tiempo, imagen)
+                            .then((value) => {
+                          receta = value,
+                          PasosDB.addPasosDB(pasosList, receta.idReceta).then((value) => GenerarRecetas().actualizarRecetas()),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Receta Añadida.')),
+                          )
+                        });
+                      } on Exception catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Error al crear receta')),
+                        );
+                      }
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Receta Añadida.')),
-                      );
+                      // libro.crearNuevaReceta(
+                      //     widget._lista,
+                      //     id,
+                      //     nombre,
+                      //     imagen,
+                      //     numPersonas,
+                      //     tiempo,
+                      //     pasosList,
+                      //     ingredientes,
+                      //     medidas);
+
+                      // ScaffoldMessenger.of(context).showSnackBar(
+                      //   const SnackBar(content: Text('Receta Añadida.')),
+                      // );
                       _clearInputs();
                     }
                   },
@@ -221,7 +244,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
     _nombreReceta.clear();
     _numeroPersonas.clear();
     _tiempoReceta.clear();
-    pasosList = [];
+    pasosList = [""];
     ingredientes.clear();
     ingredientes = [Ingrediente('')];
     setState(() {});
@@ -279,7 +302,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
       onTap: () {
         if (add) {
           if (pasos) {
-            //pasosList.add('');
+            pasosList.add('');
           } else {
             ingredientes.add(Ingrediente(""));
             medidas.add(Medida(0, ""));

@@ -33,6 +33,10 @@ class LibroRecetas extends Lista {
     if (LibroRecetas().get(0) != lista) super.remove(lista);
   }
 
+  void setLista(ListaReceta lista){
+    super.get(0);
+  }
+
   void inicializarLibro() {
     ListaReceta misRecetas = ListaReceta("Mis Recetas", 0);
     super.add(misRecetas);
@@ -44,12 +48,12 @@ class LibroRecetas extends Lista {
       String imagen,
       int numPersonas,
       int tiempo,
-      List<Paso> pasos,
+      List<String> pasos,
       List<Ingrediente> ingredientes,
       List<Medida> medidas) {
     Receta receta = Receta(nombre, numPersonas, tiempo, imagen);
     for (var i = 0; i < pasos.length; i++) {
-      receta.crearPaso(pasos[i].descripcion);
+      receta.crearPaso(pasos[i]);
     }
 
     for (var i = 0; i < ingredientes.length; i++) {
@@ -62,6 +66,5 @@ class LibroRecetas extends Lista {
   }
 
   ListaReceta get misRecetas => super.lista[0];
-
 
 }

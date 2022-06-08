@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../utilities/paso.dart';
+
 class PasosDB {
   final int index;
   final String descripcion;
@@ -51,6 +53,46 @@ class PasosDB {
     } else {
       throw Exception('Failed to get steps');
     }
+  }
+
+  static Future<PasosDB> addPasoDB(String paso, int index, int id_receta) async {
+    print("Paso: "+paso+", index: "+index.toString()+", idR"+id_receta.toString());
+    String json = jsonEncode(<String, dynamic>{
+      'step': {
+        'index': index+1,
+        'description': paso,
+        'recipe_id': id_receta
+      }
+    });
+    print("JSON: "+json);
+    final response = await http.post(
+        Uri.https(_baseAddress, '$_applicationName/recipes'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json"
+        },
+        body: json);
+
+    print("Estado de error: "+response.statusCode.toString());
+
+    if (response.statusCode == 201) {
+      return PasosDB.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception("Error al Añadir");
+    }
+  }
+
+  static Future<bool> addPasosDB(List<String> pasosList, int id_receta) async {
+    bool complete = true;
+    print("LISTA PASOS: "+pasosList.toString());
+    for(var paso in pasosList){
+      print("DESCRIPCION: "+paso);
+      PasosDB pasoDB = await addPasoDB(paso, pasosList.indexOf(paso), id_receta);
+      if(pasoDB == null){
+        complete = false;
+      }
+    }
+    return complete;
   }
 
 }

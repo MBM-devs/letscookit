@@ -184,16 +184,18 @@ class _LoginState extends State<Login> {
           setState(() {
             //await _setSession();
             if(id>=0) {
-              GenerarRecetas().obtenerRecetas();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return MainPage();
-                  },
-                ),
-                    (route) => false,
-              );
+              GenerarRecetas().obtenerRecetas().then((value) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return MainPage();
+                    },
+                  ),
+                      (route) => false,
+                );
+              });
+
             }
             /*
             FutureBuilder<dynamic>(

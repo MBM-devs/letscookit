@@ -72,4 +72,30 @@ class RecetaDB {
     }
   }
 
+  static Future<RecetaDB> addRecetaDB(
+      String nombre, int numPersonas, int duracion, String imagen) async {
+    int idUser = await FlutterSession().get("id");
+    String json = jsonEncode(<String, dynamic>{
+      'recipe': {
+        'name': nombre,
+        'duration': duracion,
+        'people': numPersonas,
+        'url_img': imagen,
+        'user_id': idUser
+      }
+    });
+    final response = await http.post(
+        Uri.https(_baseAddress, '$_applicationName/recipes'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json"
+        },
+        body: json);
+    if (response.statusCode == 201) {
+      return RecetaDB.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception("Error al Añadir");
+    }
+  }
+
 }

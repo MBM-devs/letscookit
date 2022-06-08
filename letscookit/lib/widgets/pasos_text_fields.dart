@@ -4,7 +4,7 @@ import '../utilities/paso.dart';
 
 class PasosTextFields extends StatefulWidget {
   final int index;
-  List<Paso> pasosList;
+  List<String> pasosList;
   PasosTextFields(this.index, this.pasosList);
 
   @override
@@ -48,7 +48,7 @@ class _PasosTextFields extends State<PasosTextFields> {
         hintText: 'Introduce el paso ',
         labelText: 'Descripcion Paso',
       ),
-      onChanged: (value) => widget.pasosList[widget.index] = value as Paso,
+      onChanged: (value) => widget.pasosList[widget.index] = value,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Por favor, introduzca una descripción del paso o elimínelo';

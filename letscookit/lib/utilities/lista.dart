@@ -27,4 +27,8 @@ abstract class Lista {
 
   void remove(dynamic elemento) => lista.remove(elemento);
   void removeAt(int pos) => lista.removeAt(pos);
+
+  void clear() {
+    lista.clear();
+  }
 }

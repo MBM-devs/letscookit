@@ -18,6 +18,16 @@ class GenerarRecetas {
     user_id = await FlutterSession().get("id");
   }
 
+  Future<void> setListas() async {
+    BD().setListas(user_id);
+    BD().setListaIngredientes();
+  }
+
+  Future<void> actualizarRecetas() async {
+    LibroRecetas().clear();
+    await setListas();
+  }
+
   Future<void> obtenerRecetas() async {
 
     //Obtenemos el id del usuario con el session
@@ -26,8 +36,8 @@ class GenerarRecetas {
     //LibroRecetas libro = LibroRecetas();
     //print("Libro: "+ libro.misRecetas.nombre);
 
-    BD().setListas(user_id);
-    BD().setListaIngredientes();
+    //Reestablecemos el libro de recetas
+    await setListas();
 
   }
 }

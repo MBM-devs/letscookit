@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:letscookit/bd/paso_bd.dart';
 import 'package:letscookit/bd/receta-ingrediente_bd.dart';
@@ -20,8 +21,9 @@ class BD {
     List<ListaBD> listas = await ListaBD.getListas(user_id.toString());
     //Crea las listas del libro
     for(int i=0; i<listas.length; i++){
-      LibroRecetas().crearLista(listas[i].nombre, listas[i].id);
       inicializarLista(listas[i].id, i);
+      if(i!=0)
+        LibroRecetas().crearLista(listas[i].nombre, listas[i].id);
     }
   }
 
