@@ -1,13 +1,8 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:letscookit/utilities/lista_ingredientes.dart';
 import 'package:letscookit/utilities/paso.dart';
-import 'package:letscookit/utilities/recipe_ingredients.dart';
 import 'ingrediente.dart';
 import 'etiqueta.dart';
 import 'medida.dart';
-
-//Convertirlo al de la db
 
 
 class Receta {

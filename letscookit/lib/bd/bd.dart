@@ -4,12 +4,12 @@ import 'package:letscookit/bd/paso_bd.dart';
 import 'package:letscookit/bd/receta-ingrediente_bd.dart';
 import 'package:letscookit/bd/receta-lista_bd.dart';
 import 'package:letscookit/bd/receta_bd.dart';
+import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
+import 'package:letscookit/utilities/lista_ingredientes.dart';
 import 'dart:convert' as convert;
 
-import 'package:letscookit/utilities/paso.dart';
-
-import '../utilities/receta.dart';
+import 'package:letscookit/utilities/receta.dart';
 import 'ingredientes_bd.dart';
 import 'lista_bd.dart';
 
@@ -65,4 +65,16 @@ class BD {
       LibroRecetas().get(index).add(receta);
     }
   }
+
+  //Queremos que estén disponibles para la búsqueda todos los ingredientes de la bd
+  void setListaIngredientes() async{
+    List<IngredientesBD> listaIngredientes = await IngredientesBD.getIngredientes();
+
+    for(int i=0; i<listaIngredientes.length; i++){
+      Ingrediente ingrediente = Ingrediente(listaIngredientes[i].nombre);
+      ListaIngredientes().add(ingrediente);
+    }
+
+  }
+
 }

@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 //Hacer que obtenga la lista de la bd
-
+/*
 class ListaIngredientes{
   List<Ingrediente> _listaIngredientes = [];
 
@@ -55,14 +55,14 @@ class ListaIngredientes{
   }
 
 }
+ */
 
-/*
 class ListaIngredientes extends Lista {
   static final ListaIngredientes _instance = ListaIngredientes._internal();
   factory ListaIngredientes() {
     return _instance;
   }
-  ListaIngredientes._internal() : super("Ingredientes");
+  ListaIngredientes._internal() : super("Ingredientes", 1);
 
   int buscaIngrediente(String nombre) {
     return super.lista.indexWhere((element) =>
@@ -83,4 +83,4 @@ class ListaIngredientes extends Lista {
     }
   }
 }
- */
+

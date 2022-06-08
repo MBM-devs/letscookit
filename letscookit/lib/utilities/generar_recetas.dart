@@ -97,42 +97,7 @@ class GenerarRecetas {
     print("Libro: "+ libro.misRecetas.nombre);
 
     BD().setListas(user_id);
+    BD().setListaIngredientes();
 
-
-    /* RecetaDB recetaDB = await RecetaDB.getReceta("1");
-
-    Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas, recetaDB.duracion, "assets/polloAlLimon.jpeg");
-   
-    LibroRecetas libro = LibroRecetas();
-    libro.misRecetas.add(receta);
-   
-
-    List<RecetaDB> listaRecetasDB = await RecetaDB.getRecetas();
-    List<PasosDB> listaPasos = await PasosDB.getPasos();
-
-    RecetaDB recetaDB = RecetaDB("", 0, 0);
-
-    for (int i = 0; i < listaRecetasDB.length; i++) {
-      recetaDB = listaRecetasDB[i];
-      Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas,
-          recetaDB.duracion, 'assets/nonavailableimage.png');
-
-      /* for(int j=0; j<listaPasos.length; j++){
-        PasosDB paso = listaPasos[j];
-        //pasoDB = await PasosDB.getPaso((j+1).toString());
-        if(paso.receta == i+1){
-          receta.addPaso(paso);
-        }
-      } */
-
-      Ingrediente ingrediente = await Ingrediente.getIngrediente("1");
-
-      //receta.addIngrediente(ingrediente);
-      ListaIngredientes lista = ListaIngredientes();
-      lista.listaIngredientes.add(ingrediente);
-
-      LibroRecetas libro = LibroRecetas();
-      libro.misRecetas.add(receta);
-    } */
   }
 }

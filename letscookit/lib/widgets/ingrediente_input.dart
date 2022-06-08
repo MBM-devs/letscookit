@@ -49,7 +49,7 @@ class _IngredienteInputState extends State<IngredienteInput> {
                         controller: _searchController,
                         hint: "Ingrediente",
                         suggestions: ListaIngredientes()
-                            .listaIngredientes
+                            .lista
                             .map((e) => SearchFieldListItem<Ingrediente>(
                                 e.nombre,
                                 item: e))
@@ -68,7 +68,7 @@ class _IngredienteInputState extends State<IngredienteInput> {
                               ListaIngredientes().buscaIngrediente(value);
                           if (indice == -1) {
                             ListaIngredientes().add(Ingrediente(value));
-                            indice = ListaIngredientes().listaIngredientes.length - 1;
+                            indice = ListaIngredientes().lista.length - 1;
                           }
                           widget._ingredientes[widget._index] =
                               ListaIngredientes().get(indice);
