@@ -101,7 +101,7 @@ class _IngredienteInputState extends State<IngredienteInput> {
                 Column(
                   children: [
                     SizedBox(
-                      width: 80,
+                      width: 100,
                       child: TextFormField(
                         controller: _cantidadIngrediente,
                         decoration: const InputDecoration(
@@ -126,7 +126,7 @@ class _IngredienteInputState extends State<IngredienteInput> {
                 Column(
                   children: [
                     SizedBox(
-                      width: 100,
+                      width: 150,
                       child: TextFormField(
                         controller: _unidadIngrediente,
                         decoration: const InputDecoration(
