@@ -1,6 +1,8 @@
 import 'lista_receta.dart';
 import 'receta.dart';
 
+//FUERA
+/*
 class MenuDiario {
   ListaReceta _desayuno;
   ListaReceta _comida;
@@ -29,4 +31,4 @@ class MenuDiario {
 
   /// Elimina una receta de la lista de Cena
   void removeCena(Receta receta) => _cena.remove(receta);
-}
+}*/

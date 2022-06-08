@@ -85,7 +85,7 @@ class _CreateListState extends State<CreateList> {
                           nombre = _nombreLista.value.text;
                         }
 
-                        LibroRecetas().add(ListaReceta(nombre));
+                        LibroRecetas().add(ListaReceta(nombre, 0));
                         _nombreLista.clear();
                         setState(() {});
                         //Una vez crea la lista, se dirige a la página de la misma

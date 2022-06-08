@@ -113,4 +113,87 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
+
+  /*
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Palette.mainBlue,
+      ),
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        // Handle '/'
+        switch (settings.name) {
+          case '/crear_receta':
+            return MaterialPageRoute(
+                builder: (context) =>
+                    MyScaffold(CreateRecipe(), "Crear Receta"));
+        }
+
+        // Handle '/details/:id'
+        var uri = Uri.parse(settings.name!);
+        if (uri.pathSegments.length == 2) {
+          if (uri.pathSegments.first == 'receta') {
+            int id = int.parse(uri.pathSegments[1]);
+            return MaterialPageRoute(
+                builder: (context) =>
+                    RecipeView(LibroRecetas().misRecetas.get(id)));
+          }
+          if (uri.pathSegments.first == 'lista') {
+            int id = int.parse(uri.pathSegments[1]);
+            return MaterialPageRoute(
+                builder: (context) => RecipeList(LibroRecetas().get(id)));
+          }
+        }
+
+        return MaterialPageRoute(
+            builder: (context) => RecipeView(LibroRecetas().misRecetas.get(0)));
+      },
+      title: "Let's Cook It",
+      home: FutureBuilder(
+        future: GenerarRecetas().obtenerRecetas(),
+        builder: (context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator());
+          }else{
+            return  MyScaffold(
+              _paginas[_paginaActual],
+              _titulos[_paginaActual],
+              child: SizedBox(
+                height: 60,
+                child: BottomNavigationBar(
+                  // selectedIconTheme: IconThemeData(color: Palette.mainBlue[200]),
+                  // unselectedIconTheme: IconThemeData(color: Palette.mainBlue),
+                  type: BottomNavigationBarType.fixed,
+                  currentIndex: _paginaActual,
+                  onTap: (value) {
+                    setState(() {
+                      _paginaActual = value;
+                    });
+                  },
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.home_rounded),
+                      label: "",
+                    ),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.menu_book_rounded), label: ""),
+                    BottomNavigationBarItem(icon: Icon(Icons.add_rounded), label: ""),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.search_rounded), label: ""),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.shopping_basket_rounded), label: ""),
+                  ],
+                ),
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
+   */
+
 }

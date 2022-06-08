@@ -1,5 +1,7 @@
 import 'categoria.dart';
 
+//FUERA
+
 class Etiqueta {
   String _tag;
   Categoria _categoria;

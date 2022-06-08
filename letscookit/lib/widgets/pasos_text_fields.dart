@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../utilities/paso.dart';
+
 class PasosTextFields extends StatefulWidget {
   final int index;
-  List<String> pasosList;
+  List<Paso> pasosList;
   PasosTextFields(this.index, this.pasosList);
 
   @override
@@ -28,7 +30,7 @@ class _PasosTextFields extends State<PasosTextFields> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      _pasoController.text = widget.pasosList[widget.index];
+      _pasoController.text = widget.pasosList[widget.index] as String;
     });
     return TextFormField(
       controller: _pasoController,
@@ -46,7 +48,7 @@ class _PasosTextFields extends State<PasosTextFields> {
         hintText: 'Introduce el paso ',
         labelText: 'Descripcion Paso',
       ),
-      onChanged: (value) => widget.pasosList[widget.index] = value,
+      onChanged: (value) => widget.pasosList[widget.index] = value as Paso,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Por favor, introduzca una descripción del paso o elimínelo';

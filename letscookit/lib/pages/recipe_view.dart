@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/receta.dart';
+import 'package:letscookit/utilities/recipe_ingredients.dart';
 import 'package:letscookit/widgets/ingrediente_view.dart';
 import 'package:letscookit/widgets/my_scaffold.dart';
 import 'package:letscookit/widgets/paso_view.dart';
@@ -9,6 +10,7 @@ import 'package:letscookit/widgets/recipe_image.dart';
 
 class RecipeView extends StatefulWidget {
   Receta _receta;
+
 
   RecipeView(this._receta, {Key? key}) : super(key: key);
 
@@ -132,6 +134,7 @@ class _RecipeViewState extends State<RecipeView> {
   List<PasoView> getPasos() {
     List<PasoView> pasos = [];
     for (var i = 0; i < _receta.numPasos; i++) {
+      //pasos.add(PasoView(_receta.getPaso(i)));
       pasos.add(PasoView(i, _receta.getPaso(i)));
     }
     return pasos;

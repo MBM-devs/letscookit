@@ -8,6 +8,7 @@ import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/medida.dart';
 import 'package:letscookit/widgets/ingrediente_input.dart';
 import 'package:letscookit/widgets/recipe_image.dart';
+import '../utilities/paso.dart';
 import '../widgets/pasos_text_fields.dart';
 
 class CreateRecipe extends StatefulWidget {
@@ -34,11 +35,12 @@ class _CreateRecipeState extends State<CreateRecipe> {
   TextEditingController _numeroPersonas = TextEditingController();
   TextEditingController _tiempoReceta = TextEditingController();
 
-  static List<String> pasosList = [""];
+  static List<Paso> pasosList = [];
 
   List<Ingrediente> ingredientes = [Ingrediente("")];
   List<Medida> medidas = [Medida(0, "")];
 
+  int id = 0;
   String nombre = '';
   String imagen = '';
   int numPersonas = 1;
@@ -190,6 +192,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
                       _formKey.currentState!.save();
                       libro.crearNuevaReceta(
                           widget._lista,
+                          id,
                           nombre,
                           imagen,
                           numPersonas,
@@ -219,7 +222,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
     _nombreReceta.clear();
     _numeroPersonas.clear();
     _tiempoReceta.clear();
-    pasosList = [''];
+    pasosList = [];
     ingredientes.clear();
     ingredientes = [Ingrediente('')];
     setState(() {});
@@ -277,7 +280,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
       onTap: () {
         if (add) {
           if (pasos) {
-            pasosList.add('');
+            //pasosList.add('');
           } else {
             ingredientes.add(Ingrediente(""));
             medidas.add(Medida(0, ""));

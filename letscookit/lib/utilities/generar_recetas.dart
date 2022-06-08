@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:letscookit/bd/bd.dart';
+import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
+import 'package:letscookit/utilities/lista_ingredientes.dart';
+import 'package:letscookit/utilities/paso.dart';
 import 'package:letscookit/utilities/receta.dart';
 
+import '../bd/paso_bd.dart';
+import '../bd/receta_bd.dart';
+
+import 'package:flutter_session/flutter_session.dart';
+
 class GenerarRecetas {
+  /*
   void crear() {
     Receta receta = Receta("Pollo al limón", 4, 20, 'assets/PolloAlLimon.jpeg');
     receta.crearPaso(
@@ -71,16 +80,59 @@ class GenerarRecetas {
     receta.crearIngrediente(1, "pizca", "Sal");
     libro.misRecetas.add(receta);
   }
+   */
+
+  int user_id = -1;
+
+  _loadSession() async{
+    user_id = await FlutterSession().get("id");
+  }
 
   Future<void> obtenerRecetas() async {
-    RecetaDB recetaDB = await RecetaDB.getReceta("1");
 
-    // recetaDB.then((RecetaDB value) {
-    //   Receta receta = Receta(value.nombre, value.nPersonas, value.duracion,
-    //       'assets/PolloAlLimon.jpeg');
-    //   LibroRecetas libro = LibroRecetas();
+    //Obtenemos el id del usuario con el session
+    await _loadSession();
 
-    //   libro.misRecetas.add(receta);
-    // });
+    LibroRecetas libro = LibroRecetas();
+    print("Libro: "+ libro.misRecetas.nombre);
+
+    libro.setListas(user_id);
+
+
+    /* RecetaDB recetaDB = await RecetaDB.getReceta("1");
+
+    Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas, recetaDB.duracion, "assets/polloAlLimon.jpeg");
+   
+    LibroRecetas libro = LibroRecetas();
+    libro.misRecetas.add(receta);
+   
+
+    List<RecetaDB> listaRecetasDB = await RecetaDB.getRecetas();
+    List<PasosDB> listaPasos = await PasosDB.getPasos();
+
+    RecetaDB recetaDB = RecetaDB("", 0, 0);
+
+    for (int i = 0; i < listaRecetasDB.length; i++) {
+      recetaDB = listaRecetasDB[i];
+      Receta receta = Receta((recetaDB.nombre), recetaDB.nPersonas,
+          recetaDB.duracion, 'assets/nonavailableimage.png');
+
+      /* for(int j=0; j<listaPasos.length; j++){
+        PasosDB paso = listaPasos[j];
+        //pasoDB = await PasosDB.getPaso((j+1).toString());
+        if(paso.receta == i+1){
+          receta.addPaso(paso);
+        }
+      } */
+
+      Ingrediente ingrediente = await Ingrediente.getIngrediente("1");
+
+      //receta.addIngrediente(ingrediente);
+      ListaIngredientes lista = ListaIngredientes();
+      lista.listaIngredientes.add(ingrediente);
+
+      LibroRecetas libro = LibroRecetas();
+      libro.misRecetas.add(receta);
+    } */
   }
 }
