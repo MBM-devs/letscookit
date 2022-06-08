@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:letscookit/bd/receta_bd.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/funciones_comprobacion.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
@@ -190,6 +191,23 @@ class _CreateRecipeState extends State<CreateRecipe> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
+                      RecetaDB.addRecetaDB(nombre, numPersonas, tiempo, imagen)
+                          .then((value) => {
+                                if (value)
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Receta Añadida.')),
+                                    )
+                                  }
+                                else
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Error al añadir')),
+                                    )
+                                  }
+                              });
                       libro.crearNuevaReceta(
                           widget._lista,
                           id,
@@ -201,9 +219,9 @@ class _CreateRecipeState extends State<CreateRecipe> {
                           ingredientes,
                           medidas);
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Receta Añadida.')),
-                      );
+                      // ScaffoldMessenger.of(context).showSnackBar(
+                      //   const SnackBar(content: Text('Receta Añadida.')),
+                      // );
                       _clearInputs();
                     }
                   },

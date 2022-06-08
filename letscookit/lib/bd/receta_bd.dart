@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_session/flutter_session.dart';
 
-
 class RecetaDB {
   String nombre;
   int duracion;
@@ -15,8 +14,8 @@ class RecetaDB {
 
   static const String _applicationName = 'DS1_2/api/v1/';
 
-  RecetaDB(this.nombre, this.duracion, this.nPersonas, this.urlImg) : idReceta = -1;
-
+  RecetaDB(this.nombre, this.duracion, this.nPersonas, this.urlImg)
+      : idReceta = -1;
 
   String toString() {
     return "nombre: " +
@@ -28,12 +27,13 @@ class RecetaDB {
   }
 
   Map<String, dynamic> toJson() => {
-    'name': nombre,
-    'duration': duracion,
-    'people': nPersonas,
-    'url_img': urlImg,
-    'id': idReceta,
-  };
+        'recipe': {
+          'name': nombre,
+          'duration': duracion,
+          'people': nPersonas,
+          'url_img': urlImg
+        }
+      };
 
   RecetaDB.fromJson(Map<String, dynamic> json)
       : nombre = json["name"],
@@ -64,7 +64,7 @@ class RecetaDB {
           'Content-Type': 'application/json; charset=UTF-8',
         });
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
       return parsed.map<RecetaDB>((json) => RecetaDB.fromJson(json)).toList();
     } else {
@@ -72,4 +72,32 @@ class RecetaDB {
     }
   }
 
+  static Future<bool> addRecetaDB(
+      String nombre, int numPersonas, int duracion, String imagen) async {
+    int id_user = await FlutterSession().get("id");
+    String json = jsonEncode(<String, dynamic>{
+      'recipe': {
+        'name': nombre,
+        'duration': duracion,
+        'people': numPersonas,
+        'url_img': imagen,
+        'user_id': id_user
+      }
+    });
+
+    print(json);
+    final response = await http.post(
+        Uri.https(_baseAddress, '$_applicationName/recipes'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json"
+        },
+        body: json);
+    print(response.statusCode);
+    print(FlutterSession().get("id").toString());
+    if (response.statusCode == 201) {
+      return true;
+    }
+    return false;
+  }
 }
