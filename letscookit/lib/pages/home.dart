@@ -80,7 +80,14 @@ class _HomeState extends State<Home> {
               items: _recetas.lista.map((receta) {
                 return Builder(
                   builder: (BuildContext context) {
-                    return Container(
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context,
+                            '/receta/' + _current.toString()
+                        );
+                      },
+                      child: Container(
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.symmetric(horizontal: 5.0),
                         decoration: BoxDecoration(
@@ -91,8 +98,8 @@ class _HomeState extends State<Home> {
                           child: GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(
-                                context,
-                                '/receta/' + _current.toString()
+                                  context,
+                                  '/receta/' + _current.toString()
                               );
                             },
                             child: Column(
@@ -169,21 +176,21 @@ class _HomeState extends State<Home> {
                                                 .width *
                                                 0.2,
                                             child: Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Palette.mainBlue,
-                                                    size: 20,
-                                                  ),
-                                                  SizedBox(width: 10),
-                                                  Text(
-                                                    '5',
-                                                    style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        color: Colors
-                                                            .grey.shade600),
-                                                  )
-                                                ],
+                                              children: [
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Palette.mainBlue,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(width: 10),
+                                                Text(
+                                                  '5',
+                                                  style: TextStyle(
+                                                      fontSize: 14.0,
+                                                      color: Colors
+                                                          .grey.shade600),
+                                                )
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -194,116 +201,9 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                           ),
-                          ),
-                          /*
-                          child: Column(
-                            children: [
-                              RecipeImage(receta.imagen),
-                              SizedBox(height: 20),
-                              Text(
-                                receta.nombre,
-                                style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              // rating
-                              SizedBox(height: 20),
-
-                              Padding(
-                                padding: const EdgeInsets.only(left: 30),
-                                child: AnimatedOpacity(
-                                  duration: Duration(milliseconds: 500),
-                                  opacity:
-                                  _current == _recetas.lista.indexOf(receta)
-                                      ? 1.0
-                                      : 0.0,
-                                  child: Container(
-                                    padding:
-                                    EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.person_rounded,
-                                                color: Color.fromARGB(
-                                                    255, 117, 117, 117),
-                                                size: 20,
-                                              ),
-                                              const SizedBox(width: 5),
-                                              Text(
-                                                receta.numPersonas.toString(),
-                                                style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    color:
-                                                    Colors.grey.shade600),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.access_time_rounded,
-                                                color: Colors.grey.shade600,
-                                                size: 20,
-                                              ),
-                                              SizedBox(width: 5),
-                                              Text(
-                                                receta.duracion.toString() +
-                                                    " min",
-                                                style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    color:
-                                                    Colors.grey.shade600),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.2,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                    context,
-                                                    '/receta/' +
-                                                        _current.toString());
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Palette.mainBlue,
-                                                    size: 20,
-                                                  ),
-                                                  SizedBox(width: 10),
-                                                  Text(
-                                                    '5',
-                                                    style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        color: Colors
-                                                            .grey.shade600),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          */
-                        );
+                        ),
+                      ),
+                    );
                   },
                 );
               }).toList(),
