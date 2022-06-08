@@ -96,7 +96,7 @@ class GenerarRecetas {
     LibroRecetas libro = LibroRecetas();
     print("Libro: "+ libro.misRecetas.nombre);
 
-    libro.setListas(user_id);
+    BD().setListas(user_id);
 
 
     /* RecetaDB recetaDB = await RecetaDB.getReceta("1");

@@ -1,5 +1,8 @@
 // ? clase template
+import 'package:letscookit/bd/bd.dart';
+import 'package:letscookit/bd/ingredientes_bd.dart';
 import 'package:letscookit/bd/lista_bd.dart';
+import 'package:letscookit/bd/receta-ingrediente_bd.dart';
 import 'package:letscookit/bd/receta-lista_bd.dart';
 import 'package:letscookit/bd/receta_bd.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
@@ -37,7 +40,6 @@ class LibroRecetas extends Lista {
 
   void crearNuevaReceta(
       ListaReceta? lista,
-      int id,
       String nombre,
       String imagen,
       int numPersonas,
@@ -61,47 +63,5 @@ class LibroRecetas extends Lista {
 
   ListaReceta get misRecetas => super.lista[0];
 
-
-  void setListas(int user_id) async{
-    List<ListaBD> listas = await ListaBD.getListas(user_id.toString());
-    //Crea las listas del libro
-    for(int i=0; i<listas.length; i++){
-      crearLista(listas[i].nombre, listas[i].id);
-      inicializarLista(listas[i].id, i);
-    }
-  }
-
-  //Inicializa la lista i (obtener sus recetas con la relacion receta-lista)
-  void inicializarLista(int idLista, int index) async{
-    List<RecetaListaBD> listaRelacion = await RecetaListaBD.getRelaciones(idLista.toString());
-
-
-    for(int i=0; i<listaRelacion.length; i++){
-      int idReceta = listaRelacion[i].idReceta;
-      RecetaDB recetaDB = await RecetaDB.getReceta(idReceta.toString());
-      List<PasosDB> listaPasos = await PasosDB.getPasos();
-    
-      Receta receta = Receta(recetaDB.nombre, recetaDB.nPersonas, recetaDB.duracion, recetaDB.urlImg);
-
-      for(int j=0; j<listaPasos.length; j++){
-        PasosDB paso = listaPasos[j];
-        //pasoDB = await PasosDB.getPaso((j+1).toString());
-        if(paso.receta == idReceta){
-          receta.crearPaso(paso.descripcion);
-        }
-      }
-
-      super.get(index).add(receta);
-    }
-  
-  }
-
-  /* void inicializarListas(){
-    for(int i=0; i<super.length(); i++){
-
-      //Aqui hay que pasarle una Receta
-      super.get(i).add();
-    }
-  } */
 
 }

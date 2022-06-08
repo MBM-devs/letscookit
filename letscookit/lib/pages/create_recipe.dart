@@ -192,7 +192,6 @@ class _CreateRecipeState extends State<CreateRecipe> {
                       _formKey.currentState!.save();
                       libro.crearNuevaReceta(
                           widget._lista,
-                          id,
                           nombre,
                           imagen,
                           numPersonas,

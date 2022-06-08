@@ -7,7 +7,7 @@ class IngredientesBD {
 
   static const String _baseAddress = 'clados.ugr.es';
 
-  static const String _applicationName = 'DS1_2/api/v1/';
+  static const String _applicationName = 'DS1_2/api/v1/ingredients';
 
   IngredientesBD(this.index, this.nombre);
 
@@ -23,7 +23,7 @@ class IngredientesBD {
   //GET
   static Future<IngredientesBD> getIngrediente(String id) async {
     final response = await http.get(
-        Uri.https(_baseAddress, '$_applicationName/ingredients/$id'),
+        Uri.https(_baseAddress, '$_applicationName/$id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
@@ -37,7 +37,7 @@ class IngredientesBD {
 
   static Future<List<IngredientesBD>> getIngredientes() async {
     final response = await http.get(
-        Uri.https(_baseAddress, '$_applicationName/ingredients'),
+        Uri.https(_baseAddress, '$_applicationName'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });

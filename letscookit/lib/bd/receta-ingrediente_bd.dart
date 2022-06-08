@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class RecipesIngredients {
+class RecetaIngredienteBD {
   final int _id;
   final int _idReceta;
   final int _idIngrediente;
@@ -19,7 +19,7 @@ class RecipesIngredients {
   int get cantidad => _cantidad;
   String get unidad => _unidad;
 
-  RecipesIngredients(this._id, this._idReceta, this._idIngrediente,
+  RecetaIngredienteBD(this._id, this._idReceta, this._idIngrediente,
       this._cantidad, this._unidad);
 
   Map<String, dynamic> toJson() => {
@@ -30,28 +30,37 @@ class RecipesIngredients {
     'unit': _unidad,
   };
 
-  RecipesIngredients.fromJson(Map<String, dynamic> json)
+  RecetaIngredienteBD.fromJson(Map<String, dynamic> json)
       : _id = json["id"],
         _idReceta = json["recipe_id"],
         _idIngrediente = json["ingredient_id"],
         _cantidad = json["quantity"],
         _unidad = json["unit"];
 
-  static Future<RecipesIngredients> getRecipesIngredients(String id) async {
+  //Busca por id de la receta y devuelve todas las relaciones de esa receta
+  static Future<List<RecetaIngredienteBD>> getRelacionesRecetaIngrediente(String id) async {
     final response = await http.get(
         Uri.https(_baseAddress, '$_applicationName/recipe_ingredients/$id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
 
-    if (response.statusCode == 200) {
-      return RecipesIngredients.fromJson(jsonDecode(response.body));
+    if(response.statusCode == 200){
+      final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+      return parsed.map<RecetaIngredienteBD>((json) => RecetaIngredienteBD.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to get recipes-ingredients relations');
+    }
+
+    /*if (response.statusCode == 200) {
+      return RecetaIngredienteBD.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to get recipes-ingredients relation');
     }
+     */
   }
 
-  static Future<List<RecipesIngredients>> getAllRecipesIngredients() async {
+  static Future<List<RecetaIngredienteBD>> getAllRecipesIngredients() async {
     final response = await http.get(
         Uri.https(_baseAddress, '$_applicationName/recipe_ingredients'),
         headers: <String, String>{
@@ -60,7 +69,7 @@ class RecipesIngredients {
 
     if(response.statusCode == 200){
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-      return parsed.map<RecipesIngredients>((json) => RecipesIngredients.fromJson(json)).toList();
+      return parsed.map<RecetaIngredienteBD>((json) => RecetaIngredienteBD.fromJson(json)).toList();
     } else {
       throw Exception('Failed to get recipes-ingredients relations');
     }
