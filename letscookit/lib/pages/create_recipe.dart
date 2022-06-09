@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:letscookit/bd/ingredientes_bd.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/funciones_comprobacion.dart';
@@ -10,6 +11,7 @@ import 'package:letscookit/utilities/lista_receta.dart';
 import 'package:letscookit/utilities/medida.dart';
 import 'package:letscookit/widgets/ingrediente_input.dart';
 import 'package:letscookit/widgets/recipe_image.dart';
+import '../bd/bd.dart';
 import '../bd/receta_bd.dart';
 import '../bd/paso_bd.dart';
 import '../utilities/paso.dart';
@@ -205,15 +207,16 @@ class _CreateRecipeState extends State<CreateRecipe> {
                           //Ingredientes
                           //Se esperará a que se añadan los ingredientes para limpiar los inputs.
                           //IngredientesBD.addIngredientesBD(ingredientes, receta.idReceta).then((value) => _clearInputs()),
-                          await IngredientesBD.addIngredienteDB("Huevo", new Medida(2, "unidades"), receta.idReceta),
-                          print("INGR: "+ingredientes[0].nombre+", Medida: "+medidas[0].cantidad.toString()),
-                          await IngredientesBD.addIngredienteDB(ingredientes[0].nombre, medidas[0], receta.idReceta),//.then((value) => _clearInputs()),
-                          print("INGR: "+ingredientes[0].nombre),
+                          await IngredientesBD.addIngredienteDB(ingredientes[0].nombre, medidas[0], receta.idReceta)
+                              .then((value) {
+                                GenerarRecetas().obtenerRecetas();
+                          }),//.then((value) => _clearInputs()),
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text('Receta Añadida.')),
                           )
+
                         });
                       } on Exception catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -221,22 +224,6 @@ class _CreateRecipeState extends State<CreateRecipe> {
                               content: Text('Error al crear receta')),
                         );
                       }
-
-                      // libro.crearNuevaReceta(
-                      //     widget._lista,
-                      //     id,
-                      //     nombre,
-                      //     imagen,
-                      //     numPersonas,
-                      //     tiempo,
-                      //     pasosList,
-                      //     ingredientes,
-                      //     medidas);
-
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   const SnackBar(content: Text('Receta Añadida.')),
-                      // );
-                      //_clearInputs();
                     }
                   },
                   child: const Text('Crear'),

@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
+import 'package:letscookit/utilities/valoracion.dart';
 import 'package:letscookit/widgets/recipe_image.dart';
 
 class Home extends StatefulWidget {
@@ -49,15 +50,15 @@ class _HomeState extends State<Home> {
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                       colors: [
-                    Palette.mainBlue.shade800.withOpacity(1.0),
-                    Palette.mainBlue.shade700.withOpacity(1.0),
-                    Palette.mainBlue.shade600.withOpacity(1.0),
-                    Palette.mainBlue.shade500.withOpacity(1.0),
-                    Palette.mainBlue.shade400.withOpacity(1.0),
-                    Palette.mainBlue.shade200.withOpacity(1.0),
-                    Palette.mainBlue.shade100.withOpacity(1.0),
-                    Palette.mainBlue.shade50.withOpacity(1.0),
-                  ])),
+                        Palette.mainBlue.shade800.withOpacity(1.0),
+                        Palette.mainBlue.shade700.withOpacity(1.0),
+                        Palette.mainBlue.shade600.withOpacity(1.0),
+                        Palette.mainBlue.shade500.withOpacity(1.0),
+                        Palette.mainBlue.shade400.withOpacity(1.0),
+                        Palette.mainBlue.shade200.withOpacity(1.0),
+                        Palette.mainBlue.shade100.withOpacity(1.0),
+                        Palette.mainBlue.shade50.withOpacity(1.0),
+                      ])),
             ),
           ),
           Positioned(
@@ -80,7 +81,14 @@ class _HomeState extends State<Home> {
               items: _recetas.lista.map((receta) {
                 return Builder(
                   builder: (BuildContext context) {
-                    return Container(
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context,
+                            '/receta/' + _current.toString()
+                        );
+                      },
+                      child: Container(
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.symmetric(horizontal: 5.0),
                         decoration: BoxDecoration(
@@ -88,113 +96,127 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              RecipeImage(receta.imagen),
-                              SizedBox(height: 20),
-                              Text(
-                                receta.nombre,
-                                style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              // rating
-                              SizedBox(height: 20),
-
-                              Padding(
-                                padding: const EdgeInsets.only(left: 45),
-                                child: AnimatedOpacity(
-                                  duration: Duration(milliseconds: 500),
-                                  opacity:
-                                      _current == _recetas.lista.indexOf(receta)
-                                          ? 1.0
-                                          : 0.0,
-                                  child: Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.person_rounded,
-                                                color: Color.fromARGB(
-                                                    255, 117, 117, 117),
-                                                size: 20,
-                                              ),
-                                              const SizedBox(width: 5),
-                                              Text(
-                                                receta.numPersonas.toString(),
-                                                style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    color:
-                                                        Colors.grey.shade600),
-                                              )
-                                            ],
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context,
+                                  '/receta/' + _current.toString()
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                RecipeImage(receta.imagen),
+                                SizedBox(height: 20),
+                                Text(
+                                  receta.nombre,
+                                  style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                // rating
+                                SizedBox(height: 20),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 30),
+                                  child: AnimatedOpacity(
+                                    duration: Duration(milliseconds: 500),
+                                    opacity:
+                                    _current == _recetas.lista.indexOf(receta)
+                                        ? 1.0
+                                        : 0.0,
+                                    child: Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 20.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.person_rounded,
+                                                  color: Color.fromARGB(
+                                                      255, 117, 117, 117),
+                                                  size: 20,
+                                                ),
+                                                const SizedBox(width: 5),
+                                                Text(
+                                                  receta.numPersonas.toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 14.0,
+                                                      color:
+                                                      Colors.grey.shade600),
+                                                )
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.access_time_rounded,
-                                                color: Colors.grey.shade600,
-                                                size: 20,
-                                              ),
-                                              SizedBox(width: 5),
-                                              Text(
-                                                receta.duracion.toString() +
-                                                    " min",
-                                                style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    color:
-                                                        Colors.grey.shade600),
-                                              )
-                                            ],
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.access_time_rounded,
+                                                  color: Colors.grey.shade600,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(width: 5),
+                                                Text(
+                                                  receta.duracion.toString() +
+                                                      " min",
+                                                  style: TextStyle(
+                                                      fontSize: 14.0,
+                                                      color:
+                                                      Colors.grey.shade600),
+                                                )
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Container(
+                                          Container(
                                             width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                .size
+                                                .width *
                                                 0.2,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                    context,
-                                                    '/receta/' +
-                                                        _current.toString());
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons
-                                                        .remove_red_eye_rounded,
-                                                    color: Colors.grey.shade600,
-                                                    size: 20,
-                                                  ),
-                                                  SizedBox(width: 5),
-                                                  Text(
-                                                    'Ver',
-                                                    style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        color: Colors
-                                                            .grey.shade600),
-                                                  )
-                                                ],
-                                              ),
-                                            )),
-                                      ],
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Palette.mainBlue,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(width: 10),
+                                                FutureBuilder(
+                                                    future: Valoracion(receta.id).getValoracion(),
+                                                    builder: (context, snapshot) {
+                                                      if(snapshot.hasData){
+                                                        return Text(
+                                                          snapshot.data.toString(),
+                                                          style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              color: Colors
+                                                                  .grey.shade600),
+                                                        );
+                                                      }
+                                                      return Text(
+                                                        "0",
+                                                        style: TextStyle(
+                                                            fontSize: 14.0,
+                                                            color: Colors
+                                                                .grey.shade600),
+                                                      );
+                                                })
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ));
+                        ),
+                      ),
+                    );
                   },
                 );
               }).toList(),

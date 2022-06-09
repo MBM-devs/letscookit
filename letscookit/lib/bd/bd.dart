@@ -11,6 +11,7 @@ import 'package:letscookit/utilities/lista_ingredientes.dart';
 import 'dart:convert' as convert;
 
 import 'package:letscookit/utilities/receta.dart';
+import '../utilities/lista_receta.dart';
 import 'ingredientes_bd.dart';
 import 'lista_bd.dart';
 
@@ -22,7 +23,7 @@ class BD {
     //Crea las listas del libro
     for(int i=0; i<listas.length; i++){
       inicializarLista(listas[i].id, i);
-      if(i!=0)
+      if(LibroRecetas().length() <= i )
         LibroRecetas().crearLista(listas[i].nombre, listas[i].id);
     }
   }
@@ -34,37 +35,42 @@ class BD {
 
 
     for (int i = 0; i < listaRelacion.length; i++) {
-      int idReceta = listaRelacion[i].idReceta;
-      RecetaDB recetaDB = await RecetaDB.getReceta(idReceta.toString());
-      List<PasosDB> listaPasos = await PasosDB.getPasos();
 
-      Receta receta = Receta(
-          recetaDB.nombre, recetaDB.nPersonas, recetaDB.duracion,
-          recetaDB.urlImg);
+      if(LibroRecetas().get(index).length() <= i){
+        int idReceta = listaRelacion[i].idReceta;
+        RecetaDB recetaDB = await RecetaDB.getReceta(idReceta.toString());
+        List<PasosDB> listaPasos = await PasosDB.getPasos();
 
-      for (int j = 0; j < listaPasos.length; j++) {
-        PasosDB paso = listaPasos[j];
-        //pasoDB = await PasosDB.getPaso((j+1).toString());
-        if (paso.receta == idReceta) {
-          receta.crearPaso(paso.descripcion);
+        Receta receta = Receta(
+            recetaDB.nombre, recetaDB.nPersonas, recetaDB.duracion,
+            recetaDB.urlImg);
+
+        receta.id = idReceta;
+
+        for (int j = 0; j < listaPasos.length; j++) {
+          PasosDB paso = listaPasos[j];
+          //pasoDB = await PasosDB.getPaso((j+1).toString());
+          if (paso.receta == idReceta) {
+            receta.crearPaso(paso.descripcion);
+          }
         }
+
+        //Para cada receta, busca las relaciones de ingredientes que tenga
+        List<RecetaIngredienteBD> listaRelacionIngr = await RecetaIngredienteBD
+            .getRelacionesRecetaIngrediente(idReceta.toString());
+        //List<IngredientesBD> listaIngredientes = await IngredientesBD.getIngredientes();
+
+        for (int j = 0; j < listaRelacionIngr.length; j++) {
+          IngredientesBD ingrediente = await IngredientesBD.getIngrediente(
+              listaRelacionIngr[j].idIngrediente.toString());
+          receta.crearIngrediente(
+              listaRelacionIngr[j].cantidad, listaRelacionIngr[j].unidad,
+              ingrediente.nombre);
+        }
+
+        LibroRecetas().get(index).add(receta);
       }
 
-      //Para cada receta, busca las relaciones de ingredientes que tenga
-      List<RecetaIngredienteBD> listaRelacionIngr = await RecetaIngredienteBD
-          .getRelacionesRecetaIngrediente(idReceta.toString());
-      //List<IngredientesBD> listaIngredientes = await IngredientesBD.getIngredientes();
-
-      for (int j = 0; j < listaRelacionIngr.length; j++) {
-        IngredientesBD ingrediente = await IngredientesBD.getIngrediente(
-            listaRelacionIngr[j].idIngrediente.toString());
-        receta.crearIngrediente(
-            listaRelacionIngr[j].cantidad, listaRelacionIngr[j].unidad,
-            ingrediente.nombre);
-        print("INGREDIENTE en bd: "+ingrediente.nombre);
-      }
-
-      LibroRecetas().get(index).add(receta);
     }
   }
 

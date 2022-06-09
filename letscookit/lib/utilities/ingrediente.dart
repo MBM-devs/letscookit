@@ -12,8 +12,8 @@ class Ingrediente {
  */
 
 class Ingrediente {
-  final String _nombre;
-  final int _id;
+  String _nombre;
+  int _id;
 
   static const String _baseAddress = 'clados.ugr.es';
 
@@ -24,6 +24,10 @@ class Ingrediente {
   /// GETTERS
   int get id => _id;
   String get nombre => _nombre;
+
+  set nombre(String value) {
+    _nombre = value;
+  }
 
   String toString() {
     return "id: " +

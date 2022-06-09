@@ -17,6 +17,8 @@ class Receta {
   List<Etiqueta> _etiquetas;
   ListaIngredientes _listaIngredientes;
 
+  int _id = 0;
+
   //Constructor
   Receta(this._nombre, this._numPersonas, this._duracion, this._imagen)
       : _realizada = false,
@@ -30,12 +32,16 @@ class Receta {
   set numPersonas(int numPersonas) => _numPersonas = numPersonas;
   set realizada(bool realizada) => _realizada = realizada;
 
+  set id(int id) => _id = id;
+
   // getters
   String get nombre => _nombre;
   int get numPersonas => _numPersonas;
   bool get realizada => _realizada;
   int get duracion => _duracion;
   String get imagen => _imagen;
+
+  int get id => _id;
 
   /// Devuelve el numero de pasos de la receta
   int get numPasos => _pasos.length;

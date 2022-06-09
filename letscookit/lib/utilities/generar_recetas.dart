@@ -23,21 +23,26 @@ class GenerarRecetas {
     BD().setListaIngredientes();
   }
 
+  /*
   Future<void> actualizarRecetas() async {
     LibroRecetas().clear();
     await setListas();
   }
+
+   */
 
   Future<void> obtenerRecetas() async {
 
     //Obtenemos el id del usuario con el session
     await _loadSession();
 
+    BD().setListas(user_id);
+    BD().setListaIngredientes();
     //LibroRecetas libro = LibroRecetas();
     //print("Libro: "+ libro.misRecetas.nombre);
 
     //Reestablecemos el libro de recetas
-    await setListas();
+    //await setListas();
 
   }
 }
