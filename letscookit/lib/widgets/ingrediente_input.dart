@@ -37,7 +37,9 @@ class _IngredienteInputState extends State<IngredienteInput> {
               hintText: "Nombre",
               labelText: 'Ingrediente',
             ),
-            onSaved: (value) => _ingredienteController.clear(),
+            onSaved: (value) {
+              print("IngredienteContr: "+_ingredienteController.text);  //_ingredienteController.clear();
+            },
             onTap: (() {
               showDialog(
                 context: context,
@@ -68,7 +70,7 @@ class _IngredienteInputState extends State<IngredienteInput> {
                               ListaIngredientes().buscaIngrediente(value);
                           if (indice == -1) {
                             ListaIngredientes().add(Ingrediente(value));
-                            indice = ListaIngredientes().lista.length - 1;
+                            indice = ListaIngredientes().length() - 1;
                           }
                           widget._ingredientes[widget._index] =
                               ListaIngredientes().get(indice);

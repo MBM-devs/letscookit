@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:letscookit/bd/ingredientes_bd.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/funciones_comprobacion.dart';
 import 'package:letscookit/utilities/generar_recetas.dart';
@@ -43,7 +44,6 @@ class _CreateRecipeState extends State<CreateRecipe> {
   List<Ingrediente> ingredientes = [Ingrediente("")];
   List<Medida> medidas = [Medida(0, "")];
 
-  int id = 0;
   String nombre = '';
   String imagen = '';
   int numPersonas = 1;
@@ -197,9 +197,19 @@ class _CreateRecipeState extends State<CreateRecipe> {
                         RecetaDB receta;
                         RecetaDB.addRecetaDB(
                             nombre, numPersonas, tiempo, imagen)
-                            .then((value) => {
+                            .then((value) async => {
                           receta = value,
-                          PasosDB.addPasosDB(pasosList, receta.idReceta).then((value) => GenerarRecetas().actualizarRecetas()),
+                          await PasosDB.addPasosDB(pasosList, receta.idReceta),
+
+
+                          //Ingredientes
+                          //Se esperará a que se añadan los ingredientes para limpiar los inputs.
+                          //IngredientesBD.addIngredientesBD(ingredientes, receta.idReceta).then((value) => _clearInputs()),
+                          await IngredientesBD.addIngredienteDB("Huevo", new Medida(2, "unidades"), receta.idReceta),
+                          print("INGR: "+ingredientes[0].nombre+", Medida: "+medidas[0].cantidad.toString()),
+                          await IngredientesBD.addIngredienteDB(ingredientes[0].nombre, medidas[0], receta.idReceta),//.then((value) => _clearInputs()),
+                          print("INGR: "+ingredientes[0].nombre),
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text('Receta Añadida.')),
@@ -226,7 +236,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
                       // ScaffoldMessenger.of(context).showSnackBar(
                       //   const SnackBar(content: Text('Receta Añadida.')),
                       // );
-                      _clearInputs();
+                      //_clearInputs();
                     }
                   },
                   child: const Text('Crear'),
@@ -244,7 +254,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
     _nombreReceta.clear();
     _numeroPersonas.clear();
     _tiempoReceta.clear();
-    pasosList = [""];
+    pasosList = [''];
     ingredientes.clear();
     ingredientes = [Ingrediente('')];
     setState(() {});
@@ -259,7 +269,7 @@ class _CreateRecipeState extends State<CreateRecipe> {
     );
   }
 
-  /// get firends text-fields
+  /// get steps text-fields
   List<Widget> _getPasos() {
     List<Widget> pasosTextFields = [];
     for (int i = 0; i < pasosList.length; i++) {

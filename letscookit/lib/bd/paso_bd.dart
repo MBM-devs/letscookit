@@ -10,7 +10,7 @@ class PasosDB {
 
   static const String _baseAddress = 'clados.ugr.es';
 
-  static const String _applicationName = 'DS1_2/api/v1/';
+  static const String _applicationName = 'DS1_2/api/v1/steps';
 
   PasosDB(this.index, this.descripcion, this.receta);
 
@@ -28,7 +28,7 @@ class PasosDB {
   //GET
   static Future<PasosDB> getPaso(String id) async {
     final response = await http.get(
-        Uri.https(_baseAddress, '$_applicationName/steps/$id'),
+        Uri.https(_baseAddress, '$_applicationName/$id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
@@ -42,7 +42,7 @@ class PasosDB {
 
   static Future<List<PasosDB>> getPasos() async {
     final response = await http.get(
-        Uri.https(_baseAddress, '$_applicationName/steps'),
+        Uri.https(_baseAddress, _applicationName),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
@@ -56,7 +56,6 @@ class PasosDB {
   }
 
   static Future<PasosDB> addPasoDB(String paso, int index, int id_receta) async {
-    print("Paso: "+paso+", index: "+index.toString()+", idR"+id_receta.toString());
     String json = jsonEncode(<String, dynamic>{
       'step': {
         'index': index+1,
@@ -64,9 +63,8 @@ class PasosDB {
         'recipe_id': id_receta
       }
     });
-    print("JSON: "+json);
     final response = await http.post(
-        Uri.https(_baseAddress, '$_applicationName/recipes'),
+        Uri.https(_baseAddress, _applicationName),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           "Accept": "application/json"
@@ -84,9 +82,7 @@ class PasosDB {
 
   static Future<bool> addPasosDB(List<String> pasosList, int id_receta) async {
     bool complete = true;
-    print("LISTA PASOS: "+pasosList.toString());
     for(var paso in pasosList){
-      print("DESCRIPCION: "+paso);
       PasosDB pasoDB = await addPasoDB(paso, pasosList.indexOf(paso), id_receta);
       if(pasoDB == null){
         complete = false;

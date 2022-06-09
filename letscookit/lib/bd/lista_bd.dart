@@ -56,4 +56,27 @@ class ListaBD {
     }
   }
 
+  static Future<ListaBD> addListaBD(int id, String nombre, int idUsuario) async {
+    String json = jsonEncode(<String, dynamic>{
+      'list': {
+        'id': id,
+        'name': nombre,
+        'user_id': idUsuario
+      }
+    });
+    final response = await http.post(
+        Uri.https(_baseAddress, _applicationName),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json"
+        },
+        body: json);
+
+    if (response.statusCode == 201) {
+      return ListaBD.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception("Error al Añadir");
+    }
+  }
+
 }

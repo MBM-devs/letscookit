@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
+import 'package:letscookit/bd/lista_bd.dart';
 import 'package:letscookit/config/palette.dart';
 import 'package:letscookit/utilities/libro_recetas.dart';
 import 'package:letscookit/utilities/lista_receta.dart';
@@ -75,7 +77,7 @@ class _CreateListState extends State<CreateList> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         String nombre =
                             "Lista nº ${LibroRecetas().length() + 1}";
 
@@ -84,6 +86,9 @@ class _CreateListState extends State<CreateList> {
                                 _nombreLista.value.text, LibroRecetas())) {
                           nombre = _nombreLista.value.text;
                         }
+
+                        //Añade la lista a la BD:
+                        await ListaBD.addListaBD(LibroRecetas().length(), nombre, await FlutterSession().get("id"));
 
                         LibroRecetas().add(ListaReceta(nombre, 0));
                         _nombreLista.clear();

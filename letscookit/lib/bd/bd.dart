@@ -61,6 +61,7 @@ class BD {
         receta.crearIngrediente(
             listaRelacionIngr[j].cantidad, listaRelacionIngr[j].unidad,
             ingrediente.nombre);
+        print("INGREDIENTE en bd: "+ingrediente.nombre);
       }
 
       LibroRecetas().get(index).add(receta);

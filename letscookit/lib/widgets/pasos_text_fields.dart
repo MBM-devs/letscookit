@@ -30,7 +30,7 @@ class _PasosTextFields extends State<PasosTextFields> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      _pasoController.text = widget.pasosList[widget.index] as String;
+      _pasoController.text = widget.pasosList[widget.index];
     });
     return TextFormField(
       controller: _pasoController,
