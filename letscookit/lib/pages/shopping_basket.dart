@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:letscookit/bd/ingredientes_bd.dart';
 import 'package:letscookit/utilities/ingrediente.dart';
 import 'package:letscookit/widgets/ingrediente_comprar.dart';
 import '../utilities/lista_compra.dart';

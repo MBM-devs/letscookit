@@ -37,7 +37,7 @@ void main () {
   group('Libro Recetas', (){
     test('se añade una lista al libro de recetas', (){
       int longitud = LibroRecetas().length();
-      LibroRecetas().crearLista("Nueva Lista");
+      LibroRecetas().crearLista("Nueva Lista", 0);
 
       expect(LibroRecetas().length(), longitud + 1);
     });
@@ -48,7 +48,7 @@ void main () {
 
       expect(libro1, libro2);
 
-      libro2.add(new ListaReceta("nueva lista 2"));
+      libro2.add(new ListaReceta("nueva lista 2", 0));
       expect(libro1.length(), libro2.length());
     });
 
@@ -60,7 +60,7 @@ void main () {
     });
 
     test('se crea una receta dentro de una lista y se añade a mis recetas', (){ 
-      LibroRecetas().crearLista("nueva lista");
+      LibroRecetas().crearLista("nueva lista", 0);
       ListaReceta lista  = LibroRecetas().get(LibroRecetas().length() - 1);
       LibroRecetas().crearNuevaReceta(lista, "nueva receta", "", 1,1,[], [], []);
 

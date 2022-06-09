@@ -10,7 +10,7 @@ class RecetaIngredienteBD {
 
   static const String _baseAddress = 'clados.ugr.es';
 
-  static const String _applicationName = 'DS1_2/api/v1/';
+  static const String _applicationName = 'DS1_2/api/v1/recipe_ingredients';
 
   ///GETTERS
   int get id => _id;
@@ -40,7 +40,7 @@ class RecetaIngredienteBD {
   //Busca por id de la receta y devuelve todas las relaciones de esa receta
   static Future<List<RecetaIngredienteBD>> getRelacionesRecetaIngrediente(String id) async {
     final response = await http.get(
-        Uri.https(_baseAddress, '$_applicationName/recipe_ingredients/$id'),
+        Uri.https(_baseAddress, '$_applicationName/$id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
@@ -62,7 +62,7 @@ class RecetaIngredienteBD {
 
   static Future<List<RecetaIngredienteBD>> getAllRecipesIngredients() async {
     final response = await http.get(
-        Uri.https(_baseAddress, '$_applicationName/recipe_ingredients'),
+        Uri.https(_baseAddress, _applicationName),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
@@ -72,6 +72,31 @@ class RecetaIngredienteBD {
       return parsed.map<RecetaIngredienteBD>((json) => RecetaIngredienteBD.fromJson(json)).toList();
     } else {
       throw Exception('Failed to get recipes-ingredients relations');
+    }
+  }
+
+  static Future<RecetaIngredienteBD> addRelRecetaIngredienteBD(int id, int idReceta, int idIngr, int cantidad, String unidad) async {
+    String json = jsonEncode(<String, dynamic>{
+      'recipe_ingredients': {
+        'id': id,
+        'recipe_id': idReceta,
+        'ingredient_id': idIngr,
+        'quantity': cantidad,
+        'unit': unidad,
+      }
+    });
+    final response = await http.post(
+        Uri.https(_baseAddress, _applicationName),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json"
+        },
+        body: json);
+
+    if (response.statusCode == 201) {
+      return RecetaIngredienteBD.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception("Error al Añadir relacion Receta-Ingrediente");
     }
   }
 
